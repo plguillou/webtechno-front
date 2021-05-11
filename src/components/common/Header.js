@@ -1,5 +1,4 @@
-import {BrowserRouter as Router, Link} from "react-router-dom";
-import {withRouter} from "react-router";
+import {Link} from "react-router-dom";
 
 function Header() {
     return <div className={"border-primary"}>
