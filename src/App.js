@@ -4,18 +4,22 @@ import Home from "./components/pages/Home";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Login from "./components/pages/Login";
 import Signin from "./components/pages/Signin";
+import {Provider} from "react-redux";
+import store from "./components/store";
 
 function App() {
     return (
         <>
-            <Router>
-                <Header/>
-                <Switch>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/signin" component={Signin}/>
-                    <Route path="/" component={Home}/>
-                </Switch>
-            </Router>
+            <Provider store={store}>
+                <Router>
+                    <Header/>
+                    <Switch>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/signin" component={Signin}/>
+                        <Route path="/" component={Home}/>
+                    </Switch>
+                </Router>
+            </Provider>
         </>
     );
 }
