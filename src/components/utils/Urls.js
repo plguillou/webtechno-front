@@ -1,4 +1,5 @@
-const address = "localhost:8080"
+const address = "http://localhost:8080"
 
-export const HOME = address + "/";
-export const LOGIN = address + "/login";
+export const HOME_URL = address + "/";
+export const AUTH_URL = address + "/auth";
+export const LOGIN_URL = address + "/login";
