@@ -6,6 +6,7 @@ import Login from "./components/pages/Login";
 import Signin from "./components/pages/Signin";
 import {Provider} from "react-redux";
 import store from "./components/utils/store";
+import Profile from "./components/pages/Profile";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Switch>
                         <Route path="/login" component={Login}/>
                         <Route path="/signin" component={Signin}/>
+                        <Route path="/profile" component={Profile}/>
                         <Route path="/" component={Home}/>
                     </Switch>
                 </Router>
