@@ -1,3 +1,7 @@
+body {
+    font-family: "Crete Round", Roboto, sans-serif;
+}
+
 @media (max-width: 1280px) {
     #hookSection {
         background-image: url("../Resources/Images/Hook/ImageHook19.png");
