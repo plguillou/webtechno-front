@@ -19,11 +19,15 @@ export const loginAttempt = (username, password) => {
 
         axios.post(LOGIN_URL, data).then(
             response => {
-                axios.defaults.headers.common['Authorization'] = `${response.data}`;
-                localStorage.setItem('authJwtToken', response.data);
+                console.log(response.data)
+                const token = response.data.token;
+                axios.defaults.headers.common['Authorization'] = `${token}`;
+                localStorage.setItem('authJwtToken', token);
+                dispatch(setUser({...response.data.user, isLogged: true}));
             }
         )
 
     }
-
 }
+
+//todo logout
