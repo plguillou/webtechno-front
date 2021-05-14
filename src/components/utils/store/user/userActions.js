@@ -35,9 +35,12 @@ export const loginAttempt = (username, password) => {
     }
 }
 
-export const logout = () => ({
-    type: LOGOUT_USER_ACTION
-});
+export const logout = () => {
+    localStorage.clear();
+    return {
+        type: LOGOUT_USER_ACTION
+    };
+}
 
 export const logSuccess = () => ({
     type: LOG_SUCCESS
