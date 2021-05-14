@@ -1,0 +1,23 @@
+@media (max-width: 1280px) {
+    #hookSection {
+        background-image: url("../Resources/Images/Hook/ImageHook19.png");
+    }
+}
+
+@media (min-width: 1281px) and (max-width: 1680px) {
+    #hookSection {
+        background-image: url("../Resources/Images/Hook/ImageHook22.png");
+    }
+}
+
+@media (min-width: 1681px) and (max-width: 1920px) {
+    #hookSection {
+        background-image: url("../Resources/Images/Hook/ImageHook24.png");
+    }
+}
+
+@media (min-width: 1921px) {
+    #hookSection {
+        background-image: url("../Resources/Images/Hook/ImageHook27.png");
+    }
+}
