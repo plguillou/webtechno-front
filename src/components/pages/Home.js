@@ -1,3 +1,3 @@
 export default function Home() {
-    return <div className={"bg-secondary"}>Main page</div>
+    return <div className={"container-fluid container text-center display-1"}>Main page</div>
 }
