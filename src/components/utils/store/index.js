@@ -17,7 +17,6 @@ const store = createStore(combineReducers({
 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 if (localStorage.authJwtToken) {
-    console.log("token found in local storage")
     axios.defaults.headers.common['Authorization'] = `${localStorage.authJwtToken}`;
     store.dispatch(getUserInfos(localStorage.authJwtToken))
 } else {

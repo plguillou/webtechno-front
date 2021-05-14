@@ -25,7 +25,6 @@ export const loginAttempt = (username, password) => {
 
         axios.post(LOGIN_URL, data).then(
             response => {
-                console.log(response.data)
                 const token = response.data.token;
                 axios.defaults.headers.common['Authorization'] = `${token}`;
                 localStorage.setItem('authJwtToken', token);
@@ -58,7 +57,6 @@ export const getUserInfos = (token) => {
 
         axios.post(GET_USER_INFO_URL, data).then(
             response => {
-                console.log("get user info", response.data)
                 const user = response.data;
                 dispatch(setUser({...user}));
                 dispatch(logSuccess());

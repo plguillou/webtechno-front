@@ -18,13 +18,10 @@ export default function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         logUser(username, password);
-        console.log("login")
         setTimeout(() => {
             if(localStorage.authJwtToken) {
-                console.log("oui")
                 history.push("/");
             } else {
-                console.log("non")
                 setError("Bad credentials")
             }
         }, 500);
