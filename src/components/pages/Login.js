@@ -1,36 +1,41 @@
-import {useCallback} from "react";
+import {useCallback, useState} from "react";
 import {loginAttempt} from "../utils/store/user/userActions";
 import {useDispatch} from "react-redux";
+import {Button, Form} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
 
 export default function Login() {
     const dispatch = useDispatch()
+    let history = useHistory()
     const logUser = useCallback((username, password) => {
         dispatch(loginAttempt(username, password))
     }, [dispatch])
 
     let username = "";
     let password = "";
+    let [error, setError] = useState("");
 
-    const handleLogClick = () => {
-        logUser(username, password)
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        logUser(username, password);
+        console.log("login")
+        setTimeout(() => {
+            if(localStorage.authJwtToken) {
+                console.log("oui")
+                history.push("/");
+            } else {
+                console.log("non")
+                setError("Bad credentials")
+            }
+        }, 500);
     }
 
-    return <div>
-        <p>Login Page</p>
-        <label htmlFor={"username"}>
-            <input type="text" id={"username"} onChange={(event => username = event.target.value)}/>
-        </label>
-        <label htmlFor={"password"}>
-            <input type="text" id={"password"} onChange={(event => password = event.target.value)}/>
-        </label>
-        <button onClick={handleLogClick}>Log</button>
-    </div>
     return (
         <div className={"container-fluid p-5 w-50 border border-2 rounded-3"}>
-            <Form>
+            <Form onSubmit={(event) => handleSubmit(event)}>
                 <Form.Group controlId="formBasicEmail" className={"mb-4"}>
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email"/>
+                    <Form.Control type="email" placeholder="Enter email" className={error === "" ? "" : "border-danger"} onChange={(event => username = event.target.value)}/>
                     <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                     </Form.Text>
@@ -38,8 +43,9 @@ export default function Login() {
 
                 <Form.Group controlId="formBasicPassword" className={"mb-4"}>
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password"/>
+                    <Form.Control type="password" placeholder="Password" className={error === "" ? "" : "border-danger"} onChange={(event => password = event.target.value)}/>
                 </Form.Group>
+                {error !== "" && <p className={"alert-danger"}>{error}</p>}
                 <Form.Group controlId="formBasicCheckbox" className={"mb-4"}>
                     <Form.Check type="checkbox" label="Remember me"/>
                 </Form.Group>
