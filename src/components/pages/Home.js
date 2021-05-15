@@ -61,9 +61,10 @@ function PresentationSection(props) {
 
 function BrowserField(props) {
     return(
-        <div>
-            <h4>{props.name}</h4>
-            <input type="text" name={props.name} placeholder={props.placeholder}/>
+        <div className="rounded-pill py-2 px-4" style={{minWidth: "210px", width: "18vw"}}>
+            <h4 className="m-0 fs-5">{props.name}</h4>
+            <input type="text" name={props.name} placeholder={props.placeholder}
+                   className="border-0 fs-6"/>
         </div>
     );
 }
@@ -71,7 +72,7 @@ function BrowserField(props) {
 function BrowserSection(props) {
     return(
         <div>
-            <form>
+            <form id="searchBar">
                 <BrowserField name="Location" placeholder="Where do you go?"/>
                 <BrowserField name="Arrival" placeholder="When do you come?"/>
                 <BrowserField name="Departure" placeholder="When do you leave?"/>
