@@ -15,7 +15,7 @@ export default function Home() {
 function HookSection(props) {
     return (
         <div className="d-flex justify-content-center align-items-center"
-             style={{height: "90vh", backgroundPosition: "center"}}
+             style={{height: "92vh", backgroundPosition: "center"}}
              id="hookSection">
             <div className="d-flex justify-content-center align-items-center w-75"
                  style={{backgroundColor: "rgba(196, 196, 196, 0.25)", backdropFilter: "blur(4px)", borderRadius: "10px"}}> {/* TODO: try bootstrap class rounded-<nb> */}
@@ -31,7 +31,7 @@ function HookSection(props) {
 function PresentationSection(props) {
     return (
         <div className="d-flex flex-column justify-content-center align-items-center p-4"
-             style={{backgroundColor: "#023047"}}>
+             style={{height: "92vh", backgroundColor: "#023047"}}>
             <div className="d-flex flex-column justify-content-center align-items-center w-75">
                 <h1 className="text-center lh-base p-3 mt-5"
                     style={{fontSize: "5em", color: "#FFB703"}}>
@@ -71,7 +71,8 @@ function BrowserField(props) {
 
 function BrowserSection(props) {
     return(
-        <div>
+        <div id="browserSection" className="d-flex justify-content-center align-items-center"
+             style={{height: "92vh", backgroundPosition: "center"}}>
             <form id="searchBar">
                 <BrowserField name="Location" placeholder="Where do you go?"/>
                 <BrowserField name="Arrival" placeholder="When do you come?"/>

@@ -6,11 +6,17 @@ body {
     #hookSection {
         background-image: url("../Resources/Images/Hook/ImageHook19.png");
     }
+    #browserSection {
+        background-image: url("../Resources/Images/BrowserBox/ImageBrowserBox19.jpg");
+    }
 }
 
 @media (min-width: 1281px) and (max-width: 1680px) {
     #hookSection {
         background-image: url("../Resources/Images/Hook/ImageHook22.png");
+    }
+    #browserSection {
+        background-image: url("../Resources/Images/BrowserBox/ImageBrowserBox22.jpg");
     }
 }
 
@@ -18,10 +24,16 @@ body {
     #hookSection {
         background-image: url("../Resources/Images/Hook/ImageHook24.png");
     }
+    #browserSection {
+        background-image: url("../Resources/Images/BrowserBox/ImageBrowserBox24.jpg");
+    }
 }
 
 @media (min-width: 1921px) {
     #hookSection {
         background-image: url("../Resources/Images/Hook/ImageHook27.png");
+    }
+    #browserSection {
+        background-image: url("../Resources/Images/BrowserBox/ImageBrowserBox27.jpg");
     }
 }
