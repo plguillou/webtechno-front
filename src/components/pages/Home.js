@@ -18,7 +18,7 @@ function HookSection(props) {
              style={{height: "90vh", backgroundPosition: "center"}}
              id="hookSection">
             <div className="d-flex justify-content-center align-items-center w-75"
-                 style={{backgroundColor: "rgba(196, 196, 196, 0.25)", backdropFilter: "blur(4px)", borderRadius: "10px"}}>
+                 style={{backgroundColor: "rgba(196, 196, 196, 0.25)", backdropFilter: "blur(4px)", borderRadius: "10px"}}> {/* TODO: try bootstrap class rounded-<nb> */}
                 <h2 className="text-center lh-base"
                     style={{fontSize: "4.6em", color: "#010D14", textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"}}>
                     Browse among hundreds of housings and book the one of your dreams!
@@ -59,6 +59,15 @@ function PresentationSection(props) {
     );
 }
 
+function BrowserField(props) {
+    return(
+        <div>
+            <h4>{props.name}</h4>
+            <input type="text" name={props.name} placeholder={props.placeholder}/>
+        </div>
+    );
+}
+
 function BrowserSection(props) {
     return(
         <div>
@@ -66,17 +75,10 @@ function BrowserSection(props) {
                 <BrowserField name="Location" placeholder="Where do you go?"/>
                 <BrowserField name="Arrival" placeholder="When do you come?"/>
                 <BrowserField name="Departure" placeholder="When do you leave?"/>
-                <input type="submit" value=" " style={{backgroundImage: "url("+magnifierIcon+")"}}/>
+                <input type="submit" value=" "
+                       className="border-0 rounded-circle"
+                       style={{backgroundImage: "url("+magnifierIcon+")", backgroundPosition:"center", width: "65px", height: "65px"}}/>
             </form>
-        </div>
-    );
-}
-
-function BrowserField(props) {
-    return(
-        <div>
-            <h4>{props.name}</h4>
-            <input type="text" name={props.name} placeholder={props.placeholder}/>
         </div>
     );
 }
