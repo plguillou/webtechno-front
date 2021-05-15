@@ -28,7 +28,7 @@ export default function Login() {
     }
 
     return (
-        <div className={"container-fluid p-5 w-50 border border-2 rounded-3"}>
+        <div className={"container-fluid p-5 w-50 border border-2 rounded-3 mb-5"}>
             <Form onSubmit={(event) => handleSubmit(event)}>
                 <Form.Group controlId="formBasicEmail" className={"mb-4"}>
                     <Form.Label>Email address</Form.Label>
@@ -46,8 +46,8 @@ export default function Login() {
                 <Form.Group controlId="formBasicCheckbox" className={"mb-4"}>
                     <Form.Check type="checkbox" label="Remember me"/>
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
+                <Button variant="primary" type="submit" className={"w-25"}>
+                    Login
                 </Button>
             </Form>
         </div>
