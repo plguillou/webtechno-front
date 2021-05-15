@@ -33,7 +33,7 @@ function HookSection(props) {
 function PresentationSection(props) {
     return (
         <div className="d-flex flex-column justify-content-center align-items-center p-4"
-             style={{height: "92vh", backgroundColor: "#023047"}}>
+             style={{minHeight: "92vh", backgroundColor: "#023047"}}>
             <div className="d-flex flex-column justify-content-center align-items-center w-75">
                 <h1 className="text-center lh-base p-3 mt-5"
                     style={{fontSize: "5em", color: "#FFB703"}}>
@@ -47,7 +47,7 @@ function PresentationSection(props) {
                 <p className="text-center lh-base fs-1 pt-3 mt-4" style={{color: "#8ECAE6"}}>
                     You are looking for your dream vacation house, or just for a place to sleep during your exam week?
                 </p>
-                <a href="#searchBar" className="text-center text-decoration-none">
+                <a href="#browserSection" className="text-center text-decoration-none">
                     <p className="text-center lh-base fs-1" style={{color: "#FB8500"}}>
                         Stop bothering, start browsing!
                     </p>
@@ -74,8 +74,8 @@ function BrowserField(props) {
 function BrowserSection(props) {
     return(
         <div id="browserSection" className="d-flex justify-content-center align-items-center"
-             style={{height: "92vh", backgroundPosition: "center"}}>
-            <form id="searchBar" className="d-flex justify-content-center align-items-center rounded-pill bg-white p-2">
+             style={{minHeight: "100vh", backgroundPosition: "center"}}>
+            <form className="d-flex justify-content-center align-items-center rounded-pill bg-white p-2">
                 <BrowserField name="Location" placeholder="Where do you go?"/>
                 <div className="border" style={{height: "30px"}}/>
                 <BrowserField name="Arrival" placeholder="When do you come?"/>
@@ -91,12 +91,22 @@ function BrowserSection(props) {
 
 function HostPresentationSection(props) {
     return(
-        <div>
-            <p>You own a housing and aren’t using it currently?</p>
-            <h4>Register as a host and make some money!</h4>
-            <div>
-                <p>Start hosting now</p>
-                <img src={playBtnIcon} alt="Play button"/>
+        <div className="d-flex justify-content-center align-items-center p-4"
+             style={{backgroundColor: "#8ECAE6"}}>
+            <div className="d-flex flex-column justify-content-center align-items-center w-75">
+                <p className="text-center lh-base fs-1 py-3 mt-5" style={{color: "#010D14"}}>
+                    You own a housing and aren’t using it currently?
+                </p>
+                <h4 className="text-center lh-base py-4" style={{fontSize: "4.6em", color: "#FB8500"}}>
+                    Register as a host and make some money!
+                </h4>
+                <div className="d-flex justify-content-center align-items-center pt-3 pb-4 mb-5">
+                    <p className="text-center lh-base fs-1" style={{color: "#010D14"}}>
+                        Start hosting now
+                    </p>
+                    <img src={playBtnIcon} alt="Play button" className="mx-4"
+                         style={{width: "80px"}}/>
+                </div>
             </div>
         </div>
     );
