@@ -1,6 +1,7 @@
 import "../../Styles/HomeStyle.css";
 import downArrowIconPath from "../../Resources/Icons/down-arrow.png";
 import magnifierIcon from "../../Resources/Icons/Magnifier.png";
+import playBtnIcon from "../../Resources/Icons/play-button.png";
 
 export default function Home() {
     return (
@@ -8,6 +9,7 @@ export default function Home() {
             <HookSection/>
             <PresentationSection/>
             <BrowserSection/>
+            <HostPresentationSection/>
         </>
     );
 }
@@ -18,7 +20,7 @@ function HookSection(props) {
              style={{height: "92vh", backgroundPosition: "center"}}
              id="hookSection">
             <div className="d-flex justify-content-center align-items-center w-75"
-                 style={{backgroundColor: "rgba(196, 196, 196, 0.25)", backdropFilter: "blur(4px)", borderRadius: "10px"}}> {/* TODO: try bootstrap class rounded-<nb> */}
+                 style={{backgroundColor: "rgba(196, 196, 196, 0.25)", backdropFilter: "blur(4px)", borderRadius: "10px"}}>
                 <h2 className="text-center lh-base"
                     style={{fontSize: "4.6em", color: "#010D14", textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"}}>
                     Browse among hundreds of housings and book the one of your dreams!
@@ -83,6 +85,19 @@ function BrowserSection(props) {
                        className="border-0 rounded-circle p-0"
                        style={{backgroundImage: "url("+magnifierIcon+")", backgroundPosition:"center", width: "65px", height: "65px"}}/>
             </form>
+        </div>
+    );
+}
+
+function HostPresentationSection(props) {
+    return(
+        <div>
+            <p>You own a housing and aren’t using it currently?</p>
+            <h4>Register as a host and make some money!</h4>
+            <div>
+                <p>Start hosting now</p>
+                <img src={playBtnIcon} alt="Play button"/>
+            </div>
         </div>
     );
 }
