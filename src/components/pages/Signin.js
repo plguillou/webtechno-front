@@ -3,7 +3,7 @@ import {Button, Col, Form} from "react-bootstrap";
 export default function Signin() {//todo non fonctionnel
     return (
     <div>
-        <Form className={"container-fluid p-5 w-50 border border-2 rounded-3 mb-5"}>
+        <Form className={"container-fluid p-5 w-50 border border-2 rounded-3 mt-5 mb-5"}>
             <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail" className={"mb-4"}>
                     <Form.Label>Email</Form.Label>

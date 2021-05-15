@@ -28,7 +28,7 @@ export default function Login() {
     }
 
     return (
-        <div className={"container-fluid p-5 w-50 border border-2 rounded-3 mb-5"}>
+        <div className={"container-fluid p-5 w-50 border border-2 rounded-3 mt-5 mb-5"}>
             <Form onSubmit={(event) => handleSubmit(event)}>
                 <Form.Group controlId="formBasicEmail" className={"mb-4"}>
                     <Form.Label>Email address</Form.Label>
