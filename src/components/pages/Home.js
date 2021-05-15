@@ -61,7 +61,7 @@ function PresentationSection(props) {
 
 function BrowserField(props) {
     return(
-        <div className="rounded-pill py-2 px-4" style={{minWidth: "210px", width: "18vw"}}>
+        <div className="rounded-pill py-2 px-4 bg-white" style={{minWidth: "210px", width: "18vw"}}>
             <h4 className="m-0 fs-5">{props.name}</h4>
             <input type="text" name={props.name} placeholder={props.placeholder}
                    className="border-0 fs-6"/>
