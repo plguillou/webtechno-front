@@ -73,12 +73,14 @@ function BrowserSection(props) {
     return(
         <div id="browserSection" className="d-flex justify-content-center align-items-center"
              style={{height: "92vh", backgroundPosition: "center"}}>
-            <form id="searchBar">
+            <form id="searchBar" className="d-flex justify-content-center align-items-center rounded-pill bg-white p-2">
                 <BrowserField name="Location" placeholder="Where do you go?"/>
+                <div className="border" style={{height: "30px"}}/>
                 <BrowserField name="Arrival" placeholder="When do you come?"/>
+                <div className="border" style={{height: "30px"}}/>
                 <BrowserField name="Departure" placeholder="When do you leave?"/>
                 <input type="submit" value=" "
-                       className="border-0 rounded-circle"
+                       className="border-0 rounded-circle p-0"
                        style={{backgroundImage: "url("+magnifierIcon+")", backgroundPosition:"center", width: "65px", height: "65px"}}/>
             </form>
         </div>
