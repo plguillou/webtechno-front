@@ -1,11 +1,13 @@
 import "../../Styles/HomeStyle.css";
 import downArrowIconPath from "../../Resources/Icons/down-arrow.png";
+import magnifierIcon from "../../Resources/Icons/Magnifier.png";
 
 export default function Home() {
     return (
         <>
             <HookSection/>
             <PresentationSection/>
+            <BrowserSection/>
         </>
     );
 }
@@ -53,6 +55,28 @@ function PresentationSection(props) {
                     </div>
                 </a>
             </div>
+        </div>
+    );
+}
+
+function BrowserSection(props) {
+    return(
+        <div>
+            <form>
+                <BrowserField name="Location" placeholder="Where do you go?"/>
+                <BrowserField name="Arrival" placeholder="When do you come?"/>
+                <BrowserField name="Departure" placeholder="When do you leave?"/>
+                <input type="submit" value=" " style={{backgroundImage: "url("+magnifierIcon+")"}}/>
+            </form>
+        </div>
+    );
+}
+
+function BrowserField(props) {
+    return(
+        <div>
+            <h4>{props.name}</h4>
+            <input type="text" name={props.name} placeholder={props.placeholder}/>
         </div>
     );
 }
