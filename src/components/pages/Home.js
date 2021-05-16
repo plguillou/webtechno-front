@@ -2,6 +2,7 @@ import "../../Styles/HomeStyle.css";
 import downArrowIconPath from "../../Resources/Icons/down-arrow.png";
 import magnifierIcon from "../../Resources/Icons/Magnifier.png";
 import playBtnIcon from "../../Resources/Icons/play-button.png";
+import {useState} from "react";
 
 export default function Home() {
     return (
@@ -62,11 +63,17 @@ function PresentationSection(props) {
 }
 
 function BrowserField(props) {
+    let [isHovered, setIsHovered] = useState(false);
+
     return(
-        <div className="rounded-pill py-2 px-4 bg-white" style={{minWidth: "210px", width: "18vw"}}>
+        <div className={"rounded-pill py-2 px-4 " + (isHovered ?  "bg-light" : "bg-white")}
+             style={{minWidth: "210px", width: "18vw"}}
+             onMouseEnter={() => setIsHovered(true)}
+             onMouseLeave={() => setIsHovered(false)}
+        >
             <h4 className="m-0 fs-5">{props.name}</h4>
             <input type="text" name={props.name} placeholder={props.placeholder}
-                   className="border-0 fs-6"/>
+                   className="border-0 fs-6 bg-transparent"/>
         </div>
     );
 }
