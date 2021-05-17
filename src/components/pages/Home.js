@@ -6,12 +6,12 @@ import {useState} from "react";
 
 export default function Home() {
     return (
-        <>
+        <div id="home">
             <HookSection/>
             <PresentationSection/>
             <BrowserSection/>
             <HostPresentationSection/>
-        </>
+        </div>
     );
 }
 
