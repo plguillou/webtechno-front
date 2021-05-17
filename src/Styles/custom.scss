@@ -1,0 +1,17 @@
+// Required
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+
+$theme-colors: (
+        "prussian": #023047,    // Prussian Blue
+        "honey": #FFB703,       // Honey Yellow
+        "orange": #FB8500,      // Orange
+        "cornflower": #8ECAE6,  // Light Cornflower Blue
+        "silver": #C7CED1,      // Silver Sand
+        "fogra29": #010D14,     // Rich Black FOGRA 29
+);
+
+
+@import "~bootstrap/scss/bootstrap";
