@@ -2,38 +2,10 @@ body {
   font-family: "Crete Round", Roboto, sans-serif;
 }
 
+.rounded-10 {
+  border-radius: 10px;
+}
+
 .bg-pos-center {
   background-position: center;
-}
-
-.bg-prussian {
-  background-color: #023047;
-}
-
-.bg-orange {
-  background-color: #FB8500;
-}
-
-.bg-cornflower {
-  background-color: #8ECAE6;
-}
-
-.text-fogra29 {
-  color: #010D14;
-}
-
-.text-prussian {
-  color: #023047;
-}
-
-.text-orange {
-  color: #FB8500;
-}
-
-.text-honey {
-  color: #FFB703;
-}
-
-.text-cornflower {
-  color: #8ECAE6;
 }
