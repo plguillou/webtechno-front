@@ -3,6 +3,7 @@ import {userSelector} from "../utils/store/user/userSelector";
 import {addHouse, getHouses} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
 import {Button, Form, Modal} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 function HousesList() {
     const user = useSelector(userSelector)
@@ -30,7 +31,7 @@ function HousesList() {
             houses.map((elem, i) => (
                 <div key={i} className={"d-flex"}>
                     <div>{JSON.stringify(elem)}</div>
-                    <div>Voir les détails</div>
+                    <Link to={"/house-details/" + elem.id}><Button variant={"outline-secondary"}>Voir les détails</Button></Link>
                 </div>
             ))
         }
