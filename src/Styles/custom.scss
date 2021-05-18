@@ -1,10 +1,9 @@
 // Required
 @import "node_modules/bootstrap/scss/functions";
 @import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
 
 
-$theme-colors: (
+$custom-colors: (
         "prussian": #023047,    // Prussian Blue
         "honey": #FFB703,       // Honey Yellow
         "orange": #FB8500,      // Orange
@@ -12,6 +11,9 @@ $theme-colors: (
         "silver": #C7CED1,      // Silver Sand
         "fogra29": #010D14,     // Rich Black FOGRA 29
 );
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
 
 
 @import "~bootstrap/scss/bootstrap";
