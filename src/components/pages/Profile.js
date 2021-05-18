@@ -3,11 +3,17 @@ import {userSelector} from "../utils/store/user/userSelector";
 import {logout} from "../utils/store/user/userActions";
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
+import {getHouses} from "../utils/requests/houses";
+import {useEffect, useState} from "react";
 
 function Profile() {
     const user = useSelector(userSelector)
     const dispatch = useDispatch()
 
+    const [houses, setHouses] = useState([]);
+    useEffect(() => {
+        getHouses(setHouses)
+    }, []);
 
     const handleLogOut = () => {
         dispatch(logout());
@@ -19,6 +25,8 @@ function Profile() {
         <Link to={"/"}>
             <Button onClick={handleLogOut}>Log out</Button>
         </Link>
+        <div>{JSON.stringify(houses)}</div>
+        <Link to={"/houses-list"}>Accedez a vos houses</Link>
 
     </>
 }
