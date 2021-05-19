@@ -54,11 +54,12 @@ function HouseDetails() {
 
     const handleOkClick = () => {
         modifyHouseDetails(id, newTitle, newDescription, newConstraints, newServices, update);
+        setIsEditingHouse(false);
     }
 
 
     return <>
-        <h1 className={"text-center mt-3"}>Details de la house {id}</h1>
+        <h1 className={"text-center mt-3"}>Details de la résidence "{house?.title}"</h1>
 
         <br/>
 
