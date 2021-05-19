@@ -1,17 +1,16 @@
 import {Dropdown} from "react-bootstrap";
 
-const MultiChoiceList = ({listSelected = [], listTotal = [], onSelect = function(){}}) => {
+const MultiChoiceList = ({title, listSelected = [], listTotal = [], onSelect = function(){}}) => {
 
     const onItemSelect = (item) => {
         if(listSelected.map(elem => elem.id).includes(item.id)) return;
         onSelect(item);
     }
 
-    return <Dropdown>
+    return <Dropdown className={"m-2 p-2"}>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Dropdown Button
+            {title}
         </Dropdown.Toggle>
-
         <Dropdown.Menu>
             {
                 listTotal.map((elem, i) => (
