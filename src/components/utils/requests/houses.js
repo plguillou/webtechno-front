@@ -17,6 +17,15 @@ export const getHouseDetails = (houseId, setter) => {
     })
 };
 
+export const modifyHouseDetails = (houseId, title, description, update = null) => {
+    const data = new FormData();
+    data.set("title", title);
+    data.set("description", description);
+    axios.post(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId, data).then(r => {
+        update?.();
+    })
+};
+
 
 export const addHouse = (title, description, update = null) => {
     const data = new FormData();

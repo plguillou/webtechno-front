@@ -1,4 +1,4 @@
-import {getHouseDetails} from "../utils/requests/houses";
+import {getHouseDetails, modifyHouseDetails} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Button} from "react-bootstrap";
@@ -29,7 +29,7 @@ function HouseDetails() {
     }
 
     const handleOkClick = () => {
-        //todo
+        modifyHouseDetails(id, newTitle, newDescription, update);
     }
 
 
