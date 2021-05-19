@@ -5,11 +5,13 @@ import thunk from "redux-thunk";
 import axios from "axios";
 import {getUserInfos} from "./user/userActions";
 import houseConstraintReducer from "./house-constraint/houseConstraintReducer";
+import houseServiceReducer from "./house-service/houseServiceReducer";
 
 
 const store = createStore(combineReducers({
     user: userReducer,
-    houseConstraint: houseConstraintReducer
+    houseConstraint: houseConstraintReducer,
+    houseService: houseServiceReducer,
 }), undefined,
     composeWithDevTools(
     applyMiddleware(thunk)
