@@ -27,7 +27,7 @@ function Header() {
                         {isUserLogged ?
                             <NavDropdown title="My Space" id="basic-nav-dropdown" className="px-4 fs-5">
                                 <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">My Housings</NavDropdown.Item>
+                                <NavDropdown.Item href="/houses-list">My Housings</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">My Bookings</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.4">Conversations</NavDropdown.Item>
                                 <NavDropdown.Divider/>
