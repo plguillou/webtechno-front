@@ -21,7 +21,7 @@ function Header() {
                 <div className="container-fluid w-100 d-flex justify-content-between">
                     <Nav className="d-flex justify-content-center align-items-center mr-auto fs-5">
                         <Nav.Link href="/" className="text-honey">Home</Nav.Link>
-                        <Nav.Link href="/#browserSection" className="text-honey">Browse</Nav.Link>
+                        <Nav.Link href="/browse" className="text-honey">Browse</Nav.Link>
                     </Nav>
                     <Nav className="self">
                         {isUserLogged ?
