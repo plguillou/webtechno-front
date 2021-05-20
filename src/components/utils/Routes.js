@@ -1,5 +1,5 @@
 import Header from "../common/Header";
-import {BrowserRouter as Router, Route, Switch, useLocation} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "../pages/Login";
 import Signin from "../pages/Signin";
 import Profile from "../pages/Profile";

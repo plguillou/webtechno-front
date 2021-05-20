@@ -38,12 +38,12 @@ function HousesList() {
 
         <hr/>
         <Button onClick={() => setIsAddingHouse(true)}>Ajouter une house</Button>
-        <MyVerticallyCenteredModal show={isAddingHouse} onHide={() => setIsAddingHouse(false)} onNewHouseSubmit={onNewHouseSubmit}/>
+        <AddHouseModal show={isAddingHouse} onHide={() => setIsAddingHouse(false)} onNewHouseSubmit={onNewHouseSubmit}/>
     </>
 }
 
 
-function MyVerticallyCenteredModal({show, onHide, onNewHouseSubmit}) {
+function AddHouseModal({show, onHide, onNewHouseSubmit}) {
     let newHouseTitle = ""
     let newHouseDescription = ""
 

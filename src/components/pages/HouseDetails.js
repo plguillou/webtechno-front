@@ -1,7 +1,7 @@
 import {getHouseDetails, modifyHouseDetails} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Button, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Button, Form, OverlayTrigger, Tooltip} from "react-bootstrap";
 import MultiChoiceList from "../common/MultiChoiceList";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllHouseConstraints} from "../utils/store/house-constraint/houseConstraintAction";
@@ -45,6 +45,7 @@ function HouseDetails() {
 
 
     const handleCancelClick = () => {
+        console.log(newDescription)
         setNewTitle(house?.title);
         setNewDescription(house?.description);
         setNewConstraints(house?.constraints);
@@ -63,13 +64,24 @@ function HouseDetails() {
 
         <br/>
 
-        <div className={"container border rounded-2 p-2"}>
-            <Button className={"float-end"} variant={!isEditingHouse ? "outline-primary" : "outline-danger"}
-                    onClick={() => setIsEditingHouse(!isEditingHouse)}>{isEditingHouse ? "X" : "Edit"}</Button>
+        <div className={"container border rounded-2 p-2 ps-3"}>
+            {isEditingHouse ?
+                <Button className={"float-end py-0 px-1"}
+                        variant={"outline-danger"}
+                        onClick={handleCancelClick}>
+                    <i className={"bi bi-x text-center bi-type-bold"} style={{fontSize: "2rem", fontWeight: "1200"}}/>
+                </Button> :
+                <Button className={"float-end"}
+                        variant={"outline-primary"}
+                        onClick={() => setIsEditingHouse(true)}>
+                    Edit
+                </Button>
+            }
+
             <div className={"container-fluid"}>
                 <div>Titre de votre résidence :</div>
-                <div className={"m-auto"}>
-                    <input
+                <div className={"w-25"}>
+                    <Form.Control
                         className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
                         value={newTitle}
                         disabled={!isEditingHouse} onChange={(e) => setNewTitle(e.target.value)}/>
@@ -78,10 +90,11 @@ function HouseDetails() {
             <br/>
             <div className={"container-fluid"}>
                 <div>Description de votre résidence :</div>
-                <div className={"m-auto"}>
-                    <input className={"border bg-light text-fogra29 " + (isEditingHouse ? "border-dark" : "")}
-                           value={newDescription}
-                           disabled={!isEditingHouse} onChange={(e) => setNewDescription(e.target.value)}/>
+                <div className={"w-25"}>
+                    <Form.Control as={"textarea"} rows={3}
+                        className={"border bg-light text-fogra29 " + (isEditingHouse ? "border-dark" : "")}
+                        value={newDescription}
+                        disabled={!isEditingHouse} onChange={(e) => setNewDescription(e.target.value)}/>
                 </div>
             </div>
             <hr/>
@@ -144,23 +157,23 @@ const HouseAttributeListAndEdit = ({
                     >
                         {elem.title}
                         {isEditing &&
-                            <Button variant={"outline-dark"} size={"sm"}
-                                    className={"rounded-circle border-dark border ms-2  px-1 py-0"}
-                                    onClick={() => {
-                                        setNewAttributes(newAttributes.filter(e => e.id !== elem.id))
-                                    }}
-                            >
-                                <OverlayTrigger
-                                    key={"click-to-remove"}
-                                    placement={"right"}
-                                    overlay={
-                                        <Tooltip id={"tooltip-click-to-remove"}>
-                                            Click to remove
-                                        </Tooltip>
-                                    }>
-                                    <i className="bi bi-x"/>
-                                </OverlayTrigger>
-                            </Button>
+                        <Button variant={"outline-dark"} size={"sm"}
+                                className={"rounded-circle border-dark border ms-2  px-1 py-0"}
+                                onClick={() => {
+                                    setNewAttributes(newAttributes.filter(e => e.id !== elem.id))
+                                }}
+                        >
+                            <OverlayTrigger
+                                key={"click-to-remove"}
+                                placement={"right"}
+                                overlay={
+                                    <Tooltip id={"tooltip-click-to-remove"}>
+                                        Click to remove
+                                    </Tooltip>
+                                }>
+                                <i className="bi bi-x"/>
+                            </OverlayTrigger>
+                        </Button>
                         }
                     </div>
 
