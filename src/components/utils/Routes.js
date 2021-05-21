@@ -7,6 +7,8 @@ import Home from "../pages/Home";
 import {useSelector} from "react-redux";
 import {userSelector} from "./store/user/userSelector";
 import ExceptionPage from "../pages/ExceptionPage";
+import HousesList from "../pages/HousesList";
+import HouseDetails from "../pages/HouseDetails";
 
 export default function Routes() {
     const isLogged = useSelector(userSelector).isLogged;
@@ -17,6 +19,8 @@ export default function Routes() {
                 <Route path="/login" component={Login}/>
                 <Route path="/signin" component={Signin}/>
                 <Route path="/profile" component={isLogged ? Profile : ExceptionPage}/>
+                <Route path="/houses-list" component={isLogged ? HousesList : ExceptionPage}/>
+                <Route path="/house-details/:id" component={isLogged ? HouseDetails : ExceptionPage}/>
                 <Route path="/" component={Home}/>
             </Switch>
         </Router>
