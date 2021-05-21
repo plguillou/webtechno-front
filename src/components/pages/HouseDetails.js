@@ -1,13 +1,13 @@
 import {getHouseDetails, modifyHouseDetails} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Button, Form, OverlayTrigger, Tooltip} from "react-bootstrap";
-import MultiChoiceList from "../common/MultiChoiceList";
+import {Button, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllHouseConstraints} from "../utils/store/house-constraint/houseConstraintAction";
 import {houseConstraintSelector} from "../utils/store/house-constraint/houseConstraintSelector";
 import {houseServiceSelector} from "../utils/store/house-service/houseServiceSelector";
 import {getAllHouseServices} from "../utils/store/house-service/houseServiceAction";
+import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit";
 
 function HouseDetails() {
     const dispatch = useDispatch();
@@ -67,30 +67,18 @@ function HouseDetails() {
             <div className={"d-lg-inline-flex justify-content-evenly container w-100"}>
                 <div className={"w-75 mx-5 pt-4 pt-lg-0 "}>
                     <div className={"text-uppercase"}>Details</div>
-                    <div className={"container-fluid p-2 m-1"}>
-                        <div>Titre de votre résidence :</div>
-                        <div >
-                            <Form.Control
-                                type={"text"}
-                                className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
-                                value={newHouse?.title ? newHouse?.title : ""}
-                                disabled={!isEditingHouse}
-                                onChange={(e) => setNewHouse({...newHouse, title: e.target.value})}/>
-                        </div>
-                    </div>
+
+                    <Input title={"Titre de votre résidence"} variable={newHouse?.title} isEditingHouse={isEditingHouse}
+                           onInputChange={(e) => setNewHouse({...newHouse, title: e.target.value})}/>
+
                     <br/>
-                    <div className={"container-fluid"}>
-                        <div>Description de votre résidence :</div>
-                        <div>
-                            <Form.Control as={"textarea"} rows={3}
-                                          className={"border bg-light text-fogra29 " + (isEditingHouse ? "border-dark" : "")}
-                                          value={newHouse?.description}
-                                          disabled={!isEditingHouse}
-                                          onChange={(e) => setNewHouse({...newHouse, description: e.target.value})}/>
-                        </div>
-                    </div>
+                    <Input title={"Description de votre résidence"} variable={newHouse?.description}
+                           isEditingHouse={isEditingHouse} type={"textarea"}
+                           onInputChange={(e) => setNewHouse({...newHouse, description: e.target.value})}/>
+
+
                 </div>
-                <div className={"w-75 mx-5"} >
+                <div className={"w-75 mx-5"}>
                     <div className={"text-uppercase"}>Localisation</div>
                     <div className={"container-fluid p-2 m-1"}>
                         <div>Ville :</div>
@@ -111,29 +99,12 @@ function HouseDetails() {
                         </div>
                     </div>
 
-                    <div className={"container-fluid p-2 m-1"}>
-                        <div>Pays :</div>
-                        <div >
-                            <Form.Control
-                                type={"text"}
-                                className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
-                                value={newHouse?.country ? newHouse?.country : ""}
-                                disabled={!isEditingHouse}
-                                onChange={(e) => setNewHouse({...newHouse, country: e.target.value})}/>
-                        </div>
-                    </div>
+                    <Input title={"Pays"} variable={newHouse?.country} isEditingHouse={isEditingHouse}
+                           onInputChange={(e) => setNewHouse({...newHouse, country: e.target.value})}/>
 
-                    <div className={"container-fluid p-2 m-1"}>
-                        <div>Adresse :</div>
-                        <div >
-                            <Form.Control
-                                type={"text"}
-                                className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
-                                value={newHouse?.address ? newHouse?.address : ""}
-                                disabled={!isEditingHouse}
-                                onChange={(e) => setNewHouse({...newHouse, address: e.target.value})}/>
-                        </div>
-                    </div>
+                    <Input title={"Adresse"} variable={newHouse?.address} isEditingHouse={isEditingHouse}
+                           onInputChange={(e) => setNewHouse({...newHouse, address: e.target.value})}/>
+
 
                 </div>
             </div>
@@ -183,55 +154,17 @@ function HouseDetails() {
     </>
 }
 
-const HouseAttributeListAndEdit = ({
-                                       labelTitle,
-                                       attributeName,
-                                       newAttributes,
-                                       allAttributes,
-                                       isEditing,
-                                       setNewAttributes
-                                   }) => {
-
-    return <div className={"container-fluid"}>
-        <div className={"mb-1"}>{labelTitle} :</div>
-        <div className={"container d-block"}>
-            {newAttributes?.map((elem, i) => (
-                <div key={i}>
-
-                    <div className={"btn mt-1 border border-1 text-dark bg-gray rounded-10 rounded-pill"}
-                         key={i}
-                    >
-                        {elem.title}
-                        {isEditing &&
-                        <Button variant={"outline-dark"} size={"sm"}
-                                className={"rounded-circle border-dark border ms-2  px-1 py-0"}
-                                onClick={() => {
-                                    setNewAttributes(newAttributes.filter(e => e.id !== elem.id))
-                                }}
-                        >
-                            <OverlayTrigger
-                                key={"click-to-remove"}
-                                placement={"right"}
-                                overlay={
-                                    <Tooltip id={"tooltip-click-to-remove"}>
-                                        Click to remove
-                                    </Tooltip>
-                                }>
-                                <i className="bi bi-x"/>
-                            </OverlayTrigger>
-                        </Button>
-                        }
-                    </div>
-
-
-                </div>
-            ))}
+const Input = ({title, variable, isEditingHouse, onInputChange, type = "text"}) => {
+    return <div className={"container-fluid p-2 m-1"}>
+        <div>{title} :</div>
+        <div>
+            <Form.Control
+                type={type}
+                className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
+                value={variable ? variable : ""}
+                disabled={!isEditingHouse}
+                onChange={onInputChange}/>
         </div>
-        {isEditing && <MultiChoiceList listSelected={newAttributes}
-                                       listTotal={allAttributes}
-                                       onSelect={(item) => setNewAttributes([item, ...newAttributes])}
-                                       title={"Liste des " + attributeName}
-        />}
     </div>
 }
 
