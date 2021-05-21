@@ -1,6 +1,6 @@
 function Footer() {
     return (
-    <footer className="justify-content-between shadow-sm bg-dark sticky-bottom">
+    <footer className="justify-content-between shadow-sm bg-dark">
      
         <div class="text-center p-4 text-muted pb-1 pt-3">
             <p class="mb-1">Home Exchange Manager ©2021</p> 
