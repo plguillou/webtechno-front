@@ -1,24 +1,21 @@
 import {getHouseDetails, modifyHouseDetails} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Button, Form, OverlayTrigger, Tooltip} from "react-bootstrap";
-import MultiChoiceList from "../common/MultiChoiceList";
+import {Button, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllHouseConstraints} from "../utils/store/house-constraint/houseConstraintAction";
 import {houseConstraintSelector} from "../utils/store/house-constraint/houseConstraintSelector";
 import {houseServiceSelector} from "../utils/store/house-service/houseServiceSelector";
 import {getAllHouseServices} from "../utils/store/house-service/houseServiceAction";
+import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit";
 
 function HouseDetails() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAllHouseConstraints())
-    }, [])
-    const constraints = useSelector(houseConstraintSelector)
-
-    useEffect(() => {
         dispatch(getAllHouseServices())
-    }, [])
+    }, [dispatch])
+    const constraints = useSelector(houseConstraintSelector)
     const services = useSelector(houseServiceSelector)
 
     let {id} = useParams();
@@ -26,35 +23,25 @@ function HouseDetails() {
     const [updateValue, setUpdateValue] = useState(false);
     const update = () => setUpdateValue(updateValue + 1);
 
-    const [house, setHouse] = useState([]);
-    let [newTitle, setNewTitle] = useState("");
-    let [newDescription, setNewDescription] = useState("");
-    let [newConstraints, setNewConstraints] = useState([]);
-    let [newServices, setNewServices] = useState([]);
+    const [house, setHouse] = useState({});
+    const [newHouse, setNewHouse] = useState({});
 
     useEffect(() => {
         getHouseDetails(id, setHouse)
-    }, [updateValue]);
+    }, [updateValue, id]);
 
     useEffect(() => {
-        setNewTitle(house?.title)
-        setNewDescription(house?.description)
-        setNewConstraints(house?.constraints)
-        setNewServices(house?.services)
+        setNewHouse(house);
     }, [house])
 
 
     const handleCancelClick = () => {
-        console.log(newDescription)
-        setNewTitle(house?.title);
-        setNewDescription(house?.description);
-        setNewConstraints(house?.constraints);
-        setNewServices(house?.services);
+        setNewHouse(house);
         setIsEditingHouse(false);
     }
 
     const handleOkClick = () => {
-        modifyHouseDetails(id, newTitle, newDescription, newConstraints, newServices, update);
+        modifyHouseDetails(id, newHouse, update);
         setIsEditingHouse(false);
     }
 
@@ -77,45 +64,75 @@ function HouseDetails() {
                     Edit
                 </Button>
             }
+            <div className={"d-lg-inline-flex justify-content-evenly container w-100"}>
+                <div className={"w-75 mx-5 pt-4 pt-lg-0 "}>
+                    <div className={"text-uppercase"}>Details</div>
 
-            <div className={"container-fluid"}>
-                <div>Titre de votre résidence :</div>
-                <div className={"w-25"}>
-                    <Form.Control
-                        className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
-                        value={newTitle}
-                        disabled={!isEditingHouse} onChange={(e) => setNewTitle(e.target.value)}/>
+                    <Input title={"Titre de votre résidence"} variable={newHouse?.title} isEditingHouse={isEditingHouse}
+                           onInputChange={(e) => setNewHouse({...newHouse, title: e.target.value})}/>
+
+                    <br/>
+                    <Input title={"Description de votre résidence"} variable={newHouse?.description}
+                           isEditingHouse={isEditingHouse} type={"textarea"}
+                           onInputChange={(e) => setNewHouse({...newHouse, description: e.target.value})}/>
+
+
                 </div>
-            </div>
-            <br/>
-            <div className={"container-fluid"}>
-                <div>Description de votre résidence :</div>
-                <div className={"w-25"}>
-                    <Form.Control as={"textarea"} rows={3}
-                        className={"border bg-light text-fogra29 " + (isEditingHouse ? "border-dark" : "")}
-                        value={newDescription}
-                        disabled={!isEditingHouse} onChange={(e) => setNewDescription(e.target.value)}/>
+                <div className={"w-75 mx-5"}>
+                    <div className={"text-uppercase"}>Localisation</div>
+                    <div className={"container-fluid p-2 m-1"}>
+                        <div>Ville :</div>
+                        <div className={"d-inline-flex"}>
+                            <Form.Control
+                                type={"text"}
+                                className={"w-75 bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
+                                value={newHouse?.city ? newHouse?.city : ""}
+                                disabled={!isEditingHouse}
+                                onChange={(e) => setNewHouse({...newHouse, city: e.target.value})}/>
+                            <Form.Control
+                                type={"text"}
+                                placeholder={"75001"}
+                                className={"w-25 bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
+                                value={newHouse?.postalCode ? newHouse?.postalCode : ""}
+                                disabled={!isEditingHouse}
+                                onChange={(e) => setNewHouse({...newHouse, postalCode: e.target.value})}/>
+                        </div>
+                    </div>
+
+                    <Input title={"Pays"} variable={newHouse?.country} isEditingHouse={isEditingHouse}
+                           onInputChange={(e) => setNewHouse({...newHouse, country: e.target.value})}/>
+
+                    <Input title={"Adresse"} variable={newHouse?.address} isEditingHouse={isEditingHouse}
+                           onInputChange={(e) => setNewHouse({...newHouse, address: e.target.value})}/>
+
+
                 </div>
             </div>
             <hr/>
-            <div className={"d-lg-inline-flex justify-content-between align-content-center"}>
+            <div className={"d-lg-inline-flex justify-content-evenly align-content-center container-fluid"}>
                 <div className={"h-auto border border-gray rounded-3 mx-5 my-2 p-2"}>
                     <HouseAttributeListAndEdit labelTitle={"Liste des contraintes liées à votre résidence"}
                                                attributeName={"contraintes"}
-                                               newAttributes={newConstraints}
+                                               newAttributes={newHouse?.constraints}
                                                allAttributes={constraints}
                                                isEditing={isEditingHouse}
-                                               setNewAttributes={setNewConstraints}
+                                               setNewAttributes={(newConstraints) => setNewHouse({
+                                                   ...newHouse,
+                                                   constraints: newConstraints
+                                               })}
 
                     />
                 </div>
                 <div className={"h-auto border border-gray rounded-3 mx-5 my-2 p-2"}>
                     <HouseAttributeListAndEdit labelTitle={"Liste des services liées à votre résidence"}
                                                attributeName={"services"}
-                                               newAttributes={newServices}
+                                               newAttributes={newHouse?.services}
                                                allAttributes={services}
                                                isEditing={isEditingHouse}
-                                               setNewAttributes={setNewServices}
+                                               setNewAttributes={(newServices) => setNewHouse({
+                                                   ...newHouse,
+                                                   services: newServices
+                                               })}
 
                     />
                 </div>
@@ -137,55 +154,17 @@ function HouseDetails() {
     </>
 }
 
-const HouseAttributeListAndEdit = ({
-                                       labelTitle,
-                                       attributeName,
-                                       newAttributes,
-                                       allAttributes,
-                                       isEditing,
-                                       setNewAttributes
-                                   }) => {
-
-    return <div className={"container-fluid"}>
-        <div className={"mb-1"}>{labelTitle} :</div>
-        <div className={"container d-block"}>
-            {newAttributes?.map((elem, i) => (
-                <div key={i}>
-
-                    <div className={"btn mt-1 border border-1 text-dark bg-gray rounded-10 rounded-pill"}
-                         key={i}
-                    >
-                        {elem.title}
-                        {isEditing &&
-                        <Button variant={"outline-dark"} size={"sm"}
-                                className={"rounded-circle border-dark border ms-2  px-1 py-0"}
-                                onClick={() => {
-                                    setNewAttributes(newAttributes.filter(e => e.id !== elem.id))
-                                }}
-                        >
-                            <OverlayTrigger
-                                key={"click-to-remove"}
-                                placement={"right"}
-                                overlay={
-                                    <Tooltip id={"tooltip-click-to-remove"}>
-                                        Click to remove
-                                    </Tooltip>
-                                }>
-                                <i className="bi bi-x"/>
-                            </OverlayTrigger>
-                        </Button>
-                        }
-                    </div>
-
-
-                </div>
-            ))}
+const Input = ({title, variable, isEditingHouse, onInputChange, type = "text"}) => {
+    return <div className={"container-fluid p-2 m-1"}>
+        <div>{title} :</div>
+        <div>
+            <Form.Control
+                type={type}
+                className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
+                value={variable ? variable : ""}
+                disabled={!isEditingHouse}
+                onChange={onInputChange}/>
         </div>
-        {isEditing && <MultiChoiceList listSelected={newAttributes}
-                                       listTotal={allAttributes}
-                                       onSelect={(item) => setNewAttributes([item, ...newAttributes])}
-                                       title={"Liste des " + attributeName}
-        />}
     </div>
 }
 

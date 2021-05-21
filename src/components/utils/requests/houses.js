@@ -17,12 +17,16 @@ export const getHouseDetails = (houseId, setter) => {
     })
 };
 
-export const modifyHouseDetails = (houseId, title, description, constraints= null, services = null, update = null) => {
+export const modifyHouseDetails = (houseId, newHouse, update = null) => {
     const data = new FormData();
-    data.set("title", title);
-    data.set("description", description);
-    data.set("services", JSON.stringify(services));
-    data.set("constraints", JSON.stringify(constraints));
+    data.set("title", newHouse?.title);
+    data.set("description", newHouse?.description);
+    data.set("services", JSON.stringify(newHouse?.services));
+    data.set("constraints", JSON.stringify(newHouse?.constraints));
+    data.set("city", newHouse?.city);
+    data.set("country", newHouse?.country);
+    data.set("postalCode", newHouse?.postalCode);
+    data.set("address", newHouse?.address);
     axios.post(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId, data).then(r => {
         update?.();
     })
