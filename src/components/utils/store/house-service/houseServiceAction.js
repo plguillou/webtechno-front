@@ -1,6 +1,6 @@
-import {SET_HOUSE_CONSTRAINTS_ACTION, SET_HOUSE_SERVICE_ACTION} from "./houseServiceReducer";
+import {SET_HOUSE_SERVICE_ACTION} from "./houseServiceReducer";
 import axios from "axios";
-import {GET_HOUSE_CONSTRAINT_URL, GET_HOUSE_SERVICE_URL} from "../../Urls";
+import {GET_HOUSE_SERVICE_URL} from "../../Urls";
 
 export const setAllHouseServices = (houseServices) => ({
     type: SET_HOUSE_SERVICE_ACTION,

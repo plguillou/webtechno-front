@@ -1,13 +1,9 @@
-import {useDispatch, useSelector} from "react-redux";
-import {userSelector} from "../utils/store/user/userSelector";
 import {addHouse, getHouses} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
 import {Button, Form, Modal} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 function HousesList() {
-    const user = useSelector(userSelector)
-    const dispatch = useDispatch()
     const [isAddingHouse, setIsAddingHouse] = useState(false);
     const [updateValue, setUpdateValue] = useState(false);
     const update = () => setUpdateValue(updateValue+1);
