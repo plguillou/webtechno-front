@@ -1,4 +1,5 @@
 import Header from "../common/Header";
+import Footer from "../common/Footer";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "../pages/Login";
 import Signin from "../pages/Signin";
@@ -23,6 +24,7 @@ export default function Routes() {
                 <Route path="/house-details/:id" component={isLogged ? HouseDetails : ExceptionPage}/>
                 <Route path="/" component={Home}/>
             </Switch>
+            <Footer/>
         </Router>
     </>
 }
