@@ -47,7 +47,7 @@ function PresentationSection(props) {
                 <p className="text-center lh-base fs-1 pt-3 mt-4 text-cornflower">
                     You are looking for your dream vacation house, or just for a place to sleep during your exam week?
                 </p>
-                <a href="#browserSection" className="text-center text-decoration-none">
+                <div href="#browserSection" className="text-center text-decoration-none">
                     <p className="text-center lh-base fs-1 text-orange">
                         Stop bothering, start browsing!
                     </p>
@@ -55,7 +55,7 @@ function PresentationSection(props) {
                         <img src={downArrowIconPath} alt="Icon showing an arrow pointing downwards"
                               style={{width: "8vw"}}/>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     );

@@ -8,7 +8,6 @@ function Profile() {
     const user = useSelector(userSelector)
     const dispatch = useDispatch()
 
-
     const handleLogOut = () => {
         dispatch(logout());
     }
@@ -19,6 +18,8 @@ function Profile() {
         <Link to={"/"}>
             <Button onClick={handleLogOut}>Log out</Button>
         </Link>
+
+        <Link to={"/houses-list"}><Button variant={"outline-secondary"}>Accedez a vos houses</Button></Link>
 
     </>
 }

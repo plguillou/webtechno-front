@@ -47,15 +47,13 @@ export const logSuccess = () => ({
 
 
 export const getUserInfos = (token) => {
-    const data = new FormData();
-    data.set("jwtAuthToken", token);
 
     return dispatch => {
         dispatch({
             type: GET_USER_INFO_ACTION
         });
 
-        axios.post(GET_USER_INFO_URL, data).then(
+        axios.get(GET_USER_INFO_URL).then(
             response => {
                 const user = response.data;
                 dispatch(setUser({...user}));
