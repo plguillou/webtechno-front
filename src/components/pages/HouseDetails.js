@@ -8,9 +8,15 @@ import {houseConstraintSelector} from "../utils/store/house-constraint/houseCons
 import {houseServiceSelector} from "../utils/store/house-service/houseServiceSelector";
 import {getAllHouseServices} from "../utils/store/house-service/houseServiceAction";
 import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit";
+import {userSelector} from "../utils/store/user/userSelector";
 
 function HouseDetails() {
     const dispatch = useDispatch();
+    let {id} = useParams();
+    const user = useSelector(userSelector).housesIds
+    console.log(user)
+    const isEditable = user.includes(id) || user.includes(parseInt(id));
+    console.log(isEditable)
     useEffect(() => {
         dispatch(getAllHouseConstraints())
         dispatch(getAllHouseServices())
@@ -18,7 +24,7 @@ function HouseDetails() {
     const constraints = useSelector(houseConstraintSelector)
     const services = useSelector(houseServiceSelector)
 
-    let {id} = useParams();
+
     const [isEditingHouse, setIsEditingHouse] = useState(false);
     const [updateValue, setUpdateValue] = useState(false);
     const update = () => setUpdateValue(updateValue + 1);
@@ -36,46 +42,50 @@ function HouseDetails() {
 
 
     const handleCancelClick = () => {
-        setNewHouse(house);
-        setIsEditingHouse(false);
+        if (isEditable) {
+            setNewHouse(house);
+            setIsEditingHouse(false);
+        }
     }
 
     const handleOkClick = () => {
-        modifyHouseDetails(id, newHouse, update);
-        setIsEditingHouse(false);
+        if (isEditable) {
+            modifyHouseDetails(id, newHouse, update);
+            setIsEditingHouse(false);
+        }
     }
 
 
     return <>
         <h1 className={"text-center mt-3"}>Details de la résidence "{house?.title}"</h1>
-
         <br/>
-
         <div className={"container border rounded-2 p-2 ps-3"}>
-            {isEditingHouse ?
-                <Button className={"float-end py-0 px-1"}
-                        variant={"outline-danger"}
-                        onClick={handleCancelClick}>
-                    <i className={"bi bi-x text-center bi-type-bold"} style={{fontSize: "2rem", fontWeight: "1200"}}/>
-                </Button> :
-                <Button className={"float-end"}
-                        variant={"outline-primary"}
-                        onClick={() => setIsEditingHouse(true)}>
-                    Edit
-                </Button>
-            }
+            {isEditable &&
+            (
+                isEditingHouse ?
+                    <Button className={"float-end py-0 px-1"}
+                            variant={"outline-danger"}
+                            onClick={handleCancelClick}>
+                        <i className={"bi bi-x text-center bi-type-bold"}
+                           style={{fontSize: "2rem", fontWeight: "1200"}}/>
+                    </Button> :
+                    <Button className={"float-end"}
+                            variant={"outline-primary"}
+                            onClick={() => setIsEditingHouse(true)}>
+                        Edit
+                    </Button>
+            )}
             <div className={"d-lg-inline-flex justify-content-evenly container w-100"}>
                 <div className={"w-75 mx-5 pt-4 pt-lg-0 "}>
                     <div className={"text-uppercase"}>Details</div>
 
-                    <Input title={"Titre de votre résidence"} variable={newHouse?.title} isEditingHouse={isEditingHouse}
+                    <Input title={"Titre de la résidence"} variable={newHouse?.title} isEditingHouse={isEditingHouse}
                            onInputChange={(e) => setNewHouse({...newHouse, title: e.target.value})}/>
 
                     <br/>
-                    <Input title={"Description de votre résidence"} variable={newHouse?.description}
+                    <Input title={"Description de la résidence"} variable={newHouse?.description}
                            isEditingHouse={isEditingHouse} type={"textarea"}
                            onInputChange={(e) => setNewHouse({...newHouse, description: e.target.value})}/>
-
 
                 </div>
                 <div className={"w-75 mx-5"}>
@@ -105,13 +115,12 @@ function HouseDetails() {
                     <Input title={"Adresse"} variable={newHouse?.address} isEditingHouse={isEditingHouse}
                            onInputChange={(e) => setNewHouse({...newHouse, address: e.target.value})}/>
 
-
                 </div>
             </div>
             <hr/>
             <div className={"d-lg-inline-flex justify-content-evenly align-content-center container-fluid"}>
                 <div className={"h-auto border border-gray rounded-3 mx-5 my-2 p-2"}>
-                    <HouseAttributeListAndEdit labelTitle={"Liste des contraintes liées à votre résidence"}
+                    <HouseAttributeListAndEdit labelTitle={"Liste des contraintes liées à la résidence"}
                                                attributeName={"contraintes"}
                                                newAttributes={newHouse?.constraints}
                                                allAttributes={constraints}
@@ -120,11 +129,10 @@ function HouseDetails() {
                                                    ...newHouse,
                                                    constraints: newConstraints
                                                })}
-
                     />
                 </div>
                 <div className={"h-auto border border-gray rounded-3 mx-5 my-2 p-2"}>
-                    <HouseAttributeListAndEdit labelTitle={"Liste des services liées à votre résidence"}
+                    <HouseAttributeListAndEdit labelTitle={"Liste des services liées à la résidence"}
                                                attributeName={"services"}
                                                newAttributes={newHouse?.services}
                                                allAttributes={services}
@@ -133,11 +141,9 @@ function HouseDetails() {
                                                    ...newHouse,
                                                    services: newServices
                                                })}
-
                     />
                 </div>
             </div>
-
 
             {
                 isEditingHouse && <>

@@ -4,7 +4,7 @@ import {
     LOGIN_USER_ATTEMPT_ACTION,
     LOGOUT_USER_ACTION,
     SET_USER_ACTION
-} from "./UserReducer";
+} from "./userReducer";
 import {GET_USER_INFO_URL, LOGIN_URL} from "../../Urls";
 import axios from "axios";
 
