@@ -14,10 +14,9 @@ import BookRequestModal from "../common/house/BookRequestModal";
 function HouseDetails() {
     const dispatch = useDispatch();
     let {id} = useParams();
-    const user = useSelector(userSelector).housesIds
-    console.log(user)
-    const isEditable = user.includes(id) || user.includes(parseInt(id));
-    console.log(isEditable)
+    const userHousesIds = useSelector(userSelector).housesIds
+    console.log(userHousesIds)
+    const isEditable = userHousesIds.includes(id) || userHousesIds.includes(parseInt(id));
     useEffect(() => {
         dispatch(getAllHouseConstraints())
         dispatch(getAllHouseServices())
