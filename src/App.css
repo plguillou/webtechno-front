@@ -9,3 +9,23 @@ body {
 .bg-pos-center {
   background-position: center;
 }
+
+a, a:hover, a:focus {
+  text-decoration: none;
+}
+
+/* Ne marche pas sans la ligne d'avant */
+.link-simple-style {
+  color: rgba(1, 13, 20, 1);/* Rich Black FOGRA 29 */
+  text-decoration: none;
+}
+
+.link-simple-style:focus, .link-simple-style:hover, .link-simple-style:link, .link-simple-style:visited{
+  color: rgba(1, 13, 21, 0.7);
+  text-decoration: none;
+}
+
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover, .link-unstyled:focus {
+  color: inherit;
+  text-decoration: none;
+}

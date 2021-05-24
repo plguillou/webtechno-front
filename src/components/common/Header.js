@@ -20,14 +20,18 @@ function Header() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <div className="container-fluid w-100 d-flex justify-content-between">
                     <Nav className="d-flex justify-content-center align-items-center mr-auto fs-5">
-                        <Nav.Link href="/" className="text-honey">Home</Nav.Link>
+                        <Nav.Link className="text-honey"><Link to="/" className="text-honey">Home</Link></Nav.Link>
                         <Nav.Link href="/#browserSection" className="text-honey">Browse</Nav.Link>
                     </Nav>
                     <Nav className="self">
                         {isUserLogged ?
                             <NavDropdown title="My Space" id="basic-nav-dropdown" className="px-4 fs-5">
-                                <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
-                                <NavDropdown.Item href="/houses-list">My Housings</NavDropdown.Item>
+                                <NavDropdown.Item><Link to={"/profile"}>
+                                    <div className={"link-dark"}>My Profile</div>
+                                </Link></NavDropdown.Item>
+                                <NavDropdown.Item><Link to={"/houses-list"}>
+                                    <div className={"link-dark"}>My Housings</div>
+                                </Link></NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">My Bookings</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.4">Conversations</NavDropdown.Item>
                                 <NavDropdown.Divider/>
