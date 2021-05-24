@@ -5,7 +5,7 @@ import {Button, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import "../../Styles/HeaderStyle.css"
 import {logout} from "../utils/store/user/userActions";
 
-function Header() {
+function Header() {//todo fix warning
     const isUserLogged = useSelector(userSelector).isLogged;
     const dispatch = useDispatch()
 
@@ -20,7 +20,7 @@ function Header() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <div className="container-fluid w-100 d-flex justify-content-between">
                     <Nav className="d-flex justify-content-center align-items-center mr-auto fs-5">
-                        <Nav.Link className="text-honey"><Link to="/" className="text-honey">Home</Link></Nav.Link>
+                        <Nav.Item className="text-honey"><Link to="/" className="text-honey">Home</Link></Nav.Item>
                         <Nav.Link href="/#browserSection" className="text-honey">Browse</Nav.Link>
                     </Nav>
                     <Nav className="self">
