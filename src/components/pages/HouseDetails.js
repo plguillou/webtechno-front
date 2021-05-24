@@ -9,6 +9,7 @@ import {houseServiceSelector} from "../utils/store/house-service/houseServiceSel
 import {getAllHouseServices} from "../utils/store/house-service/houseServiceAction";
 import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit";
 import {userSelector} from "../utils/store/user/userSelector";
+import BookRequestModal from "../common/house/BookRequestModal";
 
 function HouseDetails() {
     const dispatch = useDispatch();
@@ -31,6 +32,8 @@ function HouseDetails() {
 
     const [house, setHouse] = useState({});
     const [newHouse, setNewHouse] = useState({});
+
+    const [bookRequestModalShow, setBookRequestModalShow] = useState(false);
 
     useEffect(() => {
         getHouseDetails(id, setHouse)
@@ -56,8 +59,8 @@ function HouseDetails() {
     }
 
 
-    return <>
-        <h1 className={"text-center mt-3"}>Details de la résidence "{house?.title}"</h1>
+    return <div>
+        <h1 className={"text-center mt-3"}>Détails de la résidence "{house?.title}"</h1>
         <br/>
         <div className={"container border rounded-2 p-2 ps-3"}>
             {isEditable &&
@@ -84,7 +87,8 @@ function HouseDetails() {
 
                     <br/>
                     <Input title={"Description de la résidence"} variable={newHouse?.description}
-                           isEditingHouse={isEditingHouse} type={"textarea"}
+                           isEditingHouse={isEditingHouse}
+                           type={"textarea"}
                            onInputChange={(e) => setNewHouse({...newHouse, description: e.target.value})}/>
 
                 </div>
@@ -94,13 +98,11 @@ function HouseDetails() {
                         <div>Ville :</div>
                         <div className={"d-inline-flex"}>
                             <Form.Control
-                                type={"text"}
                                 className={"w-75 bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
                                 value={newHouse?.city ? newHouse?.city : ""}
                                 disabled={!isEditingHouse}
                                 onChange={(e) => setNewHouse({...newHouse, city: e.target.value})}/>
                             <Form.Control
-                                type={"text"}
                                 placeholder={"75001"}
                                 className={"w-25 bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
                                 value={newHouse?.postalCode ? newHouse?.postalCode : ""}
@@ -146,7 +148,7 @@ function HouseDetails() {
             </div>
 
             {
-                isEditingHouse && <>
+                isEditable && isEditingHouse && <>
                     <hr/>
                     <div className={"d-flex justify-content-end"}>
                         <Button variant={"outline-success"} onClick={handleOkClick}>OK</Button>
@@ -157,15 +159,27 @@ function HouseDetails() {
             }
 
         </div>
-    </>
+        <div className={"container d-flex flex-column flex-sm-row justify-content-evenly p-2 ps-3 "}>
+            <Button size={"lg"} variant={"honey"} className={"px-5 py-0 mx-3 mb-3 rounded-2"}>{/*todo envoyer vers la messagerie*/}
+                <p className={"m-0"}>Envoyer un message au propriétaire</p>
+                <i className={"bi-chat"} style={{fontSize:"2rem"}}/>
+            </Button>
+            <Button size={"lg"} variant={"orange"} className={"px-5 py-0 mx-3 mb-3 rounded-3"} onClick={() => setBookRequestModalShow(true)}>{/*todo modal*/}
+                <p className={"m-0"}>Faire une demande de réservation</p>
+                <i className={"bi-bookmark"} style={{fontSize:"2rem"}}/>
+            </Button>
+        </div>
+        <BookRequestModal show={bookRequestModalShow} onHide={() => setBookRequestModalShow(false)}/>
+    </div>
 }
 
-const Input = ({title, variable, isEditingHouse, onInputChange, type = "text"}) => {
+const Input = ({title, variable, isEditingHouse, onInputChange, type = "input"}) => {
     return <div className={"container-fluid p-2 m-1"}>
         <div>{title} :</div>
         <div>
             <Form.Control
-                type={type}
+                as={type}
+                row={4}
                 className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
                 value={variable ? variable : ""}
                 disabled={!isEditingHouse}
