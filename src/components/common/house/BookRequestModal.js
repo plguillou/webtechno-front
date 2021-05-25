@@ -18,11 +18,11 @@ export default function BookRequestModal({show, onHide, selectedHouseId}) {
         if (startDate < new Date()) return setErrorMessage("Date de début déjà passée");
         setErrorMessage("");
         setIsSending(true)
-        console.log("start date ", startDate)
-        console.log("end date ", endDate)
-        console.log("chosen house ", chosenHouse)
+        // console.log("start date ", startDate)
+        // console.log("end date ", endDate)
+        // console.log("chosen house ", chosenHouse)
         addNewBooking(startDate, endDate, selectedHouseId, chosenHouse).then(r => {
-            console.log(r)
+            // console.log(r)
             setIsSending(false)
             onHide()
         })

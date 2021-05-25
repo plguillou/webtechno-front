@@ -15,7 +15,6 @@ function HouseDetails() {
     const dispatch = useDispatch();
     let {id} = useParams();
     const userHousesIds = useSelector(userSelector).housesIds
-    console.log(userHousesIds)
     const isEditable = userHousesIds.includes(id) || userHousesIds.includes(parseInt(id));
     useEffect(() => {
         dispatch(getAllHouseConstraints())
@@ -166,7 +165,7 @@ function HouseDetails() {
                         <i className={"bi-chat"} style={{fontSize: "2rem"}}/>
                     </Button>
                     <Button size={"lg"} variant={"orange"} className={"px-5 py-0 mx-3 mb-3 rounded-3"}
-                            onClick={() => setBookRequestModalShow(true)}>{/*todo modal*/}
+                            onClick={() => setBookRequestModalShow(true)}>
                         <p className={"m-0"}>Faire une demande de réservation</p>
                         <i className={"bi-bookmark"} style={{fontSize: "2rem"}}/>
                     </Button>

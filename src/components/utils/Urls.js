@@ -14,4 +14,5 @@ export const GET_HOUSE_CONSTRAINT_URL = address + "/house-constraint";
 export const GET_HOUSE_SERVICE_URL = address + "/house-service";
 
 export const GET_BOOKINGS_URL = address + "/bookings"
+export const GET_RECEIVED_BOOKINGS_URL = address + "/bookings/received"
 export const ADD_BOOKINGS_URL = address + "/bookings/add"

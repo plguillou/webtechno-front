@@ -1,8 +1,12 @@
 import axios from "axios";
-import {ADD_BOOKINGS_URL, GET_BOOKINGS_URL} from "../Urls";
+import {ADD_BOOKINGS_URL, GET_BOOKINGS_URL, GET_RECEIVED_BOOKINGS_URL} from "../Urls";
 
 export const getBookings = async () => {
     return (await axios.get(GET_BOOKINGS_URL)).data;
+}
+
+export const getReceivedBookings = async () => {
+    return (await axios.get(GET_RECEIVED_BOOKINGS_URL)).data;
 }
 
 export const addNewBooking = async (startDate, endDate, houseId, offeredHouseId = null) => {
