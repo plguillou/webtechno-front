@@ -26,16 +26,28 @@ function Header() {//todo fix warning
                     <Nav className="self">
                         {isUserLogged ?
                             <NavDropdown title="My Space" id="basic-nav-dropdown" className="px-4 fs-5">
-                                <NavDropdown.Item><Link to={"/profile"}>
-                                    <div className={"link-dark"}>My Profile</div>
-                                </Link></NavDropdown.Item>
-                                <NavDropdown.Item><Link to={"/houses-list"}>
-                                    <div className={"link-dark"}>My Housings</div>
-                                </Link></NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">My Bookings</NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <Link to={"/profile"}>
+                                        <div className={"link-dark"}>My Profile</div>
+                                    </Link>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <Link to={"/houses-list"}>
+                                        <div className={"link-dark"}>My Housings</div>
+                                    </Link>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <Link to={"/bookings"}>
+                                        <div className={"link-dark"}>My Bookings</div>
+                                    </Link>
+                                </NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.4">Conversations</NavDropdown.Item>
                                 <NavDropdown.Divider/>
-                                <NavDropdown.Item onClick={() => dispatch(logout())}>Log Out</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => dispatch(logout())}>
+                                    <Link to={"/"}>
+                                        <div className={"link-dark"}>Log Out</div>
+                                    </Link>
+                                </NavDropdown.Item>
                             </NavDropdown>
                             :
                             <>

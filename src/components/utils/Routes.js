@@ -9,6 +9,7 @@ import {userSelector} from "./store/user/userSelector";
 import ExceptionPage from "../pages/ExceptionPage";
 import HousesList from "../pages/HousesList";
 import HouseDetails from "../pages/HouseDetails";
+import Bookings from "../pages/Bookings";
 
 export default function Routes() {
     const isLogged = useSelector(userSelector).isLogged;
@@ -21,6 +22,7 @@ export default function Routes() {
                 <Route path="/profile" component={isLogged ? Profile : ExceptionPage}/>
                 <Route path="/houses-list" component={isLogged ? HousesList : ExceptionPage}/>
                 <Route path="/house-details/:id" component={isLogged ? HouseDetails : ExceptionPage}/>
+                <Route path="/bookings" component={isLogged ? Bookings : ExceptionPage}/>
                 <Route path="/" component={Home}/>
             </Switch>
         </Router>
