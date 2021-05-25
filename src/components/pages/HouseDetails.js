@@ -156,19 +156,24 @@ function HouseDetails() {
                     </div>
                 </>
             }
-
         </div>
-        <div className={"container d-flex flex-column flex-sm-row justify-content-evenly p-2 ps-3 "}>
-            <Button size={"lg"} variant={"honey"} className={"px-5 py-0 mx-3 mb-3 rounded-2"}>{/*todo envoyer vers la messagerie*/}
-                <p className={"m-0"}>Envoyer un message au propriétaire</p>
-                <i className={"bi-chat"} style={{fontSize:"2rem"}}/>
-            </Button>
-            <Button size={"lg"} variant={"orange"} className={"px-5 py-0 mx-3 mb-3 rounded-3"} onClick={() => setBookRequestModalShow(true)}>{/*todo modal*/}
-                <p className={"m-0"}>Faire une demande de réservation</p>
-                <i className={"bi-bookmark"} style={{fontSize:"2rem"}}/>
-            </Button>
-        </div>
-        <BookRequestModal show={bookRequestModalShow} onHide={() => setBookRequestModalShow(false)}/>
+        {
+            !isEditable && <>
+                <div className={"container d-flex flex-column flex-sm-row justify-content-evenly p-2 ps-3 "}>
+                    <Button size={"lg"} variant={"honey"}
+                            className={"px-5 py-0 mx-3 mb-3 rounded-2"}>{/*todo envoyer vers la messagerie*/}
+                        <p className={"m-0"}>Envoyer un message au propriétaire</p>
+                        <i className={"bi-chat"} style={{fontSize: "2rem"}}/>
+                    </Button>
+                    <Button size={"lg"} variant={"orange"} className={"px-5 py-0 mx-3 mb-3 rounded-3"}
+                            onClick={() => setBookRequestModalShow(true)}>{/*todo modal*/}
+                        <p className={"m-0"}>Faire une demande de réservation</p>
+                        <i className={"bi-bookmark"} style={{fontSize: "2rem"}}/>
+                    </Button>
+                </div>
+                <BookRequestModal show={bookRequestModalShow} onHide={() => setBookRequestModalShow(false)} selectedHouseId={id}/>
+            </>
+        }
     </div>
 }
 

@@ -12,3 +12,6 @@ export const GET_USER_HOUSE_DETAILS_URL_GET = address + "/house";
 
 export const GET_HOUSE_CONSTRAINT_URL = address + "/house-constraint";
 export const GET_HOUSE_SERVICE_URL = address + "/house-service";
+
+export const GET_BOOKINGS_URL = address + "/bookings"
+export const ADD_BOOKINGS_URL = address + "/bookings/add"
