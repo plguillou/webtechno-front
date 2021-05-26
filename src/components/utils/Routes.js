@@ -10,9 +10,12 @@ import {userSelector} from "./store/user/userSelector";
 import ExceptionPage from "../pages/ExceptionPage";
 import HousesList from "../pages/HousesList";
 import HouseDetails from "../pages/HouseDetails";
+import Admin from "../pages/Admin";
+
 
 export default function Routes() {
     const isLogged = useSelector(userSelector).isLogged;
+    const isAdmin = (useSelector(userSelector).role == "ADMIN");
     return <>
         <Router>
             <Header/>
@@ -22,6 +25,7 @@ export default function Routes() {
                 <Route path="/profile" component={isLogged ? Profile : ExceptionPage}/>
                 <Route path="/houses-list" component={isLogged ? HousesList : ExceptionPage}/>
                 <Route path="/house-details/:id" component={isLogged ? HouseDetails : ExceptionPage}/>
+                <Route path="/admin" component={(isLogged && isAdmin) ? Admin : ExceptionPage}/>
                 <Route path="/" component={Home}/>
             </Switch>
             <Footer/>

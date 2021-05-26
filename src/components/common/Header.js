@@ -7,6 +7,7 @@ import {logout} from "../utils/store/user/userActions";
 
 function Header() {
     const isUserLogged = useSelector(userSelector).isLogged;
+    const isUserAdmin = (useSelector(userSelector).role == "ADMIN");
     const dispatch = useDispatch()
 
     return (
@@ -30,6 +31,7 @@ function Header() {
                                 <NavDropdown.Item href="/houses-list">My Housings</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">My Bookings</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.4">Conversations</NavDropdown.Item>
+                                { isUserAdmin ? <NavDropdown.Item href="/admin">Admin</NavDropdown.Item> : null }
                                 <NavDropdown.Divider/>
                                 <NavDropdown.Item onClick={() => dispatch(logout())}>Log Out</NavDropdown.Item>
                             </NavDropdown>
