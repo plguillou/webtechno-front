@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {Button, Spinner} from "react-bootstrap";
-import {getBookings, getReceivedBookings, removeSentBooking} from "../utils/requests/bookings";
+import {changeState, getBookings, getReceivedBookings, removeSentBooking} from "../utils/requests/bookings";
 
 export default function Bookings() {
     const [is1Loading, setIs1Loading] = useState(true);
@@ -23,6 +23,10 @@ export default function Bookings() {
 
     const onCancelClickOnSentBooking = (id) => {
         removeSentBooking(id).then(() => update())
+    }
+
+    const onRefuseClickOnReceivedBooking = (id) => {
+        changeState(id, "REFUSED").then(() => update())
     }
 
 
@@ -79,6 +83,7 @@ export default function Bookings() {
                                 <div className={"m-auto"}>Accepter</div>
                             </Button>
                             <Button variant={"outline-danger"}
+                                    onClick={() => onRefuseClickOnReceivedBooking(elem.id)}
                                     className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
                                 <b><i className={"bi-x text-size-3 py-0 my-0"}/></b>
                                 <div className={"m-auto"}>Refuser</div>
