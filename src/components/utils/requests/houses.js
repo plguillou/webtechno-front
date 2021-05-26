@@ -25,7 +25,7 @@ export const modifyHouseDetails = (houseId, newHouse, update = null) => {
     data.set("constraints", JSON.stringify(newHouse?.constraints));
     data.set("city", newHouse?.city);
     data.set("country", newHouse?.country);
-    data.set("postalCode", newHouse?.postalCode);
+    if(newHouse?.postalCode) data.set("postalCode", newHouse?.postalCode);
     data.set("address", newHouse?.address);
     axios.post(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId, data).then(r => {
         update?.();
