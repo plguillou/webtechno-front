@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Spinner} from "react-bootstrap";
+import {Button, Spinner} from "react-bootstrap";
 import {getBookings, getReceivedBookings} from "../utils/requests/bookings";
 
 export default function Bookings() {
@@ -19,7 +19,6 @@ export default function Bookings() {
     }, [])
 
 
-
     return <div className={"container mt-4"}>
         <h2 className={"text-center text-uppercase m-4"}>Vos réservations</h2>
         <div className={"container border border-gray rounded-2 my-2"}>
@@ -32,11 +31,18 @@ export default function Bookings() {
             }
             <div className={"d-flex align-content-center flex-column"}>
                 {
-                    sentBookings.map((elem, i) => <div key={i} className={"d-inline-flex border border-honey m-auto my-2 p-2"}>
-                            <div className={"m-1"}>Demande de votre part</div>
-                            <div className={"m-1"}>pour la résidence "{elem.house.title}"</div>
-                            <div className={"m-1"}>du <b>{dateStringToLabel(elem.startDate)}</b> au <b>{dateStringToLabel(elem.endDate)}</b></div>
-                        </div>)
+                    sentBookings.map((elem, i) => <div key={i}
+                                                       className={"d-inline-flex border border-honey m-auto my-2 p-2"}>
+                        <div className={"m-1"}>Demande de votre part</div>
+                        <div className={"m-1"}>pour la résidence "{elem.house.title}"</div>
+                        <div
+                            className={"m-1"}>du <b>{dateStringToLabel(elem.startDate)}</b> au <b>{dateStringToLabel(elem.endDate)}</b>
+                        </div>
+                        <Button variant={"outline-danger"} className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
+                            <b><i className={"bi-x text-size-3 py-0 my-0"}/></b>
+                            <div className={"m-auto"}>Annuler</div>
+                        </Button>
+                    </div>)
                 }
             </div>
         </div>
@@ -50,10 +56,23 @@ export default function Bookings() {
             }
             <div className={"d-flex align-content-center flex-column"}>
                 {
-                    receivedBookings.map((elem, i) => <div key={i} className={"d-inline-flex border border-orange m-auto my-2 p-2"}>
-                        <div className={"m-1"}>Demande de <b>{elem.user.name}</b></div>
-                        <div className={"m-1"}>pour la résidence "{elem.house.title}"</div>
-                        <div className={"m-1"}>du <b>{dateStringToLabel(elem.startDate)}</b> au <b>{dateStringToLabel(elem.endDate)}</b></div>
+                    receivedBookings.map((elem, i) => <div key={i}
+                                                           className={"d-inline-flex border border-orange m-auto my-2 p-2"}>
+                        <div className={"m-1 pt-2"}>Demande de <b>{elem.user.name}</b></div>
+                        <div className={"m-1 pt-2"}>pour la résidence "{elem.house.title}"</div>
+                        <div className={"m-1 pt-2"}>
+                            du <b>{dateStringToLabel(elem.startDate)}</b> au <b>{dateStringToLabel(elem.endDate)}</b>
+                        </div>
+                        <div>
+                            <Button variant={"outline-orange"} className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
+                                <b><i className={"bi-check2 text-size-3 py-0 my-0"}/></b>
+                                <div className={"m-auto"}>Accepter</div>
+                            </Button>
+                            <Button variant={"outline-danger"} className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
+                                <b><i className={"bi-x text-size-3 py-0 my-0"}/></b>
+                                <div className={"m-auto"}>Refuser</div>
+                            </Button>
+                        </div>
                     </div>)
                 }
             </div>
