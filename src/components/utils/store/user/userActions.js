@@ -28,7 +28,7 @@ export const loginAttempt = (username, password) => {
                 const token = response.data.token;
                 axios.defaults.headers.common['Authorization'] = `${token}`;
                 localStorage.setItem('authJwtToken', token);
-                dispatch(setUser({...response.data.user, isLogged: true}));
+                dispatch(getUserInfos());
             }
         )
     }
@@ -46,7 +46,7 @@ export const logSuccess = () => ({
 });
 
 
-export const getUserInfos = (token) => {
+export const getUserInfos = () => {
 
     return dispatch => {
         dispatch({
