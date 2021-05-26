@@ -9,7 +9,8 @@ const defaultUser = {
     name: null,
     mail: null,
     role: null,
-    isLogged: false
+    isLogged: false,
+    houses: []
 }
 
 export default function userReducer(state = defaultUser, action) {

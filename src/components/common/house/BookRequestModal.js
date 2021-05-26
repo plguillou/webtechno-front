@@ -5,7 +5,7 @@ import {useState} from "react";
 import {addNewBooking} from "../../utils/requests/bookings";
 
 export default function BookRequestModal({show, onHide, selectedHouseId}) {
-    const userHousesIds = useSelector(userSelector).housesIds
+    const userHouses = useSelector(userSelector).houses
     const [chosenHouse, setChosenHouse] = useState(null);
     const [startDate, setStartDate] = useState(false);
     const [endDate, setEndDate] = useState(false);
@@ -69,9 +69,9 @@ export default function BookRequestModal({show, onHide, selectedHouseId}) {
                 <div className={"text-muted"}>Vous pourrez modifier ce choix par la suite</div>
                 <DropdownButton id="dropdown-basic-button" title="Votre résidence" className={"pt-2"}>
                     {
-                        userHousesIds.map((elem, i) => (
+                        userHouses?.map((elem, i) => (
                             <Dropdown.Item key={i} onSelect={() => setChosenHouse(elem)}>
-                                {elem}
+                                {elem.title}
                             </Dropdown.Item>
                         ))
                     }
