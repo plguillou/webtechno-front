@@ -1,6 +1,12 @@
 import {useEffect, useState} from "react";
-import {Button, Spinner} from "react-bootstrap";
-import {changeState, getBookings, getReceivedBookings, removeSentBooking} from "../utils/requests/bookings";
+import {Alert, Button, Spinner} from "react-bootstrap";
+import {
+    changeReceivedBookingState,
+    changeSentBookingState,
+    getBookings,
+    getReceivedBookings,
+    removeSentBooking
+} from "../utils/requests/bookings";
 
 export default function Bookings() {
     const [is1Loading, setIs1Loading] = useState(true);
@@ -9,6 +15,14 @@ export default function Bookings() {
     const [sentBookings, setSentBookings] = useState([]);
     const [updateValue, setUpdateValue] = useState(false);
     const update = () => setUpdateValue(updateValue + 1);
+    const acceptedBookings = sentBookings?.filter(elem => elem.state === "ACCEPTED").map(elem => ({
+        ...elem, isSent: true
+    }))
+        .concat(
+            receivedBookings?.filter(elem => elem.state === "ACCEPTED").map(elem => ({
+                ...elem, isSent: false
+            }))
+        );
 
     useEffect(() => {
         getBookings().then((data) => {
@@ -26,12 +40,35 @@ export default function Bookings() {
     }
 
     const onRefuseClickOnReceivedBooking = (id) => {
-        changeState(id, "REFUSED").then(() => update())
+        changeReceivedBookingState(id, "REFUSED").then(() => update())
+    }
+
+    const onMakeDisappearClickOnSentBooking = (id) => {
+        changeSentBookingState(id, "ARCHIVED").then(() => update())
+    }
+
+    const onAcceptClickOnReceivedBooking = (id) => {
+        changeReceivedBookingState(id, "ACCEPTED").then(() => update())
     }
 
 
     return <div className={"container mt-4"}>
         <h2 className={"text-center text-uppercase m-4"}>Vos réservations</h2>
+        <div className={"d-flex align-content-center flex-column"}>
+            {
+                acceptedBookings && acceptedBookings.map((elem, i) => (
+                    <Alert variant={"success"} key={i} className={"d-inline-flex m-auto my-2 p-2"}>
+                        <div className={"m-1 pt-2"}>
+                            Demande {elem.isSent ? <span>envoyé par <b>vous</b></span> : <span>envoyé par <b>{elem.user.name}</b></span>} acceptée
+                        </div>
+                        <div className={"m-1 pt-2"}>pour la résidence "{elem.house.title}"</div>
+                        <div
+                            className={"m-1 pt-2"}>du <b>{dateStringToLabel(elem.startDate)}</b> au <b>{dateStringToLabel(elem.endDate)}</b>
+                        </div>
+                    </Alert>))
+            }
+        </div>
+
         <div className={"container border border-gray rounded-2 my-2"}>
             <h2 className={"m-2"}>Les réservations que vous avez envoyés</h2>
             {
@@ -42,8 +79,26 @@ export default function Bookings() {
             }
             <div className={"d-flex align-content-center flex-column"}>
                 {
-                    sentBookings.map((elem, i) => <div key={i}
-                                                       className={"d-inline-flex border border-honey m-auto my-2 p-2"}>
+                    sentBookings?.filter(elem => elem.state === "REFUSED").map((elem, i) => (
+                        <Alert variant={"danger"} key={i}
+                               className={"d-inline-flex border border-danger m-auto my-2 p-2"}>
+                            <div className={"m-1 pt-2 text-danger"}><b>Demande annulé</b></div>
+                            <div className={"m-1 pt-2"}>pour la résidence "{elem.house.title}"</div>
+                            <div
+                                className={"m-1 pt-2"}>du <b>{dateStringToLabel(elem.startDate)}</b> au <b>{dateStringToLabel(elem.endDate)}</b>
+                            </div>
+                            <Button variant={"outline-danger"}
+                                    onClick={() => onMakeDisappearClickOnSentBooking(elem.id)}
+                                    className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
+                                <b><i className={"bi-x text-size-3 py-0 my-0"}/></b>
+                                <div className={"m-auto"}>Faire disparaitre</div>
+                            </Button>
+                        </Alert>))
+                }
+                <hr/>
+                {
+                    sentBookings?.filter(elem => elem.state !== "REFUSED").map((elem, i) => <div key={i}
+                                                                                                 className={"d-inline-flex border border-honey m-auto my-2 p-2"}>
                         <div className={"m-1 pt-2"}>Demande de votre part</div>
                         <div className={"m-1 pt-2"}>pour la résidence "{elem.house.title}"</div>
                         <div
@@ -57,6 +112,7 @@ export default function Bookings() {
                         </Button>
                     </div>)
                 }
+
             </div>
         </div>
         <div className={"container border border-gray rounded-2 my-2"}>
@@ -78,6 +134,7 @@ export default function Bookings() {
                         </div>
                         <div>
                             <Button variant={"outline-orange"}
+                                    onClick={() => onAcceptClickOnReceivedBooking(elem.id)}
                                     className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
                                 <b><i className={"bi-check2 text-size-3 py-0 my-0"}/></b>
                                 <div className={"m-auto"}>Accepter</div>

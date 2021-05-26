@@ -70,7 +70,7 @@ export default function BookRequestModal({show, onHide, selectedHouseId}) {
                 <DropdownButton id="dropdown-basic-button" title="Votre résidence" className={"pt-2"}>
                     {
                         userHouses?.map((elem, i) => (
-                            <Dropdown.Item key={i} onSelect={() => setChosenHouse(elem)}>
+                            <Dropdown.Item key={i} onSelect={() => setChosenHouse(elem.id)}>
                                 {elem.title}
                             </Dropdown.Item>
                         ))
