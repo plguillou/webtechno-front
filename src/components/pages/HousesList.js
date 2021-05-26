@@ -45,9 +45,9 @@ function HousesList() {
 
                    
                             <td>{i + 1}</td>
-                            <td>{elem.title.replace(/(.{25})..+/, "$1 ...")}</td>
-                            <td>{elem.description.replace(/(.{90})..+/, "$1 ...")}</td>
-                            <td>{elem.city}</td>
+                            <td>{elem.title ? elem.title.replace(/(.{25})..+/, "$1 ...") : null}</td>
+                            <td>{elem.description ? elem.description.replace(/(.{90})..+/, "$1 ...") : null}</td>
+                            <td>{elem.city ? elem.description.replace(/(.{90})..+/, "$1 ...") : null}</td>
                             <td><Link to={"/house-details/" + elem.id}><Button variant={"outline-secondary"}>Voir les détails</Button></Link></td>
                           
                             
