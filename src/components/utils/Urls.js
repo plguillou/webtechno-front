@@ -14,3 +14,4 @@ export const GET_HOUSE_CONSTRAINT_URL = address + "/house-constraint";
 export const GET_HOUSE_SERVICE_URL = address + "/house-service";
 
 export const GET_ALL_USERS = address + "/admin/user/all";
+export const DELETE_USER_BY_ID = address + "/admin/delete"

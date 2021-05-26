@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getAllUsers} from "../utils/requests/users";
+import {getAllUsers, deleteUserById} from "../utils/requests/users";
 import {Button, Table} from "react-bootstrap";
 function Admin() {
 
@@ -22,6 +22,7 @@ function Admin() {
                 <tr>
                     <th>#</th>
                     <th>Name</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
@@ -30,7 +31,8 @@ function Admin() {
                     users.map((elem, i) => (
                         <tr>
                             <td>{i + 1}</td>
-                            <td>{elem.name ? elem.name.replace(/(.{25})..+/, "$1 ...") : null}</td>
+                            <td>{elem.name ? elem.name.replace(/(.{15})..+/, "$1 ...") : null}</td>
+                            <Button onClick={() => deleteUserById(elem.id)}>Supprimer</Button>
                          </tr>
                     ))
                 }
