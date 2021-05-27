@@ -1,3 +1,7 @@
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_breakpoints.scss";
+
 body {
   font-family: "Crete Round", Roboto, sans-serif;
 }
@@ -16,11 +20,11 @@ a, a:hover, a:focus {
 
 /* Ne marche pas sans la ligne d'avant */
 .link-simple-style {
-  color: rgba(1, 13, 20, 1);/* Rich Black FOGRA 29 */
+  color: rgba(1, 13, 20, 1); /* Rich Black FOGRA 29 */
   text-decoration: none;
 }
 
-.link-simple-style:focus, .link-simple-style:hover, .link-simple-style:link, .link-simple-style:visited{
+.link-simple-style:focus, .link-simple-style:hover, .link-simple-style:link, .link-simple-style:visited {
   color: rgba(1, 13, 21, 0.7);
   text-decoration: none;
 }
@@ -49,4 +53,11 @@ a, a:hover, a:focus {
 
 .text-size-5 {
   font-size: 3rem;
+}
+
+//xs < sm < md <lg
+@include media-breakpoint-up(md) {
+  .max-width-md-35 {
+    max-width: 30%;
+  }
 }
