@@ -191,5 +191,4 @@ const Input = ({title, variable, isEditingHouse, onInputChange, type = "input"})
     </div>
 }
 
-
 export default HouseDetails;
