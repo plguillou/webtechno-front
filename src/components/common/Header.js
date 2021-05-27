@@ -7,6 +7,7 @@ import {logout} from "../utils/store/user/userActions";
 
 function Header() {//todo fix warning
     const isUserLogged = useSelector(userSelector).isLogged;
+    const isUserAdmin = (useSelector(userSelector).role == "ADMIN");
     const dispatch = useDispatch()
 
     return (
@@ -42,6 +43,7 @@ function Header() {//todo fix warning
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.4">Conversations</NavDropdown.Item>
+                                { isUserAdmin ? <NavDropdown.Item href="/admin">Admin</NavDropdown.Item> : null }
                                 <NavDropdown.Divider/>
                                 <NavDropdown.Item onClick={() => dispatch(logout())}>
                                     <Link to={"/"}>
