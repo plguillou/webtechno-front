@@ -4,7 +4,7 @@ import {
     LOGIN_USER_ATTEMPT_ACTION,
     LOGOUT_USER_ACTION,
     SET_USER_ACTION
-} from "./UserReducer";
+} from "./userReducer";
 import {GET_USER_INFO_URL, LOGIN_URL} from "../../Urls";
 import axios from "axios";
 
@@ -28,7 +28,7 @@ export const loginAttempt = (username, password) => {
                 const token = response.data.token;
                 axios.defaults.headers.common['Authorization'] = `${token}`;
                 localStorage.setItem('authJwtToken', token);
-                dispatch(setUser({...response.data.user, isLogged: true}));
+                dispatch(getUserInfos());
             }
         )
     }
@@ -46,7 +46,7 @@ export const logSuccess = () => ({
 });
 
 
-export const getUserInfos = (token) => {
+export const getUserInfos = () => {
 
     return dispatch => {
         dispatch({

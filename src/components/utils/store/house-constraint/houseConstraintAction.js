@@ -10,7 +10,6 @@ export const setAllHouseConstraints = (houseConstraints) => ({
 export const getAllHouseConstraints = () => {
     return dispatch => {
         axios.get(GET_HOUSE_CONSTRAINT_URL).then(r => {
-            // console.log(r.data)
             dispatch(setAllHouseConstraints(r.data))
         })
     }

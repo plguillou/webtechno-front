@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
-import userReducer from "./user/UserReducer";
+import userReducer from "./user/userReducer";
 import thunk from "redux-thunk";
 import axios from "axios";
 import {getUserInfos} from "./user/userActions";
