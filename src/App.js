@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import {Provider} from "react-redux";
 import store from "./components/utils/store";
 import Routes from "./components/utils/Routes";
