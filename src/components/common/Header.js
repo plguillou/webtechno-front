@@ -22,7 +22,7 @@ function Header() {//todo fix warning
                 <div className="container-fluid w-100 d-flex justify-content-between">
                     <Nav className="d-flex justify-content-center align-items-center mr-auto fs-5">
                         <Nav.Item className="text-honey"><Link to="/" className="text-honey">Home</Link></Nav.Item>
-                        <Nav.Link href="/#browserSection" className="text-honey">Browse</Nav.Link>
+                        <Nav.Link href="/browse" className="text-honey">Browse</Nav.Link>
                     </Nav>
                     <Nav className="self">
                         {isUserLogged ?
