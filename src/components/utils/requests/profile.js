@@ -1,32 +1,21 @@
 import axios from "axios";
 import {
     GET_USER_HOUSE_DETAILS_URL_GET,
-    GET_USER_HOUSES_URL
+    GET_USER_HOUSES_URL, GET_USER_INFO_URL
 } from "../Urls";
 
-export const getHouses = (setter) => {
-    axios.get(GET_USER_HOUSES_URL).then(r => {
+
+export const getProfileInfos = (setter) => {
+    axios.get(GET_USER_INFO_URL).then(r => {
         setter(r.data);
     })
 };
 
-export const getHouseDetails = (houseId, setter) => {
-    axios.get(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId).then(r => {
-        setter(r.data);
-    })
-};
-
-export const modifyHouseDetails = (houseId, newHouse, update = null) => {
+export const modifyProfileInfos = (newUser, update = null) => {
     const data = new FormData();
-    data.set("title", newHouse?.title);
-    data.set("description", newHouse?.description);
-    data.set("services", JSON.stringify(newHouse?.services));
-    data.set("constraints", JSON.stringify(newHouse?.constraints));
-    data.set("city", newHouse?.city);
-    data.set("country", newHouse?.country);
-    data.set("postalCode", newHouse?.postalCode);
-    data.set("address", newHouse?.address);
-    axios.post(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId, data).then(r => {
+    data.set("name", newUser?.name);
+    data.set("mail", newUser?.mail);
+    axios.post(GET_USER_INFO_URL, data).then(r => {
         update?.();
     })
 };

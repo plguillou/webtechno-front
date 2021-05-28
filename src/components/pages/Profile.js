@@ -4,7 +4,7 @@ import {logout, getUserInfos} from "../utils/store/user/userActions";
 import {Link, useParams} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {getHouseDetails, modifyHouseDetails} from "../utils/requests/houses";
+import {getProfileInfos, modifyProfileInfos} from "../utils/requests/profile";
 import {getAllHouseConstraints} from "../utils/store/house-constraint/houseConstraintAction";
 import {getAllHouseServices} from "../utils/store/house-service/houseServiceAction";
 import {houseConstraintSelector} from "../utils/store/house-constraint/houseConstraintSelector";
@@ -42,8 +42,8 @@ function Profile() {
     const [newUser, setNewUser] = useState({});
 
     useEffect(() => {
-        getHouseDetails(id, setUser)
-    }, [updateValue, id]);
+        getProfileInfos(setUser)
+    }, [updateValue]);
 
     useEffect(() => {
         setNewUser(user);
@@ -56,7 +56,7 @@ function Profile() {
     }
 
     const handleOkClick = () => {
-        modifyHouseDetails(id, newUser, update);
+        modifyProfileInfos(newUser, update);
         setIsEditingProfile(false);
     }
 
