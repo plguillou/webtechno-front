@@ -19,6 +19,4 @@ export const modifyProfileInfos = (newUser, update = null) => {
     axios.post(MODIFY_USER_INFO_URL, data).then(r => {
         update?.();
     })
-    console.log("yoyoy2");
-    console.log(newUser);
 };

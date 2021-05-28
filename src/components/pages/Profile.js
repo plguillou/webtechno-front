@@ -5,31 +5,17 @@ import {Link, useParams} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {getProfileInfos, modifyProfileInfos} from "../utils/requests/profile";
-import {getAllHouseConstraints} from "../utils/store/house-constraint/houseConstraintAction";
-import {getAllHouseServices} from "../utils/store/house-service/houseServiceAction";
-import {houseConstraintSelector} from "../utils/store/house-constraint/houseConstraintSelector";
-import {houseServiceSelector} from "../utils/store/house-service/houseServiceSelector";
-import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit";
 
 function Profile() {
     const userInit = useSelector(userSelector);
     userInit.password = "";
     userInit.confirmPassword = "";
-    console.log(userInit);
     const dispatch = useDispatch();
 
     const handleLogOut = () => {
         dispatch(logout());
     }
 
-    // v Moi v
-
-/*    useEffect(() => {
-        dispatch(getAllHouseConstraints())
-        dispatch(getAllHouseServices())
-    }, [dispatch])*/
-
-    let {id} = useParams();
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [passwordAreSame, setPasswordAreSame] = useState(true);
     const [updateValue, setUpdateValue] = useState(false);
