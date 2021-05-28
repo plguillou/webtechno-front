@@ -12,8 +12,11 @@ import {houseServiceSelector} from "../utils/store/house-service/houseServiceSel
 import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit";
 
 function Profile() {
-    //const user = useSelector(userSelector)
-    const dispatch = useDispatch()
+    const userInit = useSelector(userSelector);
+    userInit.password = "";
+    userInit.confirmPassword = "";
+    console.log(userInit);
+    const dispatch = useDispatch();
 
     const handleLogOut = () => {
         dispatch(logout());
@@ -21,25 +24,18 @@ function Profile() {
 
     // v Moi v
 
-    useEffect(() => {
+/*    useEffect(() => {
         dispatch(getAllHouseConstraints())
         dispatch(getAllHouseServices())
-    }, [dispatch])
+    }, [dispatch])*/
 
     let {id} = useParams();
     const [isEditingProfile, setIsEditingProfile] = useState(false);
+    const [passwordAreSame, setPasswordAreSame] = useState(true);
     const [updateValue, setUpdateValue] = useState(false);
     const update = () => setUpdateValue(updateValue + 1);
 
-    /*
-    ci-dessous je veux mettre user a la place de house
-    or user existe deja, donc je met profile ?
-    pcq si je fais pas la ligne ci-dessous je n'aurai pas
-    d'équivalent de setHouse
-    */
-
-
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(userInit);
     const [newUser, setNewUser] = useState({});
 
     useEffect(() => {
@@ -57,8 +53,13 @@ function Profile() {
     }
 
     const handleOkClick = () => {
-        modifyProfileInfos(newUser, update);
-        setIsEditingProfile(false);
+        if (newUser.password === newUser.confirmPassword) {
+            setPasswordAreSame(true);
+            modifyProfileInfos(newUser, update);
+            setIsEditingProfile(false);
+        } else {
+            setPasswordAreSame(false);
+        }
     }
 
     return <>
@@ -91,11 +92,26 @@ function Profile() {
                     <Input title={"E-Mail"} variable={newUser?.mail}
                            isEditingProfile={isEditingProfile} type={"textarea"}
                            onInputChange={(e) => setNewUser({...newUser, mail: e.target.value})}/>
+
+                    <br/>
+                    <Input title={"Password"} variable={newUser?.password}
+                           isEditingProfile={isEditingProfile} type={"password"}
+                           onInputChange={(e) => setNewUser({...newUser, password: e.target.value})}/>
+
+                    {passwordAreSame ?
+                        <br/>
+                        :
+                        <Form.Text className="text-danger">
+                            Please confirm password
+                        </Form.Text>
+                    }
+                    <Input title={"Confirm Password"} variable={newUser?.confirmPassword}
+                           isEditingProfile={isEditingProfile} type={"password"}
+                           onInputChange={(e) => setNewUser({...newUser, confirmPassword: e.target.value})}/>
                 </div>
             </div>
 
             {
-                // EN DESSOUS CEST BON
 
                 isEditingProfile && <>
                     <hr/>

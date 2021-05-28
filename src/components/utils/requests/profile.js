@@ -15,7 +15,10 @@ export const modifyProfileInfos = (newUser, update = null) => {
     const data = new FormData();
     data.set("name", newUser?.name);
     data.set("mail", newUser?.mail);
+    data.set("password", newUser?.password);
     axios.post(MODIFY_USER_INFO_URL, data).then(r => {
         update?.();
     })
+    console.log("yoyoy2");
+    console.log(newUser);
 };
