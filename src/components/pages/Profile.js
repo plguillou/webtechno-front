@@ -38,6 +38,7 @@ function Profile() {
     d'équivalent de setHouse
     */
 
+
     const [user, setUser] = useState({});
     const [newUser, setNewUser] = useState({});
 

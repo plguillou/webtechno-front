@@ -5,6 +5,7 @@ export const AUTH_URL = address + "/auth";
 export const LOGIN_URL = address + "/login";
 
 export const GET_USER_INFO_URL = address + "/user/get-user-info";
+export const MODIFY_USER_INFO_URL = address + "/user/modify-profile";
 export const ADD_USER_HOUSE_URL = address + "/house/add";
 
 export const GET_USER_HOUSES_URL = address + "/user/get-user-houses";
