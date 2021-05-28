@@ -8,7 +8,8 @@ export const GET_USER_INFO_URL = address + "/user/get-user-info";
 export const ADD_USER_HOUSE_URL = address + "/house/add";
 
 export const GET_USER_HOUSES_URL = address + "/user/get-user-houses";
-export const GET_USER_HOUSE_DETAILS_URL_GET = address + "/house";
+export const MODIFY_USER_HOUSE_DETAILS_URL = address + "/house";
+export const UPLOAD_HOUSE_PICTURE_URL = address + "/picture/upload";
 
 export const GET_HOUSE_CONSTRAINT_URL = address + "/house-constraint";
 export const GET_HOUSE_SERVICE_URL = address + "/house-service";

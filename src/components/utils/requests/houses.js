@@ -1,8 +1,8 @@
 import axios from "axios";
 import {
     ADD_USER_HOUSE_URL,
-    GET_USER_HOUSE_DETAILS_URL_GET,
-    GET_USER_HOUSES_URL
+    MODIFY_USER_HOUSE_DETAILS_URL,
+    GET_USER_HOUSES_URL, UPLOAD_HOUSE_PICTURE_URL
 } from "../Urls";
 
 export const getHouses = (setter) => {
@@ -12,7 +12,7 @@ export const getHouses = (setter) => {
 };
 
 export const getHouseDetails = (houseId, setter) => {
-    axios.get(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId).then(r => {
+    axios.get(MODIFY_USER_HOUSE_DETAILS_URL + "/" + houseId).then(r => {
         setter(r.data);
     })
 };
@@ -25,9 +25,9 @@ export const modifyHouseDetails = (houseId, newHouse, update = null) => {
     data.set("constraints", JSON.stringify(newHouse?.constraints));
     data.set("city", newHouse?.city);
     data.set("country", newHouse?.country);
-    if(newHouse?.postalCode) data.set("postalCode", newHouse?.postalCode);
+    if (newHouse?.postalCode) data.set("postalCode", newHouse?.postalCode);
     data.set("address", newHouse?.address);
-    axios.post(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId, data).then(r => {
+    axios.post(MODIFY_USER_HOUSE_DETAILS_URL + "/" + houseId, data).then(r => {
         update?.();
     })
 };
@@ -38,6 +38,18 @@ export const addHouse = (title, description, update = null) => {
     data.set("title", title);
     data.set("description", description);
     axios.post(ADD_USER_HOUSE_URL, data).then(r => {
+        update?.();
+    })
+};
+
+export const uploadPicture = (picture, update = null) => {
+    console.log(picture)
+    if (picture === undefined || picture === null) return;
+
+    const data = new FormData();
+    data.set("picture", picture);
+    axios.post(UPLOAD_HOUSE_PICTURE_URL, data).then(r => {
+        console.log(r)
         update?.();
     })
 };
