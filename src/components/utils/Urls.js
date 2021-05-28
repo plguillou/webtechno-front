@@ -9,7 +9,8 @@ export const ADD_USER_HOUSE_URL = address + "/house/add";
 
 export const GET_USER_HOUSES_URL = address + "/user/get-user-houses";
 export const MODIFY_USER_HOUSE_DETAILS_URL = address + "/house";
-export const UPLOAD_HOUSE_PICTURE_URL = address + "/picture/upload";
+export const ADD_OR_EDIT_HOUSE_PICTURE_URL = address + "/picture/add-or-edit";
+export const GET_HOUSE_PICTURE_URL = address + "/picture/files";
 
 export const GET_HOUSE_CONSTRAINT_URL = address + "/house-constraint";
 export const GET_HOUSE_SERVICE_URL = address + "/house-service";

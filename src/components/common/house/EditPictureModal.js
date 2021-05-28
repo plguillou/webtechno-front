@@ -1,13 +1,14 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useState} from "react";
-import {uploadPicture} from "../../utils/requests/houses";
+import {addOrEditPicture} from "../../utils/requests/houses";
 
-export default function EditPictureModal({show, onHide, index, oldImageUrl}) {
+export default function EditPictureModal({show, onHide, index, oldImageUrl, houseId}) {
     let newUrl = oldImageUrl;
     let [pictureFile, setPictureFile] = useState();
 
     const onFileAddClick = () => {
-        uploadPicture(pictureFile)
+        addOrEditPicture(index, newUrl, pictureFile, houseId);//todo check index
+        onHide();
     }
 
     return (
@@ -42,7 +43,7 @@ export default function EditPictureModal({show, onHide, index, oldImageUrl}) {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={onFileAddClick}>OK</Button>{/*todo onclick*/}
+                <Button onClick={onFileAddClick}>OK</Button>
                 <Button onClick={onHide}>Cancel</Button>
             </Modal.Footer>
         </Modal>

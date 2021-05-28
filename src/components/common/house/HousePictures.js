@@ -2,7 +2,7 @@ import {Button, Image} from "react-bootstrap";
 import EditPictureModal from "./EditPictureModal";
 import {useState} from "react";
 
-export default function HousePictures({pictures}) {
+export default function HousePictures({pictures, houseId}) {
     const [editingPictureIndex, setEditingPictureIndex] = useState(-1);
     pictures = [0, 1, 2].map(elem => pictures && (pictures.hasOwnProperty(elem) && pictures[elem]));
 
@@ -24,14 +24,14 @@ export default function HousePictures({pictures}) {
                     <h6 className={"mb-3"}>Photo {i + 1}</h6>
 
                     {photo ?
-                        <Image style={{maxHeight: "20rem", cursor:"pointer"}}
+                        <Image style={{maxHeight: "20rem", cursor: "pointer"}}
                                className={"mx-auto mb-2"}
-                               // src={"https://placekitten.com/" + Math.ceil(Math.random() * 250 + 250) + "/" + Math.ceil(Math.random() * 250 + 250)}
-                               src={"localhost:8080/picture/files/bda.jpg"}
+                            src={"https://placekitten.com/" + Math.ceil(Math.random() * 250 + 250) + "/" + Math.ceil(Math.random() * 250 + 250)}
+                               // src={"http://localhost:8080/photos/bda.jpg"}//todo url
                                fluid alt="photo"/>
                         :
                         <div className={"bg-light text-center text-gray"}
-                             style={{minHeight: "15em", paddingTop: "6rem", cursor:"pointer"}}
+                             style={{minHeight: "15em", paddingTop: "6rem", cursor: "pointer"}}
                              onClick={() => onAddOrEditClick(i)}>
                             Cliquer pour ajouter une photo
                         </div>
@@ -49,8 +49,10 @@ export default function HousePictures({pictures}) {
 
         </div>
 
-        <EditPictureModal show={editingPictureIndex > -1} index={editingPictureIndex}
+        <EditPictureModal show={editingPictureIndex > -1}
+                          index={editingPictureIndex}
                           oldImageUrl={pictures[editingPictureIndex]?.url}
-                          onHide={() => setEditingPictureIndex(-1)}/>
+                          onHide={() => setEditingPictureIndex(-1)}
+                          houseId={houseId}/>
     </div>
 }

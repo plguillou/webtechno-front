@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     ADD_USER_HOUSE_URL,
     MODIFY_USER_HOUSE_DETAILS_URL,
-    GET_USER_HOUSES_URL, UPLOAD_HOUSE_PICTURE_URL
+    GET_USER_HOUSES_URL, UPLOAD_HOUSE_PICTURE_URL, ADD_OR_EDIT_HOUSE_PICTURE_URL
 } from "../Urls";
 
 export const getHouses = (setter) => {
@@ -42,13 +42,17 @@ export const addHouse = (title, description, update = null) => {
     })
 };
 
-export const uploadPicture = (picture, update = null) => {
+export const addOrEditPicture = (index, url, picture, houseId, update = null) => {
     console.log(picture)
-    if (picture === undefined || picture === null) return;
+
+    if ((picture === undefined || picture === null) && (url === undefined || url === null)) return;
 
     const data = new FormData();
-    data.set("picture", picture);
-    axios.post(UPLOAD_HOUSE_PICTURE_URL, data).then(r => {
+    if (picture) data.set("picture", picture);
+    if (index || index < 0) data.set("index", index);
+    if (url) data.set("url", url);
+
+    axios.post(ADD_OR_EDIT_HOUSE_PICTURE_URL + "/" + houseId, data).then(r => {
         console.log(r)
         update?.();
     })

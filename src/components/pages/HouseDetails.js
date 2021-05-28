@@ -148,7 +148,7 @@ function HouseDetails() {
             </div>
             <hr/>
 
-            <HousePictures pictures={house?.pictures} />
+            <HousePictures pictures={house?.pictures} houseId={house.id} />
 
             {
                 isEditable && isEditingHouse && <>
