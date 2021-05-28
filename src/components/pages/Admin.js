@@ -6,6 +6,8 @@ function Admin() {
 
     const [updateValue, setUpdateValue] = useState(false);
 
+    const update = () => setUpdateValue(updateValue + 1);
+
     const [users, setUsers] = useState([]);
     useEffect(() => {
         getAllUsers(setUsers)
@@ -15,6 +17,10 @@ function Admin() {
     useEffect(() => {
         getAllHouses(setHouses)
     }, [updateValue]);
+
+    const onClickCancelUser = (id) => {
+        deleteUserById(id).then(() => update())
+    }
 
 
     return <>
@@ -38,7 +44,7 @@ function Admin() {
                         <tr>
                             <td>{i + 1}</td>
                             <td>{elem.name ? elem.name.replace(/(.{15})..+/, "$1 ...") : null}</td>
-                            <Button variant={"light"} onClick={() => deleteUserById(elem.id)}>Supprimer</Button>
+                            <Button variant={"light"} onClick={() => onClickCancelUser(elem.id)}>Supprimer</Button>
                          </tr>
                     ))
                 }
@@ -63,7 +69,7 @@ function Admin() {
                         <tr>
                             <td>{i + 1}</td>
                             <td>{elem.title ? elem.title.replace(/(.{25})..+/, "$1 ...") : null}</td>
-                            <td>{true ? (elem.owner_id ? true.toString() : false.toString()) : null}</td>
+                            <td>{true ? (elem.owner ? true.toString() : false.toString()) : null}</td>
                          </tr>
                     ))
                 }

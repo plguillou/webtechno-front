@@ -8,9 +8,7 @@ export const getAllUsers = (setter) => {
     })
 };
 
-export const deleteUserById = (userId, setter) => {
-    axios.post(DELETE_USER_BY_ID + "/" +  userId).then(r => {
-        setter(r.data);
-    })
+export const deleteUserById = async (id) => {
+    return (await axios.delete(DELETE_USER_BY_ID + "/" + id)).data;
 };
 
