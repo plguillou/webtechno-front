@@ -2,14 +2,23 @@ import axios from "axios";
 import {
     ADD_USER_HOUSE_URL,
     GET_USER_HOUSE_DETAILS_URL_GET,
-    GET_USER_HOUSES_URL
+    GET_USER_HOUSES_URL,
+    GET_ALL_HOUSES,
 } from "../Urls";
+
+
+export const getAllHouses = (setter) => {
+    axios.get(GET_ALL_HOUSES).then(r => {
+        setter(r.data);
+    })
+};
 
 export const getHouses = (setter) => {
     axios.get(GET_USER_HOUSES_URL).then(r => {
         setter(r.data);
     })
 };
+
 
 export const getHouseDetails = (houseId, setter) => {
     axios.get(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId).then(r => {
