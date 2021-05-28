@@ -1,6 +1,6 @@
 import {addHouse, getHouses} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
-import {Button} from "react-bootstrap";
+import {Button, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import AddHouseModal from "../common/house/AddHouseModal";
 
@@ -22,20 +22,46 @@ function HousesList() {
     }
 
     return <>
-        <h1>Liste de vos houses</h1>
-        <hr/>
-        {
-            houses.map((elem, i) => (
-                <div key={i} className={"d-flex"}>
-                    <div>{JSON.stringify(elem)}</div>
-                    <Link to={"/house-details/" + elem.id}><Button variant={"outline-secondary"}>Voir les détails</Button></Link>
-                </div>
-            ))
-        }
+    <body  class="mb-2 mt-2">
+        <h1 class="mb-3">Liste de vos houses</h1>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
 
-        <hr/>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Ville</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+
+            <tbody>
+               
+                {
+                    houses.map((elem, i) => (
+                        <tr>
+                       
+
+                   
+                            <td>{i + 1}</td>
+                            <td>{elem.title ? elem.title.replace(/(.{25})..+/, "$1 ...") : null}</td>
+                            <td>{elem.description ? elem.description.replace(/(.{90})..+/, "$1 ...") : null}</td>
+                            <td>{elem.city ? elem.description.replace(/(.{90})..+/, "$1 ...") : null}</td>
+                            <td><Link to={"/house-details/" + elem.id}><Button variant={"outline-secondary"}>Voir les détails</Button></Link></td>
+                          
+                            
+                       
+                         </tr>
+                    ))
+                }
+
+
+            </tbody>
+        </Table>
         <Button onClick={() => setIsAddingHouse(true)}>Ajouter une house</Button>
         <AddHouseModal show={isAddingHouse} onHide={() => setIsAddingHouse(false)} onNewHouseSubmit={onNewHouseSubmit}/>
+    </body>
     </>
 }
 
