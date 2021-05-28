@@ -12,7 +12,7 @@ import {houseServiceSelector} from "../utils/store/house-service/houseServiceSel
 import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit";
 
 function Profile() {
-    const user = useSelector(userSelector)
+    //const user = useSelector(userSelector)
     const dispatch = useDispatch()
 
     const handleLogOut = () => {
@@ -25,11 +25,9 @@ function Profile() {
         dispatch(getAllHouseConstraints())
         dispatch(getAllHouseServices())
     }, [dispatch])
-    const constraints = useSelector(houseConstraintSelector)
-    const services = useSelector(houseServiceSelector)
 
     let {id} = useParams();
-    const [isEditingHouse, setIsEditingHouse] = useState(false);
+    const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [updateValue, setUpdateValue] = useState(false);
     const update = () => setUpdateValue(updateValue + 1);
 
@@ -40,26 +38,26 @@ function Profile() {
     d'équivalent de setHouse
     */
 
-    const [house, setHouse] = useState({});
-    const [newHouse, setNewHouse] = useState({});
+    const [user, setUser] = useState({});
+    const [newUser, setNewUser] = useState({});
 
     useEffect(() => {
-        getHouseDetails(id, setHouse)
+        getHouseDetails(id, setUser)
     }, [updateValue, id]);
 
     useEffect(() => {
-        setNewHouse(house);
-    }, [house])
+        setNewUser(user);
+    }, [user])
 
 
     const handleCancelClick = () => {
-        setNewHouse(house);
-        setIsEditingHouse(false);
+        setNewUser(user);
+        setIsEditingProfile(false);
     }
 
     const handleOkClick = () => {
-        modifyHouseDetails(id, newHouse, update);
-        setIsEditingHouse(false);
+        modifyHouseDetails(id, newUser, update);
+        setIsEditingProfile(false);
     }
 
     return <>
@@ -69,7 +67,7 @@ function Profile() {
         <br/>
 
         <div className={"container border rounded-2 p-2 ps-3 w-50"}>
-            {isEditingHouse ?
+            {isEditingProfile ?
                 <Button className={"float-end py-0 px-1"}
                         variant={"outline-danger"}
                         onClick={handleCancelClick}>
@@ -77,7 +75,7 @@ function Profile() {
                 </Button> :
                 <Button className={"float-end"}
                         variant={"outline-primary"}
-                        onClick={() => setIsEditingHouse(true)}>
+                        onClick={() => setIsEditingProfile(true)}>
                     Edit
                 </Button>
             }
@@ -85,18 +83,20 @@ function Profile() {
                 <div className={"w-75 mx-5 pt-4 pb-5 pt-lg-0 "}>
                     <div className={"text-uppercase"}>Personal details</div>
 
-                    <Input title={"Name"} variable={newHouse?.title} isEditingHouse={isEditingHouse}
-                           onInputChange={(e) => setNewHouse({...newHouse, title: e.target.value})}/>
+                    <Input title={"Name"} variable={newUser?.name} isEditingProfile={isEditingProfile}
+                           onInputChange={(e) => setNewUser({...newUser, name: e.target.value})}/>
 
                     <br/>
-                    <Input title={"E-Mail"} variable={newHouse?.description}
-                           isEditingHouse={isEditingHouse} type={"textarea"}
-                           onInputChange={(e) => setNewHouse({...newHouse, description: e.target.value})}/>
+                    <Input title={"E-Mail"} variable={newUser?.mail}
+                           isEditingProfile={isEditingProfile} type={"textarea"}
+                           onInputChange={(e) => setNewUser({...newUser, mail: e.target.value})}/>
                 </div>
             </div>
 
             {
-                isEditingHouse && <>
+                // EN DESSOUS CEST BON
+
+                isEditingProfile && <>
                     <hr/>
                     <div className={"d-flex justify-content-end"}>
                         <div className={"m-2"}>
@@ -112,7 +112,9 @@ function Profile() {
         </div>
 
 
-        {/*<div>
+        {
+
+            /*<div>
             <input disabled value={user.name}/>
         </div>
         <div>
@@ -137,15 +139,15 @@ function Profile() {
     </>
 }
 
-const Input = ({title, variable, isEditingHouse, onInputChange, type = "text"}) => {
+const Input = ({title, variable, isEditingProfile, onInputChange, type = "text"}) => {
     return <div className={"container-fluid p-2 m-1"}>
         <div>{title} :</div>
         <div>
             <Form.Control
                 type={type}
-                className={"bg-light text-fogra29 border  " + (isEditingHouse ? "border-dark" : "")}
+                className={"bg-light text-fogra29 border  " + (isEditingProfile ? "border-dark" : "")}
                 value={variable ? variable : ""}
-                disabled={!isEditingHouse}
+                disabled={!isEditingProfile}
                 onChange={onInputChange}/>
         </div>
     </div>
