@@ -1,8 +1,10 @@
 import {Button, Image} from "react-bootstrap";
 import EditPictureModal from "./EditPictureModal";
 import {useState} from "react";
+import {GET_HOUSE_PICTURE_URL} from "../../utils/Urls";
+import {deletePicture} from "../../utils/requests/houses";
 
-export default function HousePictures({pictures, houseId}) {
+export default function HousePictures({pictures, houseId, update}) {
     const [editingPictureIndex, setEditingPictureIndex] = useState(-1);
     pictures = [0, 1, 2].map(elem => pictures && (pictures.hasOwnProperty(elem) && pictures[elem]));
 
@@ -11,8 +13,8 @@ export default function HousePictures({pictures, houseId}) {
         setEditingPictureIndex(index)
     }
 
-    const oDeleteClick = (index) => {
-        //todo
+    const onDeleteClick = (photoId) => {
+        deletePicture(photoId, update)
     }
 
     return <div>
@@ -26,8 +28,7 @@ export default function HousePictures({pictures, houseId}) {
                     {photo ?
                         <Image style={{maxHeight: "20rem", cursor: "pointer"}}
                                className={"mx-auto mb-2"}
-                            src={"https://placekitten.com/" + Math.ceil(Math.random() * 250 + 250) + "/" + Math.ceil(Math.random() * 250 + 250)}
-                               // src={"http://localhost:8080/photos/bda.jpg"}//todo url
+                               src={photo.fromInternet ? photo.url : (GET_HOUSE_PICTURE_URL + "/" + photo.url)}
                                fluid alt="photo"/>
                         :
                         <div className={"bg-light text-center text-gray"}
@@ -42,7 +43,7 @@ export default function HousePictures({pictures, houseId}) {
                                 {photo ? "Modifier" : "Ajouter"}
                             </Button>
                         </div>
-                        {photo && <div><Button variant={"outline-danger"}>Supprimer</Button></div>}
+                        {photo && <div><Button variant={"outline-danger"} onClick={() => onDeleteClick(photo.id)}>Supprimer</Button></div>}
                     </div>
                 </div>
             ))}
@@ -53,6 +54,7 @@ export default function HousePictures({pictures, houseId}) {
                           index={editingPictureIndex}
                           oldImageUrl={pictures[editingPictureIndex]?.url}
                           onHide={() => setEditingPictureIndex(-1)}
-                          houseId={houseId}/>
+                          houseId={houseId}
+                          update={update}/>
     </div>
 }

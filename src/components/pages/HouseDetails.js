@@ -1,7 +1,7 @@
 import {getHouseDetails, modifyHouseDetails} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Button, Form, Image} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllHouseConstraints} from "../utils/store/house-constraint/houseConstraintAction";
 import {houseConstraintSelector} from "../utils/store/house-constraint/houseConstraintSelector";
@@ -148,7 +148,7 @@ function HouseDetails() {
             </div>
             <hr/>
 
-            <HousePictures pictures={house?.pictures} houseId={house.id} />
+            <HousePictures pictures={house?.pictures} houseId={house.id} update={update} />
 
             {
                 isEditable && isEditingHouse && <>

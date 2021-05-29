@@ -2,12 +2,14 @@ import {Button, Form, Modal} from "react-bootstrap";
 import {useState} from "react";
 import {addOrEditPicture} from "../../utils/requests/houses";
 
-export default function EditPictureModal({show, onHide, index, oldImageUrl, houseId}) {
+export default function EditPictureModal({show, onHide, index, oldImageUrl, houseId, update}) {
     let newUrl = oldImageUrl;
     let [pictureFile, setPictureFile] = useState();
+    console.log(pictureFile)
 
     const onFileAddClick = () => {
-        addOrEditPicture(index, newUrl, pictureFile, houseId);//todo check index
+        addOrEditPicture(index, newUrl, pictureFile, houseId, update);//todo check index
+        setPictureFile(null)
         onHide();
     }
 

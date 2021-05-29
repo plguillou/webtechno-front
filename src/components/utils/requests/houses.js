@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     ADD_USER_HOUSE_URL,
     MODIFY_USER_HOUSE_DETAILS_URL,
-    GET_USER_HOUSES_URL, UPLOAD_HOUSE_PICTURE_URL, ADD_OR_EDIT_HOUSE_PICTURE_URL
+    GET_USER_HOUSES_URL, ADD_OR_EDIT_HOUSE_PICTURE_URL, HOUSE_PICTURE_URL
 } from "../Urls";
 
 export const getHouses = (setter) => {
@@ -42,17 +42,26 @@ export const addHouse = (title, description, update = null) => {
     })
 };
 
-export const addOrEditPicture = (index, url, picture, houseId, update = null) => {
-    console.log(picture)
+export const addOrEditPicture = (index = null, url, picture, houseId, update = null) => {
+    console.log("request param p", picture)
+    console.log("request param i", index, (index && index >= 0))
+
 
     if ((picture === undefined || picture === null) && (url === undefined || url === null)) return;
 
     const data = new FormData();
     if (picture) data.set("picture", picture);
-    if (index || index < 0) data.set("index", index);
-    if (url) data.set("url", url);
-
+    if (index!=null && index >= 0) data.set("index", index);
+    if (url && !picture) data.set("url", url);
+    console.log(data)
     axios.post(ADD_OR_EDIT_HOUSE_PICTURE_URL + "/" + houseId, data).then(r => {
+        console.log(r)
+        update?.();
+    })
+};
+
+export const deletePicture = (pictureId, update = null) => {
+    axios.delete(HOUSE_PICTURE_URL + "/" + pictureId).then(r => {
         console.log(r)
         update?.();
     })
