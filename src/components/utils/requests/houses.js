@@ -4,6 +4,7 @@ import {
     GET_USER_HOUSE_DETAILS_URL_GET,
     GET_USER_HOUSES_URL,
     GET_ALL_HOUSES,
+    DELETE_HOUSE_BY_ID,
 } from "../Urls";
 
 
@@ -49,4 +50,8 @@ export const addHouse = (title, description, update = null) => {
     axios.post(ADD_USER_HOUSE_URL, data).then(r => {
         update?.();
     })
+};
+
+export const deleteHouseById = async (id) => {
+    return (await axios.delete(DELETE_HOUSE_BY_ID + "/" + id)).data;
 };

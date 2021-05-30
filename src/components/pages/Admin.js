@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
+import Modal from 'react-bootstrap/Modal'
 import {getAllUsers, deleteUserById} from "../utils/requests/users";
-import {getAllHouses} from "../utils/requests/houses";
+import {getAllHouses, deleteHouseById} from "../utils/requests/houses";
 import {Button, Table} from "react-bootstrap";
 function Admin() {
 
@@ -21,6 +22,20 @@ function Admin() {
     const onClickCancelUser = (id) => {
         deleteUserById(id).then(() => update())
     }
+    
+    const onClickCancelHouse = (id) => {
+        deleteHouseById(id).then(() => update())
+    }
+
+    const [showDeleteUser, setShowDeleteUser] = useState(false);
+
+    const handleCloseDeleteUser = () => setShowDeleteUser(false);
+    const handleShowDeleteUser = () => setShowDeleteUser(true); 
+
+    const [showDeleteHouse, setShowDeleteHouse] = useState(false);
+
+    const handleCloseDeleteHouse = () => setShowDeleteHouse(false);
+    const handleShowDeleteHouse = () => setShowDeleteHouse(true); 
 
 
     return <>
@@ -44,12 +59,33 @@ function Admin() {
                         <tr>
                             <td>{i + 1}</td>
                             <td>{elem.name ? elem.name.replace(/(.{15})..+/, "$1 ...") : null}</td>
-                            <Button variant={"light"} onClick={() => onClickCancelUser(elem.id)}>Supprimer</Button>
+                            <td >
+
+                            <Button variant={"outline-danger"} onClick={handleShowDeleteUser}>
+                                Supprimer
+                            </Button>
+
+                            <Modal show={showDeleteUser} onHide={handleCloseDeleteUser}>
+                                <Modal.Header>
+                                    <Modal.Title>Suppression utilisateur</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Attention, toute suppression est définitive, êtes-vous sûr de poursuivre ?</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleCloseDeleteUser}>
+                                        Retour
+                                    </Button>
+                                    <Button variant="danger" onClick={() => {onClickCancelUser(elem.id); setShowDeleteHouse(false);}}>
+                                         Supprimer utilisateur
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+                            </td>
                          </tr>
                     ))
-                }
+                } 
             </tbody>
-        </Table>
+        </Table>                              
+
 
         <h2 class="mb-3">Liste des Houses</h2>
 
@@ -58,7 +94,7 @@ function Admin() {
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>User</th>
+                    <th>Description</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -69,7 +105,38 @@ function Admin() {
                         <tr>
                             <td>{i + 1}</td>
                             <td>{elem.title ? elem.title.replace(/(.{25})..+/, "$1 ...") : null}</td>
-                            <td>{true ? (elem.owner ? true.toString() : false.toString()) : null}</td>
+                            <td>{elem.description ? elem.description.replace(/(.{90})..+/, "$1 ...") : null}</td>
+                            <td class ="d-flex justify-content-evenly">
+
+                                
+
+                            <Button variant={"outline-danger"} onClick={handleShowDeleteHouse}>
+                                Supprimer
+                            </Button>
+
+                            <Modal show={showDeleteHouse} onHide={handleCloseDeleteHouse}>
+                                <Modal.Header>
+                                    <Modal.Title>Suppression House</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Attention, toute suppression est définitive, êtes-vous sûr de poursuivre ?</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleCloseDeleteHouse}>
+                                        Retour
+                                    </Button>
+                                    <Button variant="danger" onClick={() => {onClickCancelHouse(elem.id); setShowDeleteHouse(false);}}>
+                                         Supprimer house
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+
+
+
+                            <Button href = {"/house-details/" + elem.id} variant={"light"}>
+                                Infos
+                            </Button>
+
+                            </td>
+                            
                          </tr>
                     ))
                 }

@@ -24,3 +24,5 @@ export const GET_ALL_USERS = address + "/admin/user/all";
 export const DELETE_USER_BY_ID = address + "/admin/user/delete"
 
 export const GET_ALL_HOUSES = address + "/admin/house/all";
+
+export const DELETE_HOUSE_BY_ID = address + "/admin/house/delete"
