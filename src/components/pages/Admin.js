@@ -49,6 +49,7 @@ function Admin() {
                 <tr>
                     <th>#</th>
                     <th>Name</th>
+                    <th>Rôle</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -59,11 +60,16 @@ function Admin() {
                         <tr>
                             <td>{i + 1}</td>
                             <td>{elem.name ? elem.name.replace(/(.{15})..+/, "$1 ...") : null}</td>
-                            <td >
+                            <td>{elem.role ? elem.role.replace(/(.{15})..+/, "$1 ...") : null}</td>
+                            <td > 
+                                
+                               
 
-                            <Button variant={"outline-danger"} onClick={handleShowDeleteUser}>
+                            <Button variant={"outline-danger"} disabled={elem.role == "ADMIN"} onClick={handleShowDeleteUser}>
                                 Supprimer
                             </Button>
+                                
+
 
                             <Modal show={showDeleteUser} onHide={handleCloseDeleteUser}>
                                 <Modal.Header>
@@ -106,7 +112,7 @@ function Admin() {
                             <td>{i + 1}</td>
                             <td>{elem.title ? elem.title.replace(/(.{25})..+/, "$1 ...") : null}</td>
                             <td>{elem.description ? elem.description.replace(/(.{90})..+/, "$1 ...") : null}</td>
-                            <td class ="d-flex justify-content-evenly">
+                            <td >
 
                                 
 
