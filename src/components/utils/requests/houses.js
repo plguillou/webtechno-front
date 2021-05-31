@@ -1,9 +1,8 @@
 import axios from "axios";
 import {
     ADD_USER_HOUSE_URL,
-    GET_USER_HOUSE_DETAILS_URL_GET,
-    GET_USER_HOUSES_URL,
-    GET_ALL_HOUSES,
+    MODIFY_USER_HOUSE_DETAILS_URL,
+    GET_USER_HOUSES_URL, ADD_OR_EDIT_HOUSE_PICTURE_URL, HOUSE_PICTURE_URL, GET_ALL_HOUSES,
     DELETE_HOUSE_BY_ID,
 } from "../Urls";
 
@@ -22,7 +21,7 @@ export const getHouses = (setter) => {
 
 
 export const getHouseDetails = (houseId, setter) => {
-    axios.get(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId).then(r => {
+    axios.get(MODIFY_USER_HOUSE_DETAILS_URL + "/" + houseId).then(r => {
         setter(r.data);
     })
 };
@@ -35,9 +34,9 @@ export const modifyHouseDetails = (houseId, newHouse, update = null) => {
     data.set("constraints", JSON.stringify(newHouse?.constraints));
     data.set("city", newHouse?.city);
     data.set("country", newHouse?.country);
-    if(newHouse?.postalCode) data.set("postalCode", newHouse?.postalCode);
+    if (newHouse?.postalCode) data.set("postalCode", newHouse?.postalCode);
     data.set("address", newHouse?.address);
-    axios.post(GET_USER_HOUSE_DETAILS_URL_GET + "/" + houseId, data).then(r => {
+    axios.post(MODIFY_USER_HOUSE_DETAILS_URL + "/" + houseId, data).then(r => {
         update?.();
     })
 };
@@ -54,4 +53,30 @@ export const addHouse = (title, description, update = null) => {
 
 export const deleteHouseById = async (id) => {
     return (await axios.delete(DELETE_HOUSE_BY_ID + "/" + id)).data;
+
+}
+
+export const addOrEditPicture = (index = null, url, picture, houseId, update = null) => {
+    console.log("request param p", picture)
+    console.log("request param i", index, (index && index >= 0))
+
+
+    if ((picture === undefined || picture === null) && (url === undefined || url === null)) return;
+
+    const data = new FormData();
+    if (picture) data.set("picture", picture);
+    if (index!=null && index >= 0) data.set("index", index);
+    if (url && !picture) data.set("url", url);
+    console.log(data)
+    axios.post(ADD_OR_EDIT_HOUSE_PICTURE_URL + "/" + houseId, data).then(r => {
+        console.log(r)
+        update?.();
+    })
+};
+
+export const deletePicture = (pictureId, update = null) => {
+    axios.delete(HOUSE_PICTURE_URL + "/" + pictureId).then(r => {
+        console.log(r)
+        update?.();
+    })
 };
