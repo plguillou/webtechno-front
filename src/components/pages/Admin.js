@@ -80,7 +80,7 @@ function Admin() {
                                     <Button variant="secondary" onClick={handleCloseDeleteUser}>
                                         Retour
                                     </Button>
-                                    <Button variant="danger" onClick={() => {onClickCancelUser(elem.id); setShowDeleteHouse(false);}}>
+                                    <Button variant="danger" onClick={() => {onClickCancelUser(elem.id); setShowDeleteUser(false);}}>
                                          Supprimer utilisateur
                                     </Button>
                                 </Modal.Footer>
