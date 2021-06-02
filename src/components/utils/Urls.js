@@ -21,4 +21,6 @@ export const CHANGE_RECEIVED_BOOKING_STATE_BOOKINGS_URL = address + "/bookings/c
 export const CHANGE_SENT_BOOKING_STATE_BOOKINGS_URL = address + "/bookings/change-sent-booking-state"
 
 export const GET_ALL_USERS = address + "/admin/user/all";
-export const DELETE_USER_BY_ID = address + "/admin/delete"
+export const DELETE_USER_BY_ID = address + "/admin/delete";
+
+export const BROWSE_HOUSES_URL = address + "/browse/search";
