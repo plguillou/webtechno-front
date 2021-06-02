@@ -10,7 +10,7 @@ export default function Browser() {
             <div className="d-flex justify-content-center align-items-center py-5 bg-gray">
                 <SearchBar searchSetter={setBrowsedHouses}/>
             </div>
-            <div>
+            <div className="d-flex justify-content-around align-items-center bg-light py-4">
                 {browsedHouses.map(house => {
                     return <HouseCard title={house.title} description={house.description}/>
                 })}
@@ -21,7 +21,7 @@ export default function Browser() {
 
 function HouseCard(props) {
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '20rem' }}>
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
