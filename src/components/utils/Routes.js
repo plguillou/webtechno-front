@@ -19,20 +19,24 @@ export default function Routes() {
     const isLogged = useSelector(userSelector).isLogged;
     const isAdmin = (useSelector(userSelector).role === "ADMIN");
     return <>
+
         <Router>
             <Header/>
-            <Switch>
-                <Route path="/login" component={Login}/>
-                <Route path="/signin" component={Signin}/>
-                <Route path="/profile" component={isLogged ? Profile : ExceptionPage}/>
-                <Route path="/houses-list" component={isLogged ? HousesList : ExceptionPage}/>
-                <Route path="/house-details/:id" component={isLogged ? HouseDetails : ExceptionPage}/>
-                <Route path="/admin" component={(isLogged && isAdmin) ? Admin : ExceptionPage}/>
-                <Route path="/bookings" component={isLogged ? Bookings : ExceptionPage}/>
-                <Route path="/browse" component={Browser}/>
-                <Route path="/" component={Home}/>
-            </Switch>
+            <div style={{minHeight: "85vh"}}>
+                <Switch>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signin" component={Signin}/>
+                    <Route path="/profile" component={isLogged ? Profile : ExceptionPage}/>
+                    <Route path="/houses-list" component={isLogged ? HousesList : ExceptionPage}/>
+                    <Route path="/house-details/:id" component={isLogged ? HouseDetails : ExceptionPage}/>
+                    <Route path="/admin" component={(isLogged && isAdmin) ? Admin : ExceptionPage}/>
+                    <Route path="/bookings" component={isLogged ? Bookings : ExceptionPage}/>
+                    <Route path="/browse" component={Browser}/>
+                    <Route path="/" component={Home}/>
+                </Switch>
+            </div>
             <Footer/>
         </Router>
+
     </>
 }
