@@ -17,7 +17,7 @@ import Browser from "../pages/Browser";
 
 export default function Routes() {
     const isLogged = useSelector(userSelector).isLogged;
-    const isAdmin = (useSelector(userSelector).role == "ADMIN");
+    const isAdmin = (useSelector(userSelector).role === "ADMIN");
     return <>
         <Router>
             <Header/>

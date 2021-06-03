@@ -13,9 +13,9 @@ function Admin() {
 
 
     return <>
-    <body  class="mb-2 mt-2">
-        <h1 class="mb-3">Admin</h1>
-        <h2 class="mb-3">Liste des Users</h2>
+    <body  className="mb-2 mt-2">
+        <h1 className="mb-3">Admin</h1>
+        <h2 className="mb-3">Liste des Users</h2>
 
         <Table striped bordered hover>
             <thead>
