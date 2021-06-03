@@ -57,20 +57,22 @@ function HouseDetails() {
         }
     }
 
+    const OkButtons = () => (<div className={"d-flex justify-content-end"}>
+        <Button variant={"outline-success"} className={"me-2"} onClick={handleOkClick}>OK</Button>
+        <Button variant={"outline-secondary"}
+                onClick={handleCancelClick}>Cancel</Button>
+    </div>)
 
-    return <div>
+
+    return <div className={"my-3"}>
         <h1 className={"text-center mt-3"}>Détails de la résidence "{house?.title}"</h1>
         <br/>
         <div className={"container border rounded-2 p-2 ps-3"}>
             {isEditable &&
             (
                 isEditingHouse ?
-                    <Button className={"float-end py-0 px-1"}
-                            variant={"outline-danger"}
-                            onClick={handleCancelClick}>
-                        <i className={"bi bi-x text-center bi-type-bold"}
-                           style={{fontSize: "2rem", fontWeight: "1200"}}/>
-                    </Button> :
+                    <OkButtons/>
+                    :
                     <Button className={"float-end"}
                             variant={"outline-primary"}
                             onClick={() => setIsEditingHouse(true)}>
@@ -148,16 +150,12 @@ function HouseDetails() {
             </div>
             <hr/>
 
-            <HousePictures pictures={house?.pictures} houseId={house.id} update={update} isEditable={isEditable} />
+            <HousePictures pictures={house?.pictures} houseId={house.id} update={update} isEditable={isEditable}/>
 
             {
                 isEditable && isEditingHouse && <>
                     <hr/>
-                    <div className={"d-flex justify-content-end"}>
-                        <Button variant={"outline-success"} onClick={handleOkClick}>OK</Button>
-                        <Button variant={"outline-secondary"}
-                                onClick={handleCancelClick}>Cancel</Button>
-                    </div>
+                    <OkButtons/>
                 </>
             }
         </div>

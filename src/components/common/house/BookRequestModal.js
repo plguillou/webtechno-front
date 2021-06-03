@@ -6,7 +6,7 @@ import {addNewBooking} from "../../utils/requests/bookings";
 
 export default function BookRequestModal({show, onHide, selectedHouseId}) {
     const userHouses = useSelector(userSelector).houses
-    const [chosenHouse, setChosenHouse] = useState(null);
+    const [chosenHouse, setChosenHouse] = useState({id:0, title: "Aucune résidence"});
     const [startDate, setStartDate] = useState(false);
     const [endDate, setEndDate] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
