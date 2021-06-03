@@ -20,7 +20,7 @@ export const addNewBooking = async (startDate, endDate, houseId, offeredHouseId 
     data.set("startDate", startDate.toDateString());
     data.set("endDate", endDate.toDateString());
     data.set("houseId", houseId);
-    if(offeredHouseId != null) data.set("offeredHouseId", offeredHouseId);
+    if(offeredHouseId) data.set("offeredHouseId", offeredHouseId);
 
     return (await axios.post(ADD_BOOKINGS_URL, data)).data;
 }
