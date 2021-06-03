@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {userSelector} from "../utils/store/user/userSelector";
-import {logout, getUserInfos} from "../utils/store/user/userActions";
-import {Link, useParams} from "react-router-dom";
+import {logout} from "../utils/store/user/userActions";
+import {Link} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {getProfileInfos, modifyProfileInfos} from "../utils/requests/profile";
@@ -113,22 +113,7 @@ function Profile() {
             }
 
         </div>
-
-
-        {
-
-            /*<div>
-            <input disabled value={user.name}/>
-        </div>
-        <div>
-            <input disabled value={user.mail}/>
-        </div>
-        <div>
-            <input disabled value={user.role}/>
-        </div>
-        <div>
-            <input disabled value={user.isLogged}/>
-        </div>*/}
+        
         <hr/>
 
         <Link to={"/"} className={"m-5"}>
