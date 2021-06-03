@@ -12,7 +12,7 @@ export default function Browser() {
             </div>
             <div className="d-flex justify-content-around align-items-center bg-light py-4">
                 {browsedHouses.map(house => {
-                    return <HouseCard title={house.title} description={house.description}/>
+                    return <HouseCard key={house.id} title={house.title} description={house.description}/>
                 })}
             </div>
         </>
