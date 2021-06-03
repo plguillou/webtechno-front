@@ -2,6 +2,7 @@ import "../../Styles/HomeStyle.css";
 import downArrowIconPath from "../../Resources/Icons/down-arrow.png";
 import playBtnIcon from "../../Resources/Icons/play-button.png";
 import SearchBar from "./SearchBar";
+import {Link} from "react-router-dom";
 
 export default function Home() {
     return (
@@ -14,7 +15,7 @@ export default function Home() {
     );
 }
 
-function HookSection(props) {
+function HookSection() {
     return (
         <div className="d-flex justify-content-center align-items-center bg-pos-center"
              style={{height: "95vh"}}
@@ -30,7 +31,7 @@ function HookSection(props) {
     );
 }
 
-function PresentationSection(props) {
+function PresentationSection() {
     return (
         <div className="d-flex flex-column justify-content-center align-items-center p-4 bg-prussian"
              style={{minHeight: "95vh"}}>
@@ -47,7 +48,7 @@ function PresentationSection(props) {
                 <p className="text-center lh-base fs-1 pt-3 mt-4 text-cornflower">
                     You are looking for your dream vacation house, or just for a place to sleep during your exam week?
                 </p>
-                <div href="#browserSection" className="text-center text-decoration-none">
+                <a href="#browserSection" className="text-center text-decoration-none">
                     <p className="text-center lh-base fs-1 text-orange">
                         Stop bothering, start browsing!
                     </p>
@@ -55,22 +56,24 @@ function PresentationSection(props) {
                         <img src={downArrowIconPath} alt="Icon showing an arrow pointing downwards"
                               style={{width: "8vw"}}/>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     );
 }
 
-function BrowserSection(props) {
+function BrowserSection() {
     return(
         <div id="browserSection" className="d-flex justify-content-center align-items-center bg-pos-center"
              style={{minHeight: "100vh"}}>
-            <SearchBar/>
+            <Link to="/browse">
+                <SearchBar/>
+            </Link>
         </div>
     );
 }
 
-function HostPresentationSection(props) {
+function HostPresentationSection() {
     return(
         <div className="d-flex justify-content-center align-items-center p-4 bg-gray">
             <div className="d-flex flex-column justify-content-center align-items-center w-75">
@@ -84,8 +87,8 @@ function HostPresentationSection(props) {
                     <p className="text-center lh-base fs-1 text-fogra29">
                         Start hosting now
                     </p>
-                    <img src={playBtnIcon} alt="Play button" className="mx-4"
-                         style={{width: "80px"}}/>
+                    <Link to={"/houses-list"}><img src={playBtnIcon} alt="Play button" className="mx-4"
+                               style={{width: "80px"}}/></Link>
                 </div>
             </div>
         </div>
