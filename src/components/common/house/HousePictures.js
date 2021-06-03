@@ -4,7 +4,7 @@ import {useState} from "react";
 import {GET_HOUSE_PICTURE_URL} from "../../utils/Urls";
 import {deletePicture} from "../../utils/requests/houses";
 
-export default function HousePictures({pictures, houseId, update}) {
+export default function HousePictures({pictures, houseId, isEditable, update}) {
     const [editingPictureIndex, setEditingPictureIndex] = useState(-1);
     pictures = [0, 1, 2].map(elem => pictures && (pictures.hasOwnProperty(elem) && pictures[elem]));
 
@@ -19,7 +19,7 @@ export default function HousePictures({pictures, houseId, update}) {
 
     return <div>
         <h5>Photos de la résidence (max 3)</h5>
-        <div className={"container-fluid  d-md-inline-flex justify-content-evenly"}>
+        <div className={"container-fluid d-md-inline-flex justify-content-evenly"}>
             {pictures.map((photo, i) => (
                 <div key={i}
                      className={"container d-flex flex-column justify-content-between p-3 rounded-2 mx-3 mb-2 max-width-md-35 border border-gray"}>
@@ -33,10 +33,11 @@ export default function HousePictures({pictures, houseId, update}) {
                         :
                         <div className={"bg-light text-center text-gray"}
                              style={{minHeight: "15em", paddingTop: "6rem", cursor: "pointer"}}
-                             onClick={() => onAddOrEditClick(i)}>
+                             onClick={() => {if(isEditable){ onAddOrEditClick(i)}}}>
                             Cliquer pour ajouter une photo
                         </div>
                     }
+                    {isEditable &&
                     <div className={"d-flex justify-content-evenly"}>
                         <div>
                             <Button variant={"outline-success"} onClick={() => onAddOrEditClick(i)}>
@@ -45,6 +46,7 @@ export default function HousePictures({pictures, houseId, update}) {
                         </div>
                         {photo && <div><Button variant={"outline-danger"} onClick={() => onDeleteClick(photo.id)}>Supprimer</Button></div>}
                     </div>
+                    }
                 </div>
             ))}
 
