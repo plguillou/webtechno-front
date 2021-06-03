@@ -13,7 +13,7 @@ function Header() {//todo fix warning
     return (
         <Navbar bg="dark" sticky="top" expand="lg" className="justify-content-between shadow-sm">
             <Link to="/" className="text-decoration-none">
-                <Navbar.Brand href="#home" className="mx-4 px-2 bg-honey rounded-10">
+                <Navbar.Brand className="mx-4 px-2 bg-honey rounded-10">
                     Home Exchange Manager
                 </Navbar.Brand>
             </Link>
