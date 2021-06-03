@@ -1,6 +1,7 @@
 import SearchBar from "./SearchBar";
 import {Button, Card} from "react-bootstrap";
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 export default function Browser() {
     const [browsedHouses, setBrowsedHouses] = useState([]);
@@ -12,7 +13,7 @@ export default function Browser() {
             </div>
             <div className="d-flex justify-content-around align-items-center bg-light py-4">
                 {browsedHouses.map(house => {
-                    return <HouseCard key={house.id} title={house.title} description={house.description}/>
+                    return <HouseCard key={house.id} title={house.title} description={house.description} id={house.id}/>
                 })}
             </div>
         </>
@@ -28,7 +29,9 @@ function HouseCard(props) {
                 <Card.Text>
                     {props.description}
                 </Card.Text>
-                <Button variant="primary">See details</Button>
+                <Link to={"/house-details/" + props.id}>
+                    <Button variant="primary">See details</Button>
+                </Link>
             </Card.Body>
         </Card>
     );
