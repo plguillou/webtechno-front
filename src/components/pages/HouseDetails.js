@@ -1,7 +1,7 @@
 import {getHouseDetails, modifyHouseDetails} from "../utils/requests/houses";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Button, Form, Image} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllHouseConstraints} from "../utils/store/house-constraint/houseConstraintAction";
 import {houseConstraintSelector} from "../utils/store/house-constraint/houseConstraintSelector";
@@ -10,6 +10,7 @@ import {getAllHouseServices} from "../utils/store/house-service/houseServiceActi
 import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit";
 import {userSelector} from "../utils/store/user/userSelector";
 import BookRequestModal from "../common/house/BookRequestModal";
+import HousePictures from "../common/house/HousePictures";
 
 function HouseDetails() {
     const dispatch = useDispatch();
@@ -146,28 +147,9 @@ function HouseDetails() {
 
             </div>
             <hr/>
-            <div>
-                <h5>Photos de la résidence (max 3)</h5>
-                <div className={"container-fluid  d-md-inline-flex justify-content-evenly"}>
-                    {[1, 2, 3].map((photo, i) => (
-                        <div key={i}
-                             className={"container d-flex flex-column justify-content-between p-3 rounded-2 mx-3 mb-2 max-width-md-35 border border-gray"}>
-                            <h6 className={"mb-3"}>Photo {i + 1}</h6>
 
-                            <Image style={{maxHeight: "20rem"}}
-                                   className={"mx-auto mb-2"}
-                                   src={"https://placekitten.com/" + Math.ceil(Math.random() * 250 + 250) + "/" + Math.ceil(Math.random() * 250 + 250)}
-                                   fluid alt="photo"/>
+            <HousePictures pictures={house?.pictures} houseId={house.id} update={update} />
 
-                            <div className={"d-flex justify-content-evenly"}>
-                                <div><Button variant={"outline-success"}>Modifier</Button></div>
-                                <div><Button variant={"outline-danger"}>Supprimer</Button></div>
-                            </div>
-                        </div>
-                    ))}
-
-                </div>
-            </div>
             {
                 isEditable && isEditingHouse && <>
                     <hr/>
