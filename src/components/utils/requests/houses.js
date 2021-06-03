@@ -2,14 +2,23 @@ import axios from "axios";
 import {
     ADD_USER_HOUSE_URL,
     MODIFY_USER_HOUSE_DETAILS_URL,
-    GET_USER_HOUSES_URL, ADD_OR_EDIT_HOUSE_PICTURE_URL, HOUSE_PICTURE_URL
+    GET_USER_HOUSES_URL, ADD_OR_EDIT_HOUSE_PICTURE_URL, HOUSE_PICTURE_URL, GET_ALL_HOUSES,
+    DELETE_HOUSE_BY_ID,
 } from "../Urls";
+
+
+export const getAllHouses = (setter) => {
+    axios.get(GET_ALL_HOUSES).then(r => {
+        setter(r.data);
+    })
+};
 
 export const getHouses = (setter) => {
     axios.get(GET_USER_HOUSES_URL).then(r => {
         setter(r.data);
     })
 };
+
 
 export const getHouseDetails = (houseId, setter) => {
     axios.get(MODIFY_USER_HOUSE_DETAILS_URL + "/" + houseId).then(r => {
@@ -41,6 +50,11 @@ export const addHouse = (title, description, update = null) => {
         update?.();
     })
 };
+
+export const deleteHouseById = async (id) => {
+    return (await axios.delete(DELETE_HOUSE_BY_ID + "/" + id)).data;
+
+}
 
 export const addOrEditPicture = (index = null, url, picture, houseId, update = null) => {
     console.log("request param p", picture)
