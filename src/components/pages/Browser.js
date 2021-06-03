@@ -23,7 +23,7 @@ export default function Browser() {
 function HouseCard(props) {
     return (
         <Card style={{ width: '20rem' }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
+            {/*<Card.Img variant="top" src="holder.js/100px180" />*/}
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
                 <Card.Text>
