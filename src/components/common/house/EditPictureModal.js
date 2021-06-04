@@ -8,7 +8,7 @@ export default function EditPictureModal({show, onHide, index, oldImageUrl, hous
     console.log(pictureFile)
 
     const onFileAddClick = () => {
-        addOrEditPicture(index, newUrl, pictureFile, houseId, update);//todo check index
+        addOrEditPicture(index, newUrl, pictureFile, houseId, update);
         setPictureFile(null)
         onHide();
     }

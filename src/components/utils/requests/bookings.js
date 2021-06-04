@@ -41,6 +41,8 @@ export const changeSentBookingState = async (id, newState) => {
     return (await axios.post(CHANGE_SENT_BOOKING_STATE_BOOKINGS_URL + "/" + id, data)).data;
 }
 
-export const getOtherPersonHousesList = async (bookingId) => {
+export const getOtherPersonHousesList = async (bookingId) => {//todo remove because useless
     return (await axios.get(GET_OTHER_PERSON_HOUSES_URL + "/" + bookingId)).data;
 }
+
+//todo edit de booking

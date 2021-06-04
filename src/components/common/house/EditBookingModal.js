@@ -35,10 +35,8 @@ export default function EditBookingModal({show, onHide, booking, onAcceptClickOn
         }
         bookingFromUser = {id: booking.id, ...bookingFromUser}
         bookingFromOther = {id: booking.id, ...bookingFromOther}
-        if(bookingFromUser.id !== newDemand.id) setNewDemand(bookingFromUser)
+        if (bookingFromUser.id !== newDemand.id) setNewDemand(bookingFromUser)
     }
-
-
 
 
     function handleEditClick() {
@@ -68,7 +66,9 @@ export default function EditBookingModal({show, onHide, booking, onAcceptClickOn
 
                     <div className={"border border-honey"} style={{width: 0}}/>
 
-                    <BookDemand title={"Vous demandez"} bookingDemand={newDemand} isEditable={true}
+                    <BookDemand title={"Vous demandez"} bookingDemand={newDemand}
+                                onCancelEdit={() => setNewDemand(bookingFromUser)}
+                                onOkClick={() => console.log("update", newDemand)}
                                 setNewDemand={setNewDemand}/>
 
                 </div>
@@ -87,13 +87,13 @@ export default function EditBookingModal({show, onHide, booking, onAcceptClickOn
     );
 }
 
-const BookDemand = ({bookingDemand, setNewDemand, title}) => {
+const BookDemand = ({bookingDemand, setNewDemand, onOkClick, onCancelEdit, title}) => {
     const [isEditing, setIsEditing] = useState(false)
     const [otherHouses, setOtherHouses] = useState([])
     useEffect(() => {
-        if(bookingDemand.id && bookingDemand.id !== -1) getOtherPersonHousesList(bookingDemand.id).then(value => setOtherHouses(value));
+        if (bookingDemand.id && bookingDemand.id !== -1) getOtherPersonHousesList(bookingDemand.id).then(value => setOtherHouses(value));
     }, [bookingDemand.id])
-    console.log("otherHouses", otherHouses)
+    // console.log("otherHouses", otherHouses)
     console.log("bookingDemand", bookingDemand)
 
     // console.log(bookingDemand.startDate && (new Date(bookingDemand.startDate)).toLocaleDateString("en-US"))
@@ -105,11 +105,17 @@ const BookDemand = ({bookingDemand, setNewDemand, title}) => {
                 {isEditing ?
                     <>
                         <Button variant={"outline-success"} className={"me-1"}
-                                onClick={() => setIsEditing(false)}>
+                                onClick={() => {
+                                    setIsEditing(false);
+                                    onOkClick()
+                                }}>
                             Sauvegarder
                         </Button>
                         <Button variant={"outline-secondary"}
-                                onClick={() => setIsEditing(false)}>
+                                onClick={() => {
+                                    setIsEditing(false);
+                                    onCancelEdit()
+                                }}>
                             Annuler
                         </Button>
                     </>
@@ -126,9 +132,10 @@ const BookDemand = ({bookingDemand, setNewDemand, title}) => {
                 <div className={"d-inline-flex m-auto mb-2"}>
                     <div className={"mt-2"}>A accéder à la résidence :</div>
 
-                    <DropdownButton variant={"gray"} title={bookingDemand?.house ? bookingDemand.house?.title : "House"} disabled={!isEditing}>
+                    <DropdownButton variant={"gray"} title={bookingDemand?.house ? bookingDemand.house?.title : "House"}
+                                    disabled={!isEditing}>
                         {otherHouses.map((elem, i) => (
-                            <Dropdown.Item key={i} onClick={() => setNewDemand({...bookingDemand, house:elem})}>
+                            <Dropdown.Item key={i} onClick={() => setNewDemand({...bookingDemand, house: elem})}>
                                 {elem.title}
                             </Dropdown.Item>
                         ))}
@@ -138,8 +145,8 @@ const BookDemand = ({bookingDemand, setNewDemand, title}) => {
                 <div className={"d-inline-flex m-auto mb-2"}>
                     <div className={"mt-1"}>du:</div>
                     <Form.Control
-                        value={bookingDemand.startDate ? toYYYYMMDD(bookingDemand.startDate, "-") : toYYYYMMDD("", "-")}
-                        onChange={(event) => (console.log(event.target.value))}
+                        value={bookingDemand.startDate ? toYYYYMMDD(bookingDemand.startDate, "-") : ""}
+                        onChange={(event) => (setNewDemand({...bookingDemand, startDate: event.target.value}))}
                         type="date" size={"sm"} className={"mx-1"} disabled={!isEditing}/>
 
                 </div>
@@ -147,8 +154,8 @@ const BookDemand = ({bookingDemand, setNewDemand, title}) => {
                 <div className={"d-inline-flex m-auto mb-2"}>
                     <div className={"mt-1"}>au:</div>
                     <Form.Control
-                        value={bookingDemand.startDate ? toYYYYMMDD(bookingDemand.endDate, "-") : toYYYYMMDD("", "-")}
-                        onChange={(event) => (console.log(event.target.value))}
+                        value={bookingDemand.endDate ? toYYYYMMDD(bookingDemand.endDate, "-") : ""}
+                        onChange={(event) => (setNewDemand({...bookingDemand, endDate: event.target.value}))}
                         type="date" size={"sm"} className={"mx-1"} disabled={!isEditing}/>
 
                 </div>
