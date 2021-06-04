@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     ADD_BOOKINGS_URL,
     CHANGE_RECEIVED_BOOKING_STATE_BOOKINGS_URL, CHANGE_SENT_BOOKING_STATE_BOOKINGS_URL,
-    GET_BOOKINGS_URL,
+    GET_BOOKINGS_URL, GET_OTHER_PERSON_HOUSES_URL,
     GET_RECEIVED_BOOKINGS_URL,
     REMOVE_BOOKINGS_URL
 } from "../Urls";
@@ -39,4 +39,8 @@ export const changeSentBookingState = async (id, newState) => {
     const data = new FormData();
     data.set("bookingState", newState)
     return (await axios.post(CHANGE_SENT_BOOKING_STATE_BOOKINGS_URL + "/" + id, data)).data;
+}
+
+export const getOtherPersonHousesList = async (bookingId) => {
+    return (await axios.get(GET_OTHER_PERSON_HOUSES_URL + "/" + bookingId)).data;
 }

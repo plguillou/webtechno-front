@@ -1,36 +1,44 @@
-import {Button, DropdownButton, Form, Modal} from "react-bootstrap";
+import {Button, Dropdown, DropdownButton, Form, Modal} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import {userSelector} from "../../utils/store/user/userSelector";
 import {dateStringToLabel, toYYYYMMDD} from "../../utils/utils";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {getOtherPersonHousesList} from "../../utils/requests/bookings";
 
 export default function EditBookingModal({show, onHide, booking, onAcceptClickOnReceivedBooking}) {
     const user = useSelector(userSelector);
-    // console.log(booking)
+    const [newDemand, setNewDemand] = useState({});
+    console.log(booking)
     // console.log(user)
 
     let bookingFromUser;
     let bookingFromOther;
-    if (booking.id !== -1 && user.mail === booking.user1.mail) {
-        bookingFromUser = {
-            user: booking.user1, house: booking.houseWantedByUser1,
-            startDate: booking.startDateHouse1, endDate: booking.endDateHouse1
+    if (booking.id !== -1) {
+        if (user.mail === booking.user1.mail) {
+            bookingFromUser = {
+                user: booking.user1, house: booking.houseWantedByUser1,
+                startDate: booking.startDateHouse1, endDate: booking.endDateHouse1
+            }
+            bookingFromOther = {
+                user: booking.user2, house: booking.houseWantedByUser2,
+                startDate: booking.startDateHouse2, endDate: booking.endDateHouse2
+            }
+        } else {
+            bookingFromUser = {
+                user: booking.user2, house: booking.houseWantedByUser2,
+                startDate: booking.startDateHouse2, endDate: booking.endDateHouse2
+            }
+            bookingFromOther = {
+                user: booking.user1, house: booking.houseWantedByUser1,
+                startDate: booking.startDateHouse1, endDate: booking.endDateHouse1
+            }
         }
-        bookingFromOther = {
-            user: booking.user2, house: booking.houseWantedByUser2,
-            startDate: booking.startDateHouse2, endDate: booking.endDateHouse2
-        }
-    } else {
-        bookingFromUser = {
-            user: booking.user2, house: booking.houseWantedByUser2,
-            startDate: booking.startDateHouse2, endDate: booking.endDateHouse2
-        }
-        bookingFromOther = {
-            user: booking.user1, house: booking.houseWantedByUser1,
-            startDate: booking.startDateHouse1, endDate: booking.endDateHouse1
-        }
+        bookingFromUser = {id: booking.id, ...bookingFromUser}
+        bookingFromOther = {id: booking.id, ...bookingFromOther}
+        if(bookingFromUser.id !== newDemand.id) setNewDemand(bookingFromUser)
     }
-    let [newDemand, setNewDemand] = useState(bookingFromUser);
+
+
 
 
     function handleEditClick() {
@@ -60,7 +68,7 @@ export default function EditBookingModal({show, onHide, booking, onAcceptClickOn
 
                     <div className={"border border-honey"} style={{width: 0}}/>
 
-                    <BookDemand title={"Vous demandez"} bookingDemand={bookingFromUser} isEditable={true}
+                    <BookDemand title={"Vous demandez"} bookingDemand={newDemand} isEditable={true}
                                 setNewDemand={setNewDemand}/>
 
                 </div>
@@ -81,9 +89,15 @@ export default function EditBookingModal({show, onHide, booking, onAcceptClickOn
 
 const BookDemand = ({bookingDemand, setNewDemand, title}) => {
     const [isEditing, setIsEditing] = useState(false)
+    const [otherHouses, setOtherHouses] = useState([])
+    useEffect(() => {
+        if(bookingDemand.id && bookingDemand.id !== -1) getOtherPersonHousesList(bookingDemand.id).then(value => setOtherHouses(value));
+    }, [bookingDemand.id])
+    console.log("otherHouses", otherHouses)
+    console.log("bookingDemand", bookingDemand)
 
-    console.log(bookingDemand.startDate && (new Date(bookingDemand.startDate)).toLocaleDateString("en-US"))
-    console.log(bookingDemand.startDate && (toYYYYMMDD(bookingDemand.startDate, "-")))
+    // console.log(bookingDemand.startDate && (new Date(bookingDemand.startDate)).toLocaleDateString("en-US"))
+    // console.log(bookingDemand.startDate && (toYYYYMMDD(bookingDemand.startDate, "-")))
 
     return (
         <div className={"w-50 px-2 text-center"}>
@@ -111,9 +125,15 @@ const BookDemand = ({bookingDemand, setNewDemand, title}) => {
 
                 <div className={"d-inline-flex m-auto mb-2"}>
                     <div className={"mt-2"}>A accéder à la résidence :</div>
-                    <DropdownButton variant={"gray"} title={"House"} disabled={!isEditing}/>
-                </div>
 
+                    <DropdownButton variant={"gray"} title={bookingDemand?.house ? bookingDemand.house?.title : "House"} disabled={!isEditing}>
+                        {otherHouses.map((elem, i) => (
+                            <Dropdown.Item key={i} onClick={() => setNewDemand({...bookingDemand, house:elem})}>
+                                {elem.title}
+                            </Dropdown.Item>
+                        ))}
+                    </DropdownButton>
+                </div>
 
                 <div className={"d-inline-flex m-auto mb-2"}>
                     <div className={"mt-1"}>du:</div>
@@ -140,26 +160,23 @@ const BookDemand = ({bookingDemand, setNewDemand, title}) => {
 
 const BookDemandOther = ({bookingDemand, title}) => {
 
-    console.log(bookingDemand.startDate && (new Date(bookingDemand.startDate)).toLocaleDateString("en-US"))
-    console.log(bookingDemand.startDate && (toYYYYMMDD(bookingDemand.startDate, "-")))
-
     return (
         <div className={"w-50 px-2 text-center"}>
             <br/>
             <h2>{title}</h2>
             <div>
                 <div className={"mt-2"}>
-                    A accéder à la maison <b>{bookingDemand.house?.title ||
+                    A accéder à la maison <b>{bookingDemand?.house?.title ||
                 <span className={"text-muted"}>aucune résidence souhaitée</span>}</b>
                 </div>
 
                 <div className={"my-1"}>
-                    du <b>{dateStringToLabel(bookingDemand.startDate) ||
+                    du <b>{dateStringToLabel(bookingDemand?.startDate) ||
                 <span className={"text-muted"}>pas de date</span>}</b>
                 </div>
 
                 <div className={"my-1"}>
-                    au <b>{dateStringToLabel(bookingDemand.endDate) ||
+                    au <b>{dateStringToLabel(bookingDemand?.endDate) ||
                 <span className={"text-muted"}>pas de date</span>}</b>
                 </div>
             </div>
@@ -167,4 +184,3 @@ const BookDemandOther = ({bookingDemand, title}) => {
         </div>
     )
 }
-
