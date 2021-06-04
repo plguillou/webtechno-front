@@ -37,7 +37,7 @@ function BrowserField(props) {
              onMouseEnter={() => setIsHovered(true)}
              onMouseLeave={() => setIsHovered(false)}
         >
-            <h4 className="m-0 fs-5">{props.name}</h4>
+            <h4 className="m-0 fs-5 text-fogra29">{props.name}</h4>
             <input type={props.type} placeholder={props.placeholder} required
                    onChange={event => props.setter(event.target.value)}
                    className="border-0 fs-6 bg-transparent"/>
