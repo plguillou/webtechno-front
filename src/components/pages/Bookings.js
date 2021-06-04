@@ -61,7 +61,7 @@ export default function Bookings() {
                     <Alert variant={"success"} key={i} className={"d-inline-flex m-auto my-2 p-2"}>
                         <div className={"m-1 pt-2"}>
                             Demande {elem.isSent ? <span>envoyé par <b>vous</b></span> :
-                            <span>envoyé par <b>{elem.user.name}</b></span>} acceptée
+                            <span>envoyé par <b>{elem.user1?.name}</b></span>} acceptée
                         </div>
                         <div className={"m-1 pt-2"}>pour la résidence "{elem.houseWantedByUser1?.title}"</div>
                         <div

@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "chokidar": "^3.5.1",
     "react-router-dom": "^5.2.0",
     "redux-devtools-extension": "^2.13.9"
   }
