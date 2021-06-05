@@ -1,19 +1,13 @@
 import magnifierIcon from "../../Resources/Icons/Magnifier.png";
 import {useState} from "react";
-import {searchHouses} from "../utils/requests/browser";
+import {searchHouses, setArrivalDate, setDepartureDate, setLocation} from "../utils/requests/browser";
 
 export default function SearchBar(props) {
-    let location = "";
-    const setLocation = (value) => {location = value};
-    let arrivalDate = "";
-    const setArrivalDate = (value) => {arrivalDate = value};
-    let departureDate = "";
-    const setDepartureDate = (value) => {departureDate = value};
 
     return (
         <form method="post" action="" onSubmit={(event) => {
             event.preventDefault();
-            searchHouses(props.searchSetter, location, arrivalDate, departureDate);
+            searchHouses(props.searchSetter);
         }}
               className="d-flex justify-content-center align-items-center rounded-pill bg-white p-2">
             <BrowserField name="Location" type="text" placeholder="Where do you go?" setter={setLocation}/>
