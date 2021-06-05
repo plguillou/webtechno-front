@@ -16,7 +16,7 @@ export default function Bookings() {
     const [editingBooking, setEditingBooking] = useState({id: -1});
     const [receivedBookings, setReceivedBookings] = useState([]);
     const [sentBookings, setSentBookings] = useState([]);
-    const [updateValue, setUpdateValue] = useState(false);
+    const [updateValue, setUpdateValue] = useState(0);
     const update = () => setUpdateValue(updateValue + 1);
     const acceptedBookings = sentBookings?.filter(elem => elem.state === "ACCEPTED").map(elem => ({
         ...elem, isSent: true
@@ -30,10 +30,14 @@ export default function Bookings() {
     useEffect(() => {
         getBookings().then((data) => {
             setSentBookings(data);
+            const editingBookingTemp = data.filter(elem => elem.id === editingBooking.id);
+            if(editingBookingTemp.length) setEditingBooking(editingBookingTemp[0]);
             setIs1Loading(false)
         });
         getReceivedBookings().then((data) => {
             setReceivedBookings(data);
+            const editingBookingTemp = data.filter(elem => elem.id === editingBooking.id);
+            if(editingBookingTemp.length) setEditingBooking(editingBookingTemp[0]);
             setIs2Loading(false)
         });
     }, [updateValue])
@@ -165,6 +169,7 @@ export default function Bookings() {
         </div>
         <EditBookingModal show={editingBooking.id > -1} booking={editingBooking}
                           onHide={() => setEditingBooking({id: -1})}
+                          update={update}
                           onAcceptClickOnReceivedBooking={onAcceptClickOnReceivedBooking}/>
 
     </div>
