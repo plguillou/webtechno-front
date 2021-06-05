@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
     ADD_BOOKINGS_URL,
-    CHANGE_RECEIVED_BOOKING_STATE_BOOKINGS_URL, CHANGE_SENT_BOOKING_STATE_BOOKINGS_URL,
+    CHANGE_RECEIVED_BOOKING_STATE_BOOKINGS_URL, CHANGE_SENT_BOOKING_STATE_BOOKINGS_URL, EDIT_BOOKING_URL,
     GET_BOOKINGS_URL, GET_OTHER_PERSON_HOUSES_URL,
     GET_RECEIVED_BOOKINGS_URL,
     REMOVE_BOOKINGS_URL
@@ -45,4 +45,11 @@ export const getOtherPersonHousesList = async (bookingId) => {//todo remove beca
     return (await axios.get(GET_OTHER_PERSON_HOUSES_URL + "/" + bookingId)).data;
 }
 
-//todo edit de booking
+
+export const editBooking = async (bookingId, startDate, endDate, houseId) => {
+    const data = new FormData();
+    if(startDate) data.set("startDate", (new Date(startDate)).toDateString())
+    if (endDate) data.set("endDate",(new Date(endDate)).toDateString())
+    if(houseId) data.set("houseId", houseId)
+    return (await axios.post(EDIT_BOOKING_URL + "/" + bookingId, data)).data;
+}
