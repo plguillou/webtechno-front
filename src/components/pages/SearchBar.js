@@ -31,11 +31,11 @@ export default function SearchBar(props) {
                 }
             }}
                   className="d-flex justify-content-center align-items-center rounded-pill bg-white p-2">
-                <BrowserField name="Location" type="text" placeholder="Where do you go?" setter={setLocation}/>
+                <BrowserField name="Lieu" type="text" placeholder="Where do you go?" setter={setLocation}/>
                 <div className="border" style={{height: "30px"}}/>
-                <BrowserField name="Arrival" type="date" placeholder="When do you come?" setter={setArrivalDate}/>
+                <BrowserField name="Arrivée" type="date" placeholder="When do you come?" setter={setArrivalDate}/>
                 <div className="border" style={{height: "30px"}}/>
-                <BrowserField name="Departure" type="date" placeholder="When do you leave?" setter={setDepartureDate}/>
+                <BrowserField name="Départ" type="date" placeholder="When do you leave?" setter={setDepartureDate}/>
                 <input type="submit" value=" "
                        className="border-0 rounded-circle p-0 bg-pos-center"
                        style={{backgroundImage: "url(" + magnifierIcon + ")", width: "65px", height: "65px"}}/>
