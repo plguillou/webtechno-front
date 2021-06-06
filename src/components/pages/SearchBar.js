@@ -1,24 +1,39 @@
 import magnifierIcon from "../../Resources/Icons/Magnifier.png";
 import {useState} from "react";
-import {searchHouses, setArrivalDate, setDepartureDate, setLocation} from "../utils/requests/browser";
+import {
+    alertMsg, alertUser,
+    areFieldsComplete, checkDatesPattern, isArrivalBeforeDeparture, isArrivalFuture,
+    searchHouses,
+    setArrivalDate,
+    setDepartureDate,
+    setLocation
+} from "../utils/requests/browser";
 
 export default function SearchBar(props) {
 
     return (
-        <form method="post" action="" onSubmit={(event) => {
-            event.preventDefault();
-            searchHouses(props.searchSetter);
-        }}
-              className="d-flex justify-content-center align-items-center rounded-pill bg-white p-2">
-            <BrowserField name="Location" type="text" placeholder="Where do you go?" setter={setLocation}/>
-            <div className="border" style={{height: "30px"}}/>
-            <BrowserField name="Arrival" type="date" placeholder="When do you come?" setter={setArrivalDate}/>
-            <div className="border" style={{height: "30px"}}/>
-            <BrowserField name="Departure" type="date" placeholder="When do you leave?" setter={setDepartureDate}/>
-            <input type="submit" value=" "
-                   className="border-0 rounded-circle p-0 bg-pos-center"
-                   style={{backgroundImage: "url("+magnifierIcon+")", width: "65px", height: "65px"}}/>
-        </form>
+        <div>
+            <form method="post" action="" onSubmit={(event) => {
+                event.preventDefault();
+                if (areFieldsComplete()) {
+                    if (checkDatesPattern()) {
+                        if (isArrivalFuture() && isArrivalBeforeDeparture()) {
+                            searchHouses(props.searchSetter);
+                        }
+                    }
+                }
+            }}
+                  className="d-flex justify-content-center align-items-center rounded-pill bg-white p-2">
+                <BrowserField name="Location" type="text" placeholder="Where do you go?" setter={setLocation}/>
+                <div className="border" style={{height: "30px"}}/>
+                <BrowserField name="Arrival" type="date" placeholder="When do you come?" setter={setArrivalDate}/>
+                <div className="border" style={{height: "30px"}}/>
+                <BrowserField name="Departure" type="date" placeholder="When do you leave?" setter={setDepartureDate}/>
+                <input type="submit" value=" "
+                       className="border-0 rounded-circle p-0 bg-pos-center"
+                       style={{backgroundImage: "url(" + magnifierIcon + ")", width: "65px", height: "65px"}}/>
+            </form>
+        </div>
     );
 }
 
