@@ -1,5 +1,5 @@
 import magnifierIcon from "../../Resources/Icons/Magnifier.png";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     alertMsg, alertUser,
     areFieldsComplete, checkDatesPattern, isArrivalBeforeDeparture, isArrivalFuture,
@@ -8,8 +8,15 @@ import {
     setDepartureDate,
     setLocation
 } from "../utils/requests/browser";
+import {Alert} from "react-bootstrap";
 
 export default function SearchBar(props) {
+    const [displayAlert, setDisplayAlert] = useState({display: "none"});
+
+    useEffect(() => {
+        if (alertUser) setDisplayAlert({display: "block"});
+        else setDisplayAlert({display: "none"});
+    });
 
     return (
         <div>
@@ -33,6 +40,9 @@ export default function SearchBar(props) {
                        className="border-0 rounded-circle p-0 bg-pos-center"
                        style={{backgroundImage: "url(" + magnifierIcon + ")", width: "65px", height: "65px"}}/>
             </form>
+            <Alert variant="danger" style={displayAlert}>
+                {alertMsg}
+            </Alert>
         </div>
     );
 }
