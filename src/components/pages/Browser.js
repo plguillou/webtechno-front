@@ -29,7 +29,8 @@ function HouseCard(props) {
 
     return (
         <Card style={{ width: '20rem', height: '31rem' }} className="m-3">
-            <Card.Img variant="top" src={photoPath}/>
+            <Card.Img variant="top" src={photoPath}
+                      style={{maxWidth: "20rem", maxHeight: "20rem", width: "auto", height: "auto"}}/>
             <Card.Body className="d-flex flex-column justify-content-between align-items-center">
                 <div className="d-flex flex-column align-items-center">
                     <Card.Title className="fs-3 text-center mb-3">{props.house.title}</Card.Title>
