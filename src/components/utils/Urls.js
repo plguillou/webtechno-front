@@ -26,6 +26,7 @@ export const CHANGE_RECEIVED_BOOKING_STATE_BOOKINGS_URL = address + "/bookings/c
 export const CHANGE_SENT_BOOKING_STATE_BOOKINGS_URL = address + "/bookings/change-sent-booking-state"
 export const GET_OTHER_PERSON_HOUSES_URL = address + "/bookings/get-others-houses"
 export const EDIT_BOOKING_URL = address + "/bookings"
+export const ACCEPT_BOOKING_URL = address + "/bookings"
 
 export const BROWSE_HOUSES_URL = address + "/browse/search"
 

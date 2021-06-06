@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {userSelector} from "../../utils/store/user/userSelector";
 import {dateStringToLabel, toYYYYMMDD} from "../../utils/utils";
 import {useEffect, useState} from "react";
-import {editBooking, getOtherPersonHousesList} from "../../utils/requests/bookings";
+import {acceptBooking, editBooking, getOtherPersonHousesList} from "../../utils/requests/bookings";
 
 export default function EditBookingModal({show, onHide, booking, onAcceptClickOnReceivedBooking, update}) {
     const user = useSelector(userSelector);
@@ -46,8 +46,10 @@ export default function EditBookingModal({show, onHide, booking, onAcceptClickOn
 
 
     function handleAcceptClick() {
-        onAcceptClickOnReceivedBooking(booking)
-        onHide()
+        console.log("accept", booking)
+        if (booking.id === -1) return;
+        acceptBooking(booking.id).then(() => update())
+        // onHide()
     }
 
     const handleEditClick = (newDemand) => {
@@ -83,6 +85,7 @@ export default function EditBookingModal({show, onHide, booking, onAcceptClickOn
                                      dateCorresponding={
                                          toYYYYMMDD(bookingFromUser?.startDate) === toYYYYMMDD(bookingFromOther?.startDate)
                                          && toYYYYMMDD(bookingFromUser?.endDate) === toYYYYMMDD(bookingFromOther?.endDate)}
+                                     handleAccept={handleAcceptClick}
                     />
 
                     <div className={"border border-honey"} style={{width: 0}}/>
@@ -183,7 +186,7 @@ const BookDemand = ({bookingDemand, setNewDemand, onOkClick, onCancelEdit, title
     )
 }
 
-const BookDemandOther = ({bookingDemand, title, dateCorresponding = false}) => {
+const BookDemandOther = ({bookingDemand, title, dateCorresponding = false, handleAccept}) => {
     const isAcceptable = bookingDemand?.house && bookingDemand?.startDate && bookingDemand?.endDate && dateCorresponding;
 
     return (
@@ -208,7 +211,7 @@ const BookDemandOther = ({bookingDemand, title, dateCorresponding = false}) => {
             </div>
 
             <div className={"d-flex justify-content-center mt-4"}>
-                <Button size={"lg"} variant={"success"} disabled={!isAcceptable}>
+                <Button size={"lg"} variant={"success"} disabled={!isAcceptable} onClick={handleAccept}>
                     Accepter sa demande
                 </Button>
             </div>
