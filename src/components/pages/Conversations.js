@@ -12,18 +12,10 @@ function Conversations() {
     userInit.confirmPassword = "";
     const dispatch = useDispatch();
 
-    const handleLogOut = () => {
-        dispatch(logout());
-    }
-
-    const [isEditingProfile, setIsEditingProfile] = useState(false);
-    const [passwordAreSame, setPasswordAreSame] = useState(true);
     const [updateValue, setUpdateValue] = useState(false);
     const update = () => setUpdateValue(updateValue + 1);
 
     const [user, setUser] = useState(userInit);
-    const [newUser, setNewUser] = useState({});
-
     const [otherUser, setOtherUser] = useState({userInit});
     otherUser.name = "Other User";
     otherUser.mail = "other@user.com";
@@ -32,25 +24,11 @@ function Conversations() {
         getProfileInfos(setUser)
     }, [updateValue]);
 
-    useEffect(() => {
-        setNewUser(user);
-    }, [user])
 
-
-    const handleCancelClick = () => {
-        setNewUser(user);
-        setIsEditingProfile(false);
+    const handleSendClick = () => {
+        ;
     }
 
-    const handleOkClick = () => {
-        if (newUser.password === newUser.confirmPassword) {
-            setPasswordAreSame(true);
-            modifyProfileInfos(newUser, update);
-            setIsEditingProfile(false);
-        } else {
-            setPasswordAreSame(false);
-        }
-    }
 
     return <>
 
@@ -74,105 +52,52 @@ function Conversations() {
             </div>
 
             <div style={{width: '75vw'}} className={""}>{/* La partie messages */}
-                <div style={{height: '67vh', display: 'block', overflowY: "auto"}} className={"container"}>
-                    {/*<div className={"w-75 mx-5 pt-4 pb-5 pt-lg-0"}>*/}
 
-                    <Message content={newUser?.name} myMessage={false}/>
+                <div style={{height: '67vh', display: 'block', overflowY: "auto"}} className={"container-fluid"}>
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
 
-                    <Message content={newUser?.name} myMessage={true}/>
+                        <Message content={user?.mail} isMyMessage={false}/>
+                        <Message content={user?.name} isMyMessage={true}/>
+                        <Message content={user?.mail} isMyMessage={false}/>
+                        <Message content={user?.name} isMyMessage={true}/>
+                        <Message content={user?.mail} isMyMessage={false}/>
+                        <Message content={user?.name} isMyMessage={true}/>
+                        <Message content={user?.name} isMyMessage={true}/>
+                        <Message content={user?.mail} isMyMessage={false}/>
+                        <Message content={user?.name} isMyMessage={true}/>
+                        <Message content={"hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola " +
+                                          "hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola " +
+                                          "hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola"} isMyMessage={false}/>
+                        <Message content={user?.name} isMyMessage={true}/>
+                        <Message content={user?.mail} isMyMessage={false}/>
 
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-                    <Message content={newUser?.name} myMessage={true}/>
-
-                    <Message content={newUser?.mail} myMessage={false}/>
-
-
-                    <br/>
+                    </div>
                 </div>
-
-
 
 
                 <hr/>
 
 
-
-
                 <div className={"d-lg-inline-flex justify-content-center container pt-2"}>
-                    <div className={"w-25"}>
+
+                    <div className={"w-75"}>
                         <div className={"container-fluid"}>
-                            <div>
-                                <Form.Control
-                                    type={"text"}
-                                    className={"bg-light text-fogra29 border  " + (isEditingProfile ? "border-dark" : "")}
-                                    placeholder={"Enter new message here ..."}
-                                    onChange={(e) => setOtherUser({...otherUser, name: e.target.value})}/>
-                            </div>
+                            <Form.Control
+                                type={"text"}
+                                className={"bg-light text-fogra29 border"}
+                                placeholder={"Enter new message here ..."}/>
                         </div>
                     </div>
+
                     <div className={""}>
-                        {isEditingProfile ?
-                            ""
-                            :
-                            <Button className={"float-end"}
-                                    variant={"outline-primary"}
-                                    onClick={() => setIsEditingProfile(true)}>
-                                Send
-                            </Button>
-                        }
+                        <Button className={"float-end"}
+                                variant={"outline-primary"}
+                                onClick={() => handleSendClick()}>
+                            Send
+                        </Button>
                     </div>
-                    <div>
-                        {
 
-                            isEditingProfile && <>
-                                <div className={"d-flex justify-content-end"}>
-                                    <div className={"mx-2"}>
-                                        <Button variant={"outline-success"} onClick={handleOkClick}>OK</Button>
-                                    </div>
-                                    <div className={"mx-2"}>
-                                        <Button variant={"outline-secondary"} onClick={handleCancelClick}>Cancel</Button>
-                                    </div>
-                                </div>
-                            </>
-                        }
-                    </div>
                 </div>
-
-
-
 
             </div>
         </div>
@@ -180,26 +105,13 @@ function Conversations() {
     </>
 }
 
-const Input = ({title, variable, isEditingProfile, onInputChange, type = "text"}) => {
-    return <div className={"container-fluid p-2 m-1"}>
-        <div>{title} :</div>
-        <div>
-            <Form.Control
-                type={type}
-                className={"bg-light text-fogra29 border  " + (isEditingProfile ? "border-dark" : "")}
-                value={variable ? variable : ""}
-                disabled={!isEditingProfile}
-                onChange={onInputChange}/>
-        </div>
-    </div>
-}
 
-const Message = ({content, myMessage}) => {
-    return <div className={"container-fluid px-2 py-3 my-1 "}>
-        <div style={{display: "block"}} className={"py-3"}>
+const Message = ({content, isMyMessage}) => {
+    return <div className={"container-fluid px-2 py-3 my-1"}>
+        <div style={{display: "block"}} className={"py-3 container-fluid"}>
             <div
-                style={{borderRadius: 25}}
-                className={"bg-light text-fogra29 p-2 border " + (myMessage ? "float-end mr-1" : "float-start ml-1")}>
+                style={{borderRadius: 25, maxWidth: '50vw'}}
+                className={"text-fogra29 p-2 " + (isMyMessage ? "float-end mr-1 bg-honey" : "float-start ml-1 bg-silver")}>
                 {content ? content : ""}
             </div>
         </div>
