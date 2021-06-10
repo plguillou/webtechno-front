@@ -31,11 +31,14 @@ export default function SearchBar(props) {
                 }
             }}
                   className="d-flex justify-content-center align-items-center rounded-pill bg-white p-2">
-                <BrowserField name="Lieu" type="text" placeholder="Where do you go?" setter={setLocation}/>
+                <BrowserField name="Lieu" type="text" placeholder="Where do you go?"
+                              size={{minWidth: "210px", width: "18vw"}} setter={setLocation}/>
                 <div className="border" style={{height: "30px"}}/>
-                <BrowserField name="Arrivée" type="date" placeholder="When do you come?" setter={setArrivalDate}/>
+                <BrowserField name="Arrivée" type="date" placeholder="When do you come?"
+                              size={{minWidth: "150px", width: "11vw"}} setter={setArrivalDate}/>
                 <div className="border" style={{height: "30px"}}/>
-                <BrowserField name="Départ" type="date" placeholder="When do you leave?" setter={setDepartureDate}/>
+                <BrowserField name="Départ" type="date" placeholder="When do you leave?"
+                              size={{minWidth: "150px", width: "11vw"}} setter={setDepartureDate}/>
                 <input type="submit" value=" "
                        className="border-0 rounded-circle p-0 bg-pos-center"
                        style={{backgroundImage: "url(" + magnifierIcon + ")", width: "65px", height: "65px"}}/>
@@ -52,7 +55,7 @@ function BrowserField(props) {
 
     return(
         <div className={"rounded-pill py-2 px-4 " + (isHovered ?  "bg-light" : "bg-white")}
-             style={{minWidth: "210px", width: "18vw"}}
+             style={props.size}
              onMouseEnter={() => setIsHovered(true)}
              onMouseLeave={() => setIsHovered(false)}
         >
