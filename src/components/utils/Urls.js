@@ -34,3 +34,8 @@ export const GET_ALL_USERS = address + "/admin/user/all";
 export const DELETE_USER_BY_ID = address + "/admin/user/delete"
 export const GET_ALL_HOUSES = address + "/admin/house/all";
 export const DELETE_HOUSE_BY_ID = address + "/admin/house/delete"
+
+export const GET_CONVERSATIONS_URL = address + "/message/all-conversations";
+export const ADD_CONVERSATION_URL = address + "/message/new-conversation";
+export const ADD_MESSAGE_URL = address + "/message/new-message";
+export const GET_MESSAGES_URL = address + "/message/get-messages";
