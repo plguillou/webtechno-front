@@ -17,7 +17,7 @@ export const searchHouses = (setter) => {
     data.set("location", location);
     data.set("arrival", arrivalDate);
     data.set("departure", departureDate);
-    console.log(location, arrivalDate, departureDate)
+    // console.log(location, arrivalDate, departureDate)
     axios.post(BROWSE_HOUSES_URL, data).then(r => {
         setter(r.data)
     });

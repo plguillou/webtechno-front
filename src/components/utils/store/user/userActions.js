@@ -59,6 +59,10 @@ export const getUserInfos = () => {
                 dispatch(setUser({...user}));
                 dispatch(logSuccess());
             }
-        )
+        ).catch((error) => {
+            if(parseInt(error.response?.status) === 403) {
+                localStorage.removeItem("authJwtToken")
+            }
+        })
     }
 }

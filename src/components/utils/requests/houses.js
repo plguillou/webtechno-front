@@ -67,16 +67,16 @@ export const addOrEditPicture = (index = null, url, picture, houseId, update = n
     if (picture) data.set("picture", picture);
     if (index!=null && index >= 0) data.set("index", index);
     if (url && !picture) data.set("url", url);
-    console.log(data)
+    // console.log(data)
     axios.post(ADD_OR_EDIT_HOUSE_PICTURE_URL + "/" + houseId, data).then(r => {
-        console.log(r)
+        // console.log(r)
         update?.();
     })
 };
 
 export const deletePicture = (pictureId, update = null) => {
     axios.delete(HOUSE_PICTURE_URL + "/" + pictureId).then(r => {
-        console.log(r)
+        // console.log(r)
         update?.();
     })
 };

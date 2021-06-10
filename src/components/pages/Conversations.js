@@ -13,6 +13,7 @@ function Conversations() {
     const [updateValue, setUpdateValue] = useState(0);
     const update = () => setUpdateValue((value) => value + 1);
 
+    const [isConversationSelected, setIsConversationSelected] = useState(false);
     const [text, setText] = useState("");
     const [conversationViewed, setConversationViewed] = useState({id: conversationIdFromParam || 0})
     const [conversations, setConversations] = useState([]);
@@ -35,7 +36,6 @@ function Conversations() {
     useEffect(() => {
         const interval = setInterval(() => {
             update()
-            console.log("test" + updateValue)
         }, 3000)
         return () => clearInterval(interval);
     }, [])
@@ -43,10 +43,11 @@ function Conversations() {
 
     const scrollDown = () => {
         const element = document.getElementById("messageDiv");
-        element.scrollTop = element.scrollHeight;
+        element.scrollTop = element?.scrollHeight;
     }
 
-    const handleSendClick = () => {
+    const handleSendSubmit = (event) => {
+        event.preventDefault();
         if (conversationViewed.id !== 0 && text !== "") {
             addMessage(conversationViewed.id, text).then(() => {
                 update();
@@ -71,7 +72,10 @@ function Conversations() {
                                 <div
                                     className={"p-3 border-bottom " + (conversationViewed.id === conversation.id ? "fw-bold" : "")}
                                     key={i} style={{cursor: "pointer"}}
-                                    onClick={() => setConversationViewed(conversation)}>
+                                    onClick={() => {
+                                        setConversationViewed(conversation);
+                                        setIsConversationSelected(true)
+                                    }}>
                                     {conversation.user.name}
                                 </div>
                             ))
@@ -104,10 +108,15 @@ function Conversations() {
                                     <Message key={i} content={message.text} isMyMessage={message.fromUser}/>
                                 ))
                                 :
-                                <div className={"text-center text-muted mt-5 pt-5 text-size-4"}>
-                                    Sélectionnez un contact <br/>
-                                    <i className={"bi-arrow-left"}/>
-                                </div>
+                                isConversationSelected ?
+                                    <div className={"text-center text-muted mt-5 pt-5 text-size-2"}>
+                                        Pas de messages
+                                    </div>
+                                    :
+                                    <div className={"text-center text-muted mt-5 pt-5 text-size-4"}>
+                                        Sélectionnez un contact <br/>
+                                        <i className={"bi-arrow-left"}/>
+                                    </div>
                         }
 
 
@@ -117,30 +126,34 @@ function Conversations() {
 
                 <hr/>
 
+                <Form onSubmit={event => handleSendSubmit(event)}>
+                    <div className={"d-lg-inline-flex justify-content-center container pt-2"}>
 
-                <div className={"d-lg-inline-flex justify-content-center container pt-2"}>
-
-                    <div className={"w-75"}>
-                        <div className={"container-fluid"}>
-                            <Form.Control
-                                type={"text"}
-                                value={text}
-                                onChange={(event) => setText(event.target.value)}
-                                className={"bg-light text-fogra29 border"}
-                                placeholder={"Enter new message here ..."}/>
+                        <div className={"w-75"}>
+                            <div className={"container-fluid"}>
+                                <Form.Control
+                                    type={"text"}
+                                    value={text}
+                                    onChange={(event) => setText(event.target.value)}
+                                    className={"bg-light text-fogra29 border"}
+                                    placeholder={"Enter new message here ..."}/>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <Button className={"float-end"}
-                                variant={"outline-primary"}
-                                disabled={conversationViewed.id === 0}
-                                onClick={() => handleSendClick()}>
-                            Send
-                        </Button>
-                    </div>
+                        <div>
 
-                </div>
+                            <Button className={"float-end"}
+                                    variant={"outline-primary"}
+                                    type={"submit"}
+                                    disabled={conversationViewed.id === 0}>
+                                Send
+                            </Button>
+
+                        </div>
+
+
+                    </div>
+                </Form>
 
             </div>
         </div>
@@ -150,8 +163,8 @@ function Conversations() {
 
 
 const Message = ({content, isMyMessage}) => {
-    return <div className={"container-fluid px-2 py-3 my-1"}>
-        <div style={{display: "block"}} className={"py-3 container-fluid"}>
+    return <div className={"container-fluid px-2 py-2 my-1"}>
+        <div style={{display: "block"}}>
             <div
                 style={{borderRadius: 25, maxWidth: '50vw'}}
                 className={"text-fogra29 p-2 " + (isMyMessage ? "float-end mr-1 bg-honey" : "float-start ml-1 bg-silver")}>
