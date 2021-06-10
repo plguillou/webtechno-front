@@ -24,6 +24,10 @@ function Conversations() {
         getProfileInfos(setUser)
     }, [updateValue]);
 
+    const scrollDown = () => {
+        var element = document.getElementById("messageDiv");
+        element.scrollTop = element.scrollHeight;
+    }
 
     const handleSendClick = () => {
         ;
@@ -34,8 +38,32 @@ function Conversations() {
 
         <div style={{height: '85vh', width: '99vw'}} className={"d-lg-inline-flex justify-content-evenly"}> {/* Contient tout */}
 
-            <div style={{width: '25vw'}} className={"border-end"}>{/* La partie contact */}
-                <div>
+            <div style={{width: '25vw', display: 'block', overflowY: "auto"}} className={"border-end container-fluid"}>{/* La partie contact */}
+                <div style={{width: '22vw', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                    <div className={"p-3 border-bottom"}>
+                        Contact 1
+                    </div>
+                    <div className={"p-3 border-bottom"}>
+                        Contact 2
+                    </div>
+                    <div className={"p-3 border-bottom"}>
+                        Contact 3
+                    </div>
+                    <div className={"p-3 border-bottom"}>
+                        Contact 4
+                    </div>
+                    <div className={"p-3 border-bottom"}>
+                        Contact 1
+                    </div>
+                    <div className={"p-3 border-bottom"}>
+                        Contact 2
+                    </div>
+                    <div className={"p-3 border-bottom"}>
+                        Contact 3
+                    </div>
+                    <div className={"p-3 border-bottom"}>
+                        Contact 4
+                    </div>
                     <div className={"p-3 border-bottom"}>
                         Contact 1
                     </div>
@@ -53,7 +81,7 @@ function Conversations() {
 
             <div style={{width: '75vw'}} className={""}>{/* La partie messages */}
 
-                <div style={{height: '67vh', display: 'block', overflowY: "auto"}} className={"container-fluid"}>
+                <div id={"messageDiv"} style={{scrollBehavior: 'revert', height: '67vh', display: 'block', overflowY: "auto"}} className={"container-fluid"}>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
 
                         <Message content={user?.mail} isMyMessage={false}/>
