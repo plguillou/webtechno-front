@@ -12,7 +12,7 @@ export default function Browser() {
             <div className="d-flex justify-content-center align-items-center py-5 bg-gray">
                 <SearchBar searchSetter={setBrowsedHouses}/>
             </div>
-            <div className="d-flex justify-content-around align-items-center bg-light py-4">
+            <div className="d-flex justify-content-evenly align-items-center flex-wrap bg-light py-4">
                 {browsedHouses.map(house => {
                     return <HouseCard key={house.id} house={house}/>
                 })}
@@ -28,14 +28,17 @@ function HouseCard(props) {
         : "";
 
     return (
-        <Card style={{ width: '20rem' }}>
-            <Card.Img variant="top" src={photoPath}/>
-            <Card.Body>
-                <Card.Title>{props.house.title}</Card.Title>
-                <Card.Text>
-                    {props.house.description}
-                </Card.Text>
-                <Link to={"/house-details/" + props.house.id}>
+        <Card style={{ width: '20rem', height: '31rem' }} className="m-3">
+            <Card.Img variant="top" src={photoPath}
+                      style={{maxWidth: "20rem", maxHeight: "20rem", width: "auto", height: "auto"}}/>
+            <Card.Body className="d-flex flex-column justify-content-between align-items-center">
+                <div className="d-flex flex-column align-items-center">
+                    <Card.Title className="fs-3 text-center mb-3">{props.house.title}</Card.Title>
+                    <Card.Text>
+                        {props.house.description}
+                    </Card.Text>
+                </div>
+                <Link to={"/house-details/" + props.house.id} className="mb-3">
                     <Button variant="primary">See details</Button>
                 </Link>
             </Card.Body>
