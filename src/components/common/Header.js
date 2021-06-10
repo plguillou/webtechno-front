@@ -51,7 +51,7 @@ function Header() {//todo fix warning
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item as="div">
-                                    <Link to={""} className="text-fogra29">
+                                    <Link to={"/conversations"} className="text-fogra29">
                                         Conversations
                                     </Link>
                                 </NavDropdown.Item>

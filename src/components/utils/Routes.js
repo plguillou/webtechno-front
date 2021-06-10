@@ -13,6 +13,7 @@ import HouseDetails from "../pages/HouseDetails";
 import Bookings from "../pages/Bookings";
 import Admin from "../pages/Admin";
 import Browser from "../pages/Browser";
+import Conversations from "../pages/Conversations";
 
 
 export default function Routes() {
@@ -32,6 +33,7 @@ export default function Routes() {
                     <Route path="/admin" component={(isLogged && isAdmin) ? Admin : ExceptionPage}/>
                     <Route path="/bookings" component={isLogged ? Bookings : ExceptionPage}/>
                     <Route path="/browse" component={Browser}/>
+                    <Route path="/conversations" component={isLogged ? Conversations : ExceptionPage}/>
                     <Route path="/" component={Home}/>
                 </Switch>
             </div>
