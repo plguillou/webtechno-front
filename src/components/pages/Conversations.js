@@ -1,31 +1,29 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {userSelector} from "../utils/store/user/userSelector";
-import {logout, getUserInfos} from "../utils/store/user/userActions";
-import {Link, useParams} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {getProfileInfos, modifyProfileInfos} from "../utils/requests/profile";
+import {getConversations} from "../utils/requests/message";
 
 function Conversations() {
-    const userInit = useSelector(userSelector);
-    userInit.password = "";
-    userInit.confirmPassword = "";
-    const dispatch = useDispatch();
+    const user = useSelector(userSelector);
 
     const [updateValue, setUpdateValue] = useState(false);
     const update = () => setUpdateValue(updateValue + 1);
 
-    const [user, setUser] = useState(userInit);
-    const [otherUser, setOtherUser] = useState({userInit});
-    otherUser.name = "Other User";
-    otherUser.mail = "other@user.com";
+    const [conversationViewed, setConversationViewed] = useState({id:0})
+    const [conversations, setConversations] = useState([]);
+    const [messages, setMessages] = useState([]);
+    console.log("conversations", conversations)
 
     useEffect(() => {
-        getProfileInfos(setUser)
+        getConversations().then(value => setConversations(value));
+        // getConversations().then(value => setConversations(value));
     }, [updateValue]);
 
+
+
     const scrollDown = () => {
-        var element = document.getElementById("messageDiv");
+        const element = document.getElementById("messageDiv");
         element.scrollTop = element.scrollHeight;
     }
 
@@ -40,42 +38,24 @@ function Conversations() {
 
             <div style={{width: '25vw', display: 'block', overflowY: "auto"}} className={"border-end container-fluid"}>{/* La partie contact */}
                 <div style={{width: '22vw', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 1
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 2
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 3
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 4
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 1
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 2
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 3
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 4
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 1
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 2
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 3
-                    </div>
-                    <div className={"p-3 border-bottom"}>
-                        Contact 4
-                    </div>
+                    {
+                        conversations.map((conversation, i) => (
+                            <div className={"p-3 border-bottom "+  (conversationViewed.id === conversation.id ? "fw-bold" : "")} key={i} style={{cursor:"pointer"}} onClick={() => setConversationViewed(conversation)}>
+                                {conversation.user.name}
+                            </div>
+                        ))
+                    }
+
+                    {/*<div className={"p-3 border-bottom"}>*/}
+                    {/*    Contact 2*/}
+                    {/*</div>*/}
+                    {/*<div className={"p-3 border-bottom"}>*/}
+                    {/*    Contact 3*/}
+                    {/*</div>*/}
+                    {/*<div className={"p-3 border-bottom"}>*/}
+                    {/*    Contact 4*/}
+                    {/*</div>*/}
+
                 </div>
             </div>
 

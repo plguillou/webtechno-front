@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ADD_CONVERSATION_URL, GET_CONVERSATIONS_URL, GET_MESSAGES_URL} from "../Urls";
+import {ADD_CONVERSATION_URL, ADD_MESSAGE_URL, GET_CONVERSATIONS_URL, GET_MESSAGES_URL} from "../Urls";
 
 export const getConversations = async () => {
     return (await axios.get(GET_CONVERSATIONS_URL)).data;
@@ -18,5 +18,5 @@ export const getMessages = async (conversationId) => {
 export const addMessage = async (conversationId, text) => {
     const data = new FormData();
     data.append("text", text);
-    return (await axios.post(ADD_CONVERSATION_URL + "/" + conversationId, data)).data;
+    return (await axios.post(ADD_MESSAGE_URL + "/" + conversationId, data)).data;
 }
