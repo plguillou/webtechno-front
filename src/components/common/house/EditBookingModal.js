@@ -46,14 +46,14 @@ export default function EditBookingModal({show, onHide, booking, onAcceptClickOn
 
 
     function handleAcceptClick() {
-        console.log("accept", booking)
+        // console.log("accept", booking)
         if (booking.id === -1) return;
         acceptBooking(booking.id).then(() => update())
         // onHide()
     }
 
     const handleEditClick = (newDemand) => {
-        console.log("bookingid", booking)
+        // console.log("bookingid", booking)
         if (booking.id === -1) return;
         editBooking(booking.id, newDemand.startDate, newDemand.endDate, newDemand.house?.id).then(() => {
             update();

@@ -12,8 +12,8 @@ export default function Signin() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        console.log(fields);
-        console.warn(errors);
+        // console.log(fields);
+        // console.warn(errors);
         if (fields.password !== fields.passwordConfirm || fields.password === "") {
             setErrors({...errors, passwordConfirm: "Le mot de passe ne correspond pas"})
             return;

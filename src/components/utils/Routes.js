@@ -15,7 +15,6 @@ import Admin from "../pages/Admin";
 import Browser from "../pages/Browser";
 import Conversations from "../pages/Conversations";
 
-
 export default function Routes() {
     const isLogged = useSelector(userSelector).isLogged;
     const isAdmin = (useSelector(userSelector).role === "ADMIN");
@@ -33,7 +32,7 @@ export default function Routes() {
                     <Route path="/admin" component={(isLogged && isAdmin) ? Admin : ExceptionPage}/>
                     <Route path="/bookings" component={isLogged ? Bookings : ExceptionPage}/>
                     <Route path="/browse" component={Browser}/>
-                    <Route path="/conversations" component={isLogged ? Conversations : ExceptionPage}/>
+                    <Route path="/conversations/:conversationId?" component={isLogged ? Conversations : ExceptionPage}/>
                     <Route path="/" component={Home}/>
                 </Switch>
             </div>

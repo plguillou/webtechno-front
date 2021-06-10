@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {userSelector} from "../utils/store/user/userSelector";
-import {logout, getUserInfos} from "../utils/store/user/userActions";
-import {Link, useParams} from "react-router-dom";
+import {logout} from "../utils/store/user/userActions";
+import {Link} from "react-router-dom";
 import {Button, Form} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {getProfileInfos, modifyProfileInfos} from "../utils/requests/profile";

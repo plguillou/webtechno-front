@@ -8,6 +8,6 @@ export const attemptSignin = async (name, password, mail ) => {
     data.set("mail", mail);
     let error = false;
     const response = (await axios.post(SIGNIN_URL, data).catch(reason => error = reason.response));
-    console.log(response)
+    // console.log(response)
     return {data: response.data, error: error}
 }

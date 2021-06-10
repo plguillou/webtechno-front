@@ -2,24 +2,43 @@ import {useSelector} from "react-redux";
 import {userSelector} from "../utils/store/user/userSelector";
 import {Button, Form} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {getConversations} from "../utils/requests/message";
+import {addMessage, getConversations, getMessages} from "../utils/requests/message";
+import {useParams} from "react-router-dom";
 
 function Conversations() {
     const user = useSelector(userSelector);
+    const conversationIdFromParam = parseInt(useParams().conversationId)
 
-    const [updateValue, setUpdateValue] = useState(false);
-    const update = () => setUpdateValue(updateValue + 1);
 
-    const [conversationViewed, setConversationViewed] = useState({id:0})
+    const [updateValue, setUpdateValue] = useState(0);
+    const update = () => setUpdateValue((value) => value + 1);
+
+    const [text, setText] = useState("");
+    const [conversationViewed, setConversationViewed] = useState({id: conversationIdFromParam || 0})
     const [conversations, setConversations] = useState([]);
     const [messages, setMessages] = useState([]);
-    console.log("conversations", conversations)
+
 
     useEffect(() => {
         getConversations().then(value => setConversations(value));
-        // getConversations().then(value => setConversations(value));
     }, [updateValue]);
 
+    useEffect(() => {
+        if (conversationViewed.id !== 0) {
+            getMessages(conversationViewed.id).then(value => {
+                console.log(value)
+                setMessages(value)
+                scrollDown()
+            })
+        }
+    }, [updateValue, conversationViewed])
+
+    useEffect(() => {
+        setInterval(() => {
+            update()
+            console.log("test" + updateValue)
+        }, 3000)
+    }, [])
 
 
     const scrollDown = () => {
@@ -28,56 +47,69 @@ function Conversations() {
     }
 
     const handleSendClick = () => {
-        ;
+        if (conversationViewed.id !== 0 && text !== "") {
+            addMessage(conversationViewed.id, text).then(() => {
+                update();
+            })
+            setText("");
+        }
     }
 
 
     return <>
 
-        <div style={{height: '85vh', width: '99vw'}} className={"d-lg-inline-flex justify-content-evenly"}> {/* Contient tout */}
+        <div style={{minHeight: '87vh', width: '99vw'}}
+             className={"d-lg-inline-flex justify-content-evenly"}> {/* Contient tout */}
 
-            <div style={{width: '25vw', display: 'block', overflowY: "auto"}} className={"border-end container-fluid"}>{/* La partie contact */}
+            <div style={{width: '25vw', display: 'block', overflowY: "auto"}}
+                 className={"border-end container-fluid"}>{/* La partie contact */}
                 <div style={{width: '22vw', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     {
-                        conversations.map((conversation, i) => (
-                            <div className={"p-3 border-bottom "+  (conversationViewed.id === conversation.id ? "fw-bold" : "")} key={i} style={{cursor:"pointer"}} onClick={() => setConversationViewed(conversation)}>
-                                {conversation.user.name}
+                        conversations.length > 0 ?
+
+                            conversations.map((conversation, i) => (
+                                <div
+                                    className={"p-3 border-bottom " + (conversationViewed.id === conversation.id ? "fw-bold" : "")}
+                                    key={i} style={{cursor: "pointer"}}
+                                    onClick={() => setConversationViewed(conversation)}>
+                                    {conversation.user.name}
+                                </div>
+                            ))
+                            :
+                            <div className={"text-center text-muted mt-5 text-size-2"}>
+                                <div>
+                                    On dirait que vous n'avez pas de contacts
+                                </div>
+                                <br/>
+                                <div>
+                                    Contactez quelqu'un en vous rendant sur la page d'une de ses résidences
+                                </div>
                             </div>
-                        ))
                     }
 
-                    {/*<div className={"p-3 border-bottom"}>*/}
-                    {/*    Contact 2*/}
-                    {/*</div>*/}
-                    {/*<div className={"p-3 border-bottom"}>*/}
-                    {/*    Contact 3*/}
-                    {/*</div>*/}
-                    {/*<div className={"p-3 border-bottom"}>*/}
-                    {/*    Contact 4*/}
-                    {/*</div>*/}
 
                 </div>
             </div>
 
             <div style={{width: '75vw'}} className={""}>{/* La partie messages */}
 
-                <div id={"messageDiv"} style={{scrollBehavior: 'revert', height: '67vh', display: 'block', overflowY: "auto"}} className={"container-fluid"}>
+                <div id={"messageDiv"}
+                     style={{scrollBehavior: 'revert', height: '67vh', display: 'block', overflowY: "auto"}}
+                     className={"container-fluid"}>
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
 
-                        <Message content={user?.mail} isMyMessage={false}/>
-                        <Message content={user?.name} isMyMessage={true}/>
-                        <Message content={user?.mail} isMyMessage={false}/>
-                        <Message content={user?.name} isMyMessage={true}/>
-                        <Message content={user?.mail} isMyMessage={false}/>
-                        <Message content={user?.name} isMyMessage={true}/>
-                        <Message content={user?.name} isMyMessage={true}/>
-                        <Message content={user?.mail} isMyMessage={false}/>
-                        <Message content={user?.name} isMyMessage={true}/>
-                        <Message content={"hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola " +
-                                          "hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola " +
-                                          "hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola hola"} isMyMessage={false}/>
-                        <Message content={user?.name} isMyMessage={true}/>
-                        <Message content={user?.mail} isMyMessage={false}/>
+                        {
+                            messages.length > 0 ?
+                                messages.map((message, i) => (
+                                    <Message key={i} content={message.text} isMyMessage={message.fromUser}/>
+                                ))
+                                :
+                                <div className={"text-center text-muted mt-5 pt-5 text-size-4"}>
+                                    Sélectionnez un contact <br/>
+                                    <i className={"bi-arrow-left"}/>
+                                </div>
+                        }
+
 
                     </div>
                 </div>
@@ -92,14 +124,17 @@ function Conversations() {
                         <div className={"container-fluid"}>
                             <Form.Control
                                 type={"text"}
+                                value={text}
+                                onChange={(event) => setText(event.target.value)}
                                 className={"bg-light text-fogra29 border"}
                                 placeholder={"Enter new message here ..."}/>
                         </div>
                     </div>
 
-                    <div className={""}>
+                    <div>
                         <Button className={"float-end"}
                                 variant={"outline-primary"}
+                                disabled={conversationViewed.id === 0}
                                 onClick={() => handleSendClick()}>
                             Send
                         </Button>

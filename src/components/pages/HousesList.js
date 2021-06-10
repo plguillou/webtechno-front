@@ -19,7 +19,7 @@ function HousesList() {
 
     const onNewHouseSubmit = (newHouseTitle, newHouseDescription) => {
         if(newHouseTitle === "") return;
-        console.log(newHouseTitle, newHouseDescription)
+        // console.log(newHouseTitle, newHouseDescription)
         addHouse(newHouseTitle, newHouseDescription, update)
         setIsAddingHouse(false);
         setTimeout(() => dispatch(getUserInfos()), 800)

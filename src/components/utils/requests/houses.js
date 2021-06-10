@@ -57,8 +57,8 @@ export const deleteHouseById = async (id) => {
 }
 
 export const addOrEditPicture = (index = null, url, picture, houseId, update = null) => {
-    console.log("request param p", picture)
-    console.log("request param i", index, (index && index >= 0))
+    // console.log("request param p", picture)
+    // console.log("request param i", index, (index && index >= 0))
 
 
     if ((picture === undefined || picture === null) && (url === undefined || url === null)) return;

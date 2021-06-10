@@ -6,9 +6,7 @@ export const getConversations = async () => {
 }
 
 export const addConversation = async (userId) => {
-    const data = new FormData();
-    data.append("userId", userId);
-    return (await axios.post(ADD_CONVERSATION_URL, data)).data;
+    return (await axios.post(ADD_CONVERSATION_URL + "/" + userId)).data;
 }
 
 export const getMessages = async (conversationId) => {

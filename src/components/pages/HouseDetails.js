@@ -11,9 +11,12 @@ import HouseAttributeListAndEdit from "../common/house/HouseAttributeListAndEdit
 import {userSelector} from "../utils/store/user/userSelector";
 import BookRequestModal from "../common/house/BookRequestModal";
 import HousePictures from "../common/house/HousePictures";
+import {addConversation} from "../utils/requests/message";
+import {useHistory} from "react-router";
 
 function HouseDetails() {
     const dispatch = useDispatch();
+    const history = useHistory();
     let {id} = useParams();
     const userHouses = useSelector(userSelector).houses
     const isEditable = userHouses.map(elem => elem.id).includes(id) || userHouses.map(elem => elem.id).includes(parseInt(id));
@@ -55,6 +58,12 @@ function HouseDetails() {
             modifyHouseDetails(id, newHouse, update);
             setIsEditingHouse(false);
         }
+    }
+
+    const handleSendConversationClick = () => {
+        addConversation(house.ownerId).then(value => {
+            history.push("/conversations/" + value)
+        })
     }
 
     const OkButtons = () => (<div className={"d-flex justify-content-end"}>
@@ -163,7 +172,8 @@ function HouseDetails() {
             !isEditable && <>
                 <div className={"container d-flex flex-column flex-sm-row justify-content-evenly p-2 ps-3 "}>
                     <Button size={"lg"} variant={"honey"}
-                            className={"px-5 py-0 mx-3 mb-3 rounded-2"}>{/*todo envoyer vers la messagerie*/}
+                            onClick={handleSendConversationClick}
+                            className={"px-5 py-0 mx-3 mb-3 rounded-2"}>
                         <p className={"m-0"}>Envoyer un message au propriétaire</p>
                         <i className={"bi-chat"} style={{fontSize: "2rem"}}/>
                     </Button>
