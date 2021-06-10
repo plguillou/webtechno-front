@@ -164,7 +164,7 @@ function Conversations() {
 
 const Message = ({content, isMyMessage}) => {
     return <div className={"container-fluid px-2 py-2 my-1"}>
-        <div style={{display: "block"}}>
+        <div style={{display: "block"}} className={"container-fluid"}>
             <div
                 style={{borderRadius: 25, maxWidth: '50vw'}}
                 className={"text-fogra29 p-2 " + (isMyMessage ? "float-end mr-1 bg-honey" : "float-start ml-1 bg-silver")}>
