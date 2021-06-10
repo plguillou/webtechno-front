@@ -26,7 +26,6 @@ function Conversations() {
     useEffect(() => {
         if (conversationViewed.id !== 0) {
             getMessages(conversationViewed.id).then(value => {
-                console.log(value)
                 setMessages(value)
                 scrollDown()
             })
@@ -34,10 +33,11 @@ function Conversations() {
     }, [updateValue, conversationViewed])
 
     useEffect(() => {
-        setInterval(() => {
+        const interval = setInterval(() => {
             update()
             console.log("test" + updateValue)
         }, 3000)
+        return () => clearInterval(interval);
     }, [])
 
 

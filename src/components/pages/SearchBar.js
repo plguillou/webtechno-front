@@ -16,7 +16,7 @@ export default function SearchBar(props) {
     useEffect(() => {
         if (alertUser) setDisplayAlert({display: "block"});
         else setDisplayAlert({display: "none"});
-    });
+    },[]);
 
     return (
         <div>
