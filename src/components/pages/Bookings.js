@@ -8,14 +8,15 @@ import {
     removeSentBooking
 } from "../utils/requests/bookings";
 import EditBookingModal from "../common/house/EditBookingModal";
+import {dateStringToLabel} from "../utils/utils";
 
 export default function Bookings() {
     const [is1Loading, setIs1Loading] = useState(true);
     const [is2Loading, setIs2Loading] = useState(true);
-    const [editingBookingId, setEditingBookingId] = useState(-1);
+    const [editingBooking, setEditingBooking] = useState({id: -1});
     const [receivedBookings, setReceivedBookings] = useState([]);
     const [sentBookings, setSentBookings] = useState([]);
-    const [updateValue, setUpdateValue] = useState(false);
+    const [updateValue, setUpdateValue] = useState(0);
     const update = () => setUpdateValue(updateValue + 1);
     const acceptedBookings = sentBookings?.filter(elem => elem.state === "ACCEPTED").map(elem => ({
         ...elem, isSent: true
@@ -29,10 +30,14 @@ export default function Bookings() {
     useEffect(() => {
         getBookings().then((data) => {
             setSentBookings(data);
+            const editingBookingTemp = data.filter(elem => elem.id === editingBooking.id);
+            if(editingBookingTemp.length) setEditingBooking(editingBookingTemp[0]);
             setIs1Loading(false)
         });
         getReceivedBookings().then((data) => {
             setReceivedBookings(data);
+            const editingBookingTemp = data.filter(elem => elem.id === editingBooking.id);
+            if(editingBookingTemp.length) setEditingBooking(editingBookingTemp[0]);
             setIs2Loading(false)
         });
     }, [updateValue])
@@ -106,12 +111,20 @@ export default function Bookings() {
                             <div
                                 className={"m-1 pt-2"}>du <b>{dateStringToLabel(elem.startDateHouse1)}</b> au <b>{dateStringToLabel(elem.endDateHouse1)}</b>
                             </div>
-                            <Button variant={"outline-danger"}
-                                    onClick={() => onCancelClickOnSentBooking(elem.id)}
-                                    className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
-                                <b><i className={"bi-x text-size-3 py-0 my-0"}/></b>
-                                <div className={"m-auto"}>Annuler</div>
-                            </Button>
+                            <div>
+                                <Button variant={"outline-orange"}
+                                        onClick={() => setEditingBooking(elem)}
+                                        className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
+                                    <b><i className={"bi-check2 text-size-3 py-0 my-0"}/></b>
+                                    <div className={"m-auto"}>Négocier/Modifier</div>
+                                </Button>
+                                <Button variant={"outline-danger"}
+                                        onClick={() => onCancelClickOnSentBooking(elem.id)}
+                                        className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
+                                    <b><i className={"bi-x text-size-3 py-0 my-0"}/></b>
+                                    <div className={"m-auto"}>Annuler</div>
+                                </Button>
+                            </div>
                         </div>))
                 }
 
@@ -138,8 +151,7 @@ export default function Bookings() {
                             </div>
                             <div>
                                 <Button variant={"outline-orange"}
-                                        onClick={() => setEditingBookingId(elem.id)}
-                                    // onClick={() => onAcceptClickOnReceivedBooking(elem.id)}
+                                        onClick={() => setEditingBooking(elem)}
                                         className={"px-2 py-0 h-auto mx-2 rounded d-inline-flex align-content-center"}>
                                     <b><i className={"bi-check2 text-size-3 py-0 my-0"}/></b>
                                     <div className={"m-auto"}>Négocier/Modifier</div>
@@ -155,14 +167,12 @@ export default function Bookings() {
                 }
             </div>
         </div>
-        <EditBookingModal show={editingBookingId > -1} bookingId={editingBookingId}
-                          onHide={() => setEditingBookingId(-1)}
+        <EditBookingModal show={editingBooking.id > -1} booking={editingBooking}
+                          onHide={() => setEditingBooking({id: -1})}
+                          update={update}
                           onAcceptClickOnReceivedBooking={onAcceptClickOnReceivedBooking}/>
 
     </div>
 }
 
-const dateStringToLabel = (dateString) => {
-    const date = new Date(dateString);
-    return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
-}
+
