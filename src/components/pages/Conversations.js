@@ -27,8 +27,17 @@ function Conversations() {
     useEffect(() => {
         if (conversationViewed.id !== 0) {
             getMessages(conversationViewed.id).then(value => {
-                setMessages(value)
-                scrollDown()
+                setMessages(prevState => {
+                    if (
+                        prevState.length
+                        !==
+                        value.length) {
+                        setTimeout(() => scrollDown(), 5)
+                        return value;
+                    }
+                    return prevState;
+                })
+
             })
         }
     }, [updateValue, conversationViewed])
